@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="es.uva.inf.espectacle.Fragments.ListFragment"
+    android:id="@+id/mediaList">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#44487e"
+            android:layout_weight="5">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Intérprete"
+                android:id="@+id/interprete_button"
+                android:layout_weight="1"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Álbum"
+                android:id="@+id/album_button"
+                android:layout_weight="1"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Canción"
+                android:id="@+id/cancion_button"
+                android:layout_weight="1"
+                style="?android:attr/borderlessButtonStyle"/>
+        </LinearLayout>
+
+        <ListView android:id="@android:id/list" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:gravity="center" />
+
+</FrameLayout>
