@@ -58,10 +58,8 @@ public class DeviceFiles {
     }
 
     public static List<Video> getAllVideos(Context context){
-        //Some audio may be explicitly marked as not being music
-        String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
 
-        //TODO eliminar audios de whatsapp y otras app que no sean musica
+        //TODO eliminar videos de whatsapp y otras app
         String[] projection = {
                 MediaStore.Video.Media._ID,
                 MediaStore.Video.Media.TITLE,
@@ -73,7 +71,7 @@ public class DeviceFiles {
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection,
-                selection,
+                null,
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
@@ -95,10 +93,8 @@ public class DeviceFiles {
     }
 
     public static List<Imagen> getAllImagenes(Context context){
-        //Some audio may be explicitly marked as not being music
-        String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
 
-        //TODO eliminar audios de whatsapp y otras app que no sean musica
+        //TODO eliminar imagenes de whatsapp?
         String[] projection = {
                 MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.TITLE,
@@ -110,7 +106,7 @@ public class DeviceFiles {
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection,
-                selection,
+                null,
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 

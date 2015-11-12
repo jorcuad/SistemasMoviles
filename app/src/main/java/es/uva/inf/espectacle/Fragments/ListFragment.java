@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -16,10 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.R;
-import es.uva.inf.espectacle.Fragments.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
@@ -65,7 +65,33 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
-        //Button = (Button) view.findViewById(android.R.id.);
+
+        Button interprete_button = (Button) view.findViewById(R.id.interprete_button);
+        Button album_button = (Button) view.findViewById(R.id.album_button);
+        Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
+
+        interprete_button.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //TODO llamar a un metodo del adapter que ordene por interprete y cree una lista de
+                //Cabeceras
+            }
+        });
+
+        album_button.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //TODO llamar a un metodo del adapter que ordene por album y cree una lista de
+                //Cabeceras
+            }
+        });
+
+        cancion_button.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //TODO llamar al metodo del adapter que ordene alfabeticamente
+            }
+        });
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
@@ -99,7 +125,7 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            //mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
         }
     }
 
