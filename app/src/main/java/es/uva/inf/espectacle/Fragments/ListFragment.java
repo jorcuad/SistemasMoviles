@@ -30,7 +30,8 @@ import es.uva.inf.espectacle.R;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ListFragment extends Fragment implements AbsListView.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class ListFragment extends Fragment implements AbsListView.OnItemClickListener,
+        NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
     private OnFragmentInteractionListener mListener;
     private AbsListView mListView;
@@ -67,31 +68,14 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
         Button interprete_button = (Button) view.findViewById(R.id.interprete_button);
+        interprete_button.setOnClickListener(this);
         Button album_button = (Button) view.findViewById(R.id.album_button);
+        album_button.setOnClickListener(this);
         Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
+        cancion_button.setOnClickListener(this);
 
-        interprete_button.setOnClickListener(new OnClickListener(){
-            @Override
-            public void onClick(View view){
-                //TODO llamar a un metodo del adapter que ordene por interprete y cree una lista de
-                //Cabeceras
-            }
-        });
 
-        album_button.setOnClickListener(new OnClickListener(){
-            @Override
-            public void onClick(View view){
-                //TODO llamar a un metodo del adapter que ordene por album y cree una lista de
-                //Cabeceras
-            }
-        });
 
-        cancion_button.setOnClickListener(new OnClickListener(){
-            @Override
-            public void onClick(View view){
-                //TODO llamar al metodo del adapter que ordene alfabeticamente
-            }
-        });
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
@@ -101,6 +85,22 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
         mListView.setOnItemClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onClick(View v){
+        switch (v.getId()) {
+            case R.id.interprete_button:
+                Log.d("espectacle", "Pulsado interprete_button");
+                break;
+            case R.id.album_button:
+                Log.d("espectacle", "Pulsado album_button");
+                break;
+            case R.id.cancion_button:
+                Log.d("espectacle", "Pulsado cacnion_button");
+                break;
+            default: Log.d("espectacle", "Yo no he sido");
+        }
     }
 
     @Override
@@ -161,6 +161,7 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
         //drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
