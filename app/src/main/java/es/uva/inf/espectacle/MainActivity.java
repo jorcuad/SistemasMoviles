@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
             getSupportActionBar().setTitle("Video");
             getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, fragment).commit();
         } else if (id == R.id.nav_manage) {
             getSupportActionBar().setTitle("360º");
             getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
