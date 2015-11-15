@@ -69,7 +69,7 @@ public class DeviceFiles {
         };
 
         Cursor cursor = context.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                 projection,
                 null,
                 null,

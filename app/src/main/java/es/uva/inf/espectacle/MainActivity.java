@@ -1,6 +1,7 @@
 package es.uva.inf.espectacle;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,9 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import es.uva.inf.espectacle.Fragments.ListFragment;
+import es.uva.inf.espectacle.Fragments.VideoPlayerFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ListFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ListFragment.OnFragmentInteractionListener, VideoPlayerFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         //TODO pasarle al fragment un tag para que sepa el tipo de contenido o crear un fragment diferente por cada lista
         ListFragment fragment = new ListFragment();
+        VideoPlayerFragment video = new VideoPlayerFragment();
         if (id == R.id.nav_camara) {
             getSupportActionBar().setTitle("Música"); //TODO sacar a una función aparte que trate este warningac
             getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
             getSupportActionBar().setTitle("Video");
             getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, fragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.contentDisplay, video).commit();
         } else if (id == R.id.nav_manage) {
             getSupportActionBar().setTitle("360º");
             getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
@@ -107,6 +110,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(String id) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.VideoView;
 
+import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
 
 /**
@@ -80,6 +81,7 @@ public class VideoPlayerFragment extends Fragment {
                 video.start();
             }
         });
+        path = Video.getAllVideos(getContext()).get(0).getPath();
         video.setVideoURI(Uri.parse(path));//TODO path for the file is null
         return view;
     }

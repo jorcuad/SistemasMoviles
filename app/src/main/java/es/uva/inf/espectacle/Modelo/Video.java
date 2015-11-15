@@ -25,8 +25,8 @@ public class Video {
         this.setDuration(duration);
     }
 
-    public static List<Audio> getAllVideos(Context context){
-        return DeviceFiles.getAllAudios(context);
+    public static List<Video> getAllVideos(Context context){
+        return DeviceFiles.getAllVideos(context);
     }
 
     public String getId() {
