@@ -2,7 +2,10 @@ package es.uva.inf.espectacle.Utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.Modelo.Video;
+import es.uva.inf.espectacle.R;
 
 /**
  * Utils class for retrieve media files from device.
@@ -57,14 +61,14 @@ public class DeviceFiles {
         return audios;
     }
 
-    public static List<Video> getAllVideos(Context context){
+    public static ArrayList<Video> getAllVideos(Context context){
 
         //TODO eliminar videos de whatsapp y otras app
         String[] projection = {
-                MediaStore.Video.Media._ID,
+                MediaStore.Video.VideoColumns._ID,
                 MediaStore.Video.Media.TITLE,
                 MediaStore.Video.Media.DATA,
-                MediaStore.Video.Media.DISPLAY_NAME,
+                MediaStore.Video.Media.RESOLUTION,
                 MediaStore.Video.Media.DURATION
         };
 
@@ -75,16 +79,16 @@ public class DeviceFiles {
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        List<Video> videos = new ArrayList<Video>();
+        ArrayList<Video> videos = new ArrayList<Video>();
 
         if(cursor == null) { return videos; }
 
         while (cursor.moveToNext()) {
-            videos.add(new Video(cursor.getString(0),
+            videos.add(new Video(cursor.getLong(0),
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4)));
+                    cursor.getLong(4)));
         }
 
         cursor.close();
@@ -125,5 +129,11 @@ public class DeviceFiles {
         cursor.close();
 
         return imagenes;
+    }
+
+    public static Bitmap getThumbnail(Context context, Long videoId){
+        return MediaStore.Video.Thumbnails.getThumbnail(context.getContentResolver(), videoId,
+                                                        MediaStore.Video.Thumbnails.MICRO_KIND,
+                                                        null );
     }
 }

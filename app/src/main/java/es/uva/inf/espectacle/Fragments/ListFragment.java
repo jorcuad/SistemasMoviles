@@ -1,24 +1,21 @@
 package es.uva.inf.espectacle.Fragments;
 
-import android.app.Activity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import es.uva.inf.espectacle.Adapters.MediaAdapter;
 import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
 
 /**
@@ -30,12 +27,12 @@ import es.uva.inf.espectacle.R;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ListFragment extends Fragment implements AbsListView.OnItemClickListener,
+public class ListFragment extends Fragment implements
         NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
     private OnFragmentInteractionListener mListener;
-    private AbsListView mListView;
-    private ListAdapter mAdapter;
+    private RecyclerView mListView;
+    private MediaAdapter mAdapter;
 
     public static ListFragment newInstance(String param1, String param2) {
         ListFragment fragment = new ListFragment();
@@ -58,8 +55,9 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
         //TODO obtener contenido en funcion de los argumentos obtenidos del bundle del if anterior
 
         // TODO: Change Adapter to display your content // este adapter funciona con un string, si la clase a representar tiene toString va solo
-        mAdapter = new ArrayAdapter<Audio>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, Audio.getAllAudios(getContext()));
+        mAdapter = new MediaAdapter();
+        mAdapter.setContext(getContext());
+        mAdapter.setDatos(Video.getAllVideos(getContext()));
     }
 
     @Override
@@ -74,15 +72,12 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
         Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
         cancion_button.setOnClickListener(this);
 
-
-
-
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
-        // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
+        mListView = (RecyclerView) view.findViewById(android.R.id.list);
+        mListView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        mListView.setLayoutManager(llm);
+        mListView.setAdapter(mAdapter);
 
         return view;
     }
@@ -104,29 +99,9 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            //mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
-        }
     }
 
     /**
@@ -135,11 +110,11 @@ public class ListFragment extends Fragment implements AbsListView.OnItemClickLis
      * to supply the text it should use.
      */
     public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
+        /*View emptyView = mListView.getEmptyView();
 
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
-        }
+        }*/
     }
 
     @Override
