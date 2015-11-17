@@ -11,7 +11,7 @@ import es.uva.inf.espectacle.Utils.DeviceFiles;
  */
 public class Audio {
 
-    private String id;
+    private Long id;
     private String artist;
     private String tittle;
     private String path;
@@ -19,7 +19,7 @@ public class Audio {
     private String duration;
     private String album;
 
-    public Audio(String id, String artist, String tittle, String path, String display_name, String duration, String album){
+    public Audio(Long id, String artist, String tittle, String path, String display_name, String duration, String album){
         this.setId(id);
         this.setArtist(artist);
         this.setTittle(tittle);
@@ -33,10 +33,10 @@ public class Audio {
         return DeviceFiles.getAllAudios(context);
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getArtist() {

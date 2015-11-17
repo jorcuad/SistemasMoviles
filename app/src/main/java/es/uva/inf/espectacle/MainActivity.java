@@ -16,12 +16,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import es.uva.inf.espectacle.Fragments.AudioPlayerFragment;
 import es.uva.inf.espectacle.Fragments.ListFragment;
 import es.uva.inf.espectacle.Fragments.VideoPlayerFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ListFragment.OnFragmentInteractionListener, VideoPlayerFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ListFragment.OnFragmentInteractionListener, VideoPlayerFragment.OnFragmentInteractionListener, AudioPlayerFragment.OnFragmentInteractionListener{
 
+    AudioPlayerFragment audioFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,8 +91,10 @@ public class MainActivity extends AppCompatActivity
         ListFragment fragment = new ListFragment();
         VideoPlayerFragment video = new VideoPlayerFragment();
         if (id == R.id.nav_camara) {
-            getSupportActionBar().setTitle("Música"); //TODO sacar a una función aparte que trate este warningac
+            getSupportActionBar().setTitle("Música");
+            audioFragment = new AudioPlayerFragment();
             getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.contentDisplay, audioFragment).commit();
         } else if (id == R.id.nav_gallery) {
             getSupportActionBar().setTitle("Imágenes");
             getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
@@ -108,6 +112,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+
     @Override
     public void onFragmentInteraction(String id) {
 
@@ -117,4 +123,6 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }
