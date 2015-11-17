@@ -44,7 +44,7 @@ public class DeviceFiles {
         if(cursor == null) { return audios; }
 
         while (cursor.moveToNext()) {
-            audios.add(new Audio(cursor.getString(0),
+            audios.add(new Audio(cursor.getLong(0),
                                  cursor.getString(1),
                                  cursor.getString(2),
                                  cursor.getString(3),
