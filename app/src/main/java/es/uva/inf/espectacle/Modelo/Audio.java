@@ -2,6 +2,7 @@ package es.uva.inf.espectacle.Modelo;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.uva.inf.espectacle.Utils.DeviceFiles;
@@ -16,10 +17,10 @@ public class Audio {
     private String tittle;
     private String path;
     private String display_name;
-    private String duration;
+    private Long duration;
     private String album;
 
-    public Audio(String id, String artist, String tittle, String path, String display_name, String duration, String album){
+    public Audio(String id, String artist, String tittle, String path, String display_name, Long duration, String album){
         this.setId(id);
         this.setArtist(artist);
         this.setTittle(tittle);
@@ -29,7 +30,7 @@ public class Audio {
         this.setAlbum(album);
     }
 
-    public static List<Audio> getAllAudios(Context context){
+    public static ArrayList<Audio> getAllAudios(Context context){
         return DeviceFiles.getAllAudios(context);
     }
 
@@ -63,10 +64,10 @@ public class Audio {
     public void setDisplay_name(String display_name) {
         this.display_name = display_name;
     }
-    public String getDuration() {
+    public Long getDuration() {
         return duration;
     }
-    public void setDuration(String duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
     }
     public String getAlbum() {
@@ -79,5 +80,12 @@ public class Audio {
     @Override
     public String toString(){
        return display_name;
+    }
+
+    public String getStringDuration(){
+        long second = (getDuration() / 1000) % 60;
+        long minute = (getDuration() / (1000 * 60)) % 60;
+        long hour = (getDuration() / (1000 * 60 * 60)) % 24;
+        return String.format("%02d:%02d:%02d", hour, minute, second);
     }
 }

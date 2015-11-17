@@ -13,8 +13,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import es.uva.inf.espectacle.Adapters.MediaAdapter;
+import es.uva.inf.espectacle.Adapters.AudioAdapter;
+import es.uva.inf.espectacle.Adapters.ImageAdapter;
+import es.uva.inf.espectacle.Adapters.VideoAdapter;
 import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
 
@@ -32,7 +35,7 @@ public class ListFragment extends Fragment implements
 
     private OnFragmentInteractionListener mListener;
     private RecyclerView mListView;
-    private MediaAdapter mAdapter;
+    private ImageAdapter mAdapter;
 
     public static ListFragment newInstance(String param1, String param2) {
         ListFragment fragment = new ListFragment();
@@ -55,9 +58,9 @@ public class ListFragment extends Fragment implements
         //TODO obtener contenido en funcion de los argumentos obtenidos del bundle del if anterior
 
         // TODO: Change Adapter to display your content // este adapter funciona con un string, si la clase a representar tiene toString va solo
-        mAdapter = new MediaAdapter();
+        mAdapter = new ImageAdapter();
         mAdapter.setContext(getContext());
-        mAdapter.setDatos(Video.getAllVideos(getContext()));
+        mAdapter.setDatos(Imagen.getAllImagenes(getContext()));
     }
 
     @Override

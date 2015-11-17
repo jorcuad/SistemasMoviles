@@ -3,9 +3,7 @@ package es.uva.inf.espectacle.Utils;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +11,13 @@ import java.util.List;
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.Modelo.Video;
-import es.uva.inf.espectacle.R;
 
 /**
  * Utils class for retrieve media files from device.
  */
 public class DeviceFiles {
 
-    public static List<Audio> getAllAudios(Context context) {
+    public static ArrayList<Audio> getAllAudios(Context context) {
         //Some audio may be explicitly marked as not being music
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
 
@@ -42,7 +39,7 @@ public class DeviceFiles {
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        List<Audio> audios = new ArrayList<Audio>();
+        ArrayList<Audio> audios = new ArrayList<Audio>();
 
         if(cursor == null) { return audios; }
 
@@ -52,7 +49,7 @@ public class DeviceFiles {
                                  cursor.getString(2),
                                  cursor.getString(3),
                                  cursor.getString(4),
-                                 cursor.getString(5),
+                                 cursor.getLong(5),
                                  cursor.getString(6)));
         }
 
@@ -96,7 +93,7 @@ public class DeviceFiles {
         return videos;
     }
 
-    public static List<Imagen> getAllImagenes(Context context){
+    public static ArrayList<Imagen> getAllImagenes(Context context){
 
         //TODO eliminar imagenes de whatsapp?
         String[] projection = {
@@ -104,17 +101,18 @@ public class DeviceFiles {
                 MediaStore.Images.Media.TITLE,
                 MediaStore.Images.Media.DATA,
                 MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media.DATE_ADDED
+                MediaStore.Images.Media.DATE_ADDED,
+                MediaStore.Images.Media.SIZE
         };
 
         Cursor cursor = context.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 projection,
                 null,
                 null,
-                MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
+                MediaStore.Images.Media.DISPLAY_NAME + " ASC");
 
-        List<Imagen> imagenes = new ArrayList<Imagen>();
+        ArrayList<Imagen> imagenes = new ArrayList<Imagen>();
 
         if(cursor == null) { return imagenes; }
 
@@ -123,7 +121,8 @@ public class DeviceFiles {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4)));
+                    cursor.getLong(4),
+                    cursor.getLong(5)));
         }
 
         cursor.close();

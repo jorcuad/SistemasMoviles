@@ -66,14 +66,9 @@ public class Video {
     }
 
     public String getStringDuration(){
-
-
         long second = (getDuration() / 1000) % 60;
         long minute = (getDuration() / (1000 * 60)) % 60;
         long hour = (getDuration() / (1000 * 60 * 60)) % 24;
-
         return String.format("%02d:%02d:%02d", hour, minute, second);
-
-
     }
 }
