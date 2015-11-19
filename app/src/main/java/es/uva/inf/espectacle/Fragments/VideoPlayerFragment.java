@@ -6,12 +6,14 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
@@ -22,8 +24,9 @@ import es.uva.inf.espectacle.R;
 
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
     //private OrientationEventListener mOrientationListener;
-    private MediaPlayer mediaPlayer;
     private SurfaceView surfaceView;
+    private DisplayMetrics dm;
+    private MediaController mediaController;
     private boolean pause = false;
     private String path;
     private int savePos = 0;
@@ -53,7 +56,15 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
+        mediaController = new MediaController(this.getActivity());
         video = (VideoView) view.findViewById(R.id.surfaceView);
+        dm = new DisplayMetrics();
+        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int height = dm.heightPixels;
+        int width = dm.widthPixels;
+        video.setMinimumWidth(width);
+        video.setMinimumHeight(height);
+        video.setMediaController(mediaController);
         bPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
         bPlay.setOnClickListener(this);
         bPlay.setImageResource(R.drawable.play_button_selector);
@@ -106,10 +117,10 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onSaveInstanceState(Bundle guardarEstado) {
         super.onSaveInstanceState(guardarEstado);
-        if (mediaPlayer != null) {
-            int pos = mediaPlayer.getCurrentPosition();
+        if (video != null) {
+            savePos = video.getCurrentPosition();
             guardarEstado.putString("ruta", path);
-            guardarEstado.putInt("posicion", pos);
+            guardarEstado.putInt("posicion", savePos);
         }
     }
 
