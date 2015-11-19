@@ -13,6 +13,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import es.uva.inf.espectacle.Modelo.Audio;
 
@@ -23,6 +24,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     ArrayList<Audio> audios;
     int songPos;
     Notification playing;
+    Random r = new Random();
     private final IBinder musicBind = new MusicBinder();
     public MusicService() {
     }
@@ -95,9 +97,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return false;
     }
 
-    public void playSong(){
+    private void playSong(){
 
-        startForefround();
+        //startForefround();
         player.reset();
 
         Uri trackUri = ContentUris.withAppendedId(
@@ -119,20 +121,48 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             stopForeground();
         }else{
             player.start();
+            if(!player.isPlaying()) playSong();
             startForefround();
         }
     }
 
     public void next() {
-        songPos++;
+        setNextSongPos();
         playSong();
+    }
+
+    public  void back(){
+        setPrevSongPos();
+        playSong();
+    }
+
+    public void shuffle(){
+        setRandomSongPos();
+        playSong();
+    }
+
+    private int setNextSongPos(){
+        songPos++;
+        if(songPos>=audios.size()) songPos = 0;
+        return songPos;
+    }
+
+    private int setPrevSongPos(){
+        songPos--;
+        if(songPos<0) songPos = audios.size()-1;
+        return songPos;
+    }
+
+    private int setRandomSongPos(){
+        songPos = r.nextInt(audios.size());
+        return songPos;
     }
 
 
 
     public void setSong(int songIndex){
         Log.d("Music Service", "Songindex: "+ songIndex);
-        songPos=songIndex;
+        songPos = songIndex;
         Log.d("Music Service", "Songpos: "+ songPos);
     }
 
@@ -140,5 +170,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onDestroy() {
         player.stop();
         player.release();
+    }
+
+    public Audio getPlayingAudio(){
+        return audios.get(songPos);
     }
 }
