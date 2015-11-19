@@ -1,13 +1,11 @@
 package es.uva.inf.espectacle;
 
-
-import android.net.Uri;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,13 +14,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import es.uva.inf.espectacle.Fragments.AudioListFragment;
 import es.uva.inf.espectacle.Fragments.AudioPlayerFragment;
-import es.uva.inf.espectacle.Fragments.ListFragment;
+import es.uva.inf.espectacle.Fragments.BaseListFragment;
+import es.uva.inf.espectacle.Fragments.ImageListFragment;
+import es.uva.inf.espectacle.Fragments.ImagePlayerFragment;
+import es.uva.inf.espectacle.Fragments.VideoListFragment;
 import es.uva.inf.espectacle.Fragments.VideoPlayerFragment;
+import es.uva.inf.espectacle.Interfaces.ComunicationListener;
+import es.uva.inf.espectacle.Modelo.Imagen;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ListFragment.OnFragmentInteractionListener, VideoPlayerFragment.OnFragmentInteractionListener, AudioPlayerFragment.OnFragmentInteractionListener{
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
+    ImagePlayerFragment imagen;
     AudioPlayerFragment audioFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,26 +88,33 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-        //TODO pasarle al fragment un tag para que sepa el tipo de contenido o crear un fragment diferente por cada lista
-        ListFragment fragment = new ListFragment();
-        VideoPlayerFragment video = new VideoPlayerFragment();
+
         if (id == R.id.nav_camara) {
             getSupportActionBar().setTitle("Música");
             audioFragment = new AudioPlayerFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
-            getSupportFragmentManager().beginTransaction().add(R.id.contentDisplay, audioFragment).commit();
+            AudioListFragment fragment = new AudioListFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, audioFragment).commit();
         } else if (id == R.id.nav_gallery) {
             getSupportActionBar().setTitle("Imágenes");
-            getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
+            ImageListFragment fragment = new ImageListFragment();
+            imagen = new ImagePlayerFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, imagen).commit();
+            //setMedia(Imagen.getAllImagenes(getApplicationContext()).get(0));
         } else if (id == R.id.nav_slideshow) {
             getSupportActionBar().setTitle("Video");
-            getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
-            getSupportFragmentManager().beginTransaction().add(R.id.contentDisplay, video).commit();
+            VideoListFragment fragment = new VideoListFragment();
+            VideoPlayerFragment video = new VideoPlayerFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, video).commit();
         } else if (id == R.id.nav_manage) {
             getSupportActionBar().setTitle("360º");
-            getSupportFragmentManager().beginTransaction().add(R.id.contentList, fragment).commit();
+            BaseListFragment fragment = new BaseListFragment();
+            VideoPlayerFragment video = new VideoPlayerFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, video).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -112,17 +122,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
-
     @Override
-    public void onFragmentInteraction(String id) {
-
+    public void setMedia(Object media) {
+        Imagen objImagen = (Imagen) media;
+        Bundle bundle = new Bundle();
+        bundle.putString("path", objImagen.getPath());
+        imagen = new ImagePlayerFragment();
+        imagen.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, imagen).commit();
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public Object getMedia(int posicion) {
+        return null;
     }
-
-
 }
