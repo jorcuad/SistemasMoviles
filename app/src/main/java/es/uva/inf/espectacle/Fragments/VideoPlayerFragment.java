@@ -52,7 +52,7 @@ public class VideoPlayerFragment extends Fragment {
                 //video.start();
             }
         });
-        bPlay = (Button) this.getActivity().findViewById(R.id.buttonPlay);
+        bPlay = (Button) view.findViewById(R.id.buttonPlay);
         bPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (video != null) {
