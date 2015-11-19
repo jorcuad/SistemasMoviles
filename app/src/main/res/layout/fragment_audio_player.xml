@@ -12,7 +12,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play Test"
+            android:text="@string/play_test"
             android:id="@+id/buttonPlayTest"
             android:layout_gravity="center"
             android:onClick="onPlayTestButton"
@@ -22,7 +22,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PAUSE"
+            android:text="@string/pause"
             android:id="@+id/buttonPause"
             android:layout_alignTop="@+id/buttonPlayTest"
             android:layout_centerHorizontal="true" />
@@ -30,7 +30,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NEXT"
+            android:text="@string/next"
             android:id="@+id/buttonNext"
             android:layout_alignTop="@+id/buttonPause"
             android:layout_alignParentEnd="true" />

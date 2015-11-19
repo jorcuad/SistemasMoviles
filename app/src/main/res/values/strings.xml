@@ -8,7 +8,24 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Backward">Backward</string>
-    <string name="Play">Play</string>
-    <string name="Forward">Forward</string>
+    <string name="backward">Atrás</string>
+    <string name="play">Reproducir</string>
+    <string name="forward">Adelante</string>
+    <string name="play_test">Test</string>
+    <string name="pause">Pausa</string>
+    <string name="next">Siguiente</string>
+    <string name="interprete">Intérprete</string>
+    <string name="album">Álbum</string>
+    <string name="cancion">Canción</string>
+    <string name="musica">Música</string>
+    <string name="imagenes">Imágenes</string>
+    <string name="video">Vídeo</string>
+    <string name="v360">360º</string>
+    <string name="fecha">Fecha</string>
+    <string name="tamano">Tamaño</string>
+    <string name="definicion">Definición</string>
+    <string name="duracion">Duración</string>
+    <string name="calidad">Calidad</string>
+    <string name="nombre">Nombre</string>
+    <string name="no_hay_elementos">No hay elementos que mostrar</string>
 </resources>

@@ -42,12 +42,12 @@ public class VideoListFragment extends BaseListFragment {
 
         Button interprete_button = (Button) view.findViewById(R.id.interprete_button);
         interprete_button.setOnClickListener(this);
-        interprete_button.setText("Duración");
+        interprete_button.setText(R.string.duracion);
         Button album_button = (Button) view.findViewById(R.id.album_button);
         album_button.setOnClickListener(this);
-        album_button.setText("Calidad");
+        album_button.setText(R.string.calidad);
         Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
-        cancion_button.setText("Nombre");
+        cancion_button.setText(R.string.nombre);
         cancion_button.setOnClickListener(this);
 
         mListView = (RecyclerView) view.findViewById(android.R.id.list);
@@ -59,7 +59,7 @@ public class VideoListFragment extends BaseListFragment {
         } else {
             mListView.setVisibility(View.GONE);
             view.findViewById(R.id.emptyList).setVisibility(View.VISIBLE);
-            ((TextView) view.findViewById(R.id.emptyList)).setText("No hay elementos que mostrar");
+            ((TextView) view.findViewById(R.id.emptyList)).setText(R.string.no_hay_elementos);
         }
         return view;
     }

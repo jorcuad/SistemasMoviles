@@ -56,7 +56,7 @@ public class AudioListFragment extends BaseListFragment {
         } else {
             mListView.setVisibility(View.GONE);
             view.findViewById(R.id.emptyList).setVisibility(View.VISIBLE);
-            ((TextView) view.findViewById(R.id.emptyList)).setText("No hay elementos que mostrar");
+            ((TextView) view.findViewById(R.id.emptyList)).setText(R.string.no_hay_elementos);
         }
 
         return view;
@@ -82,7 +82,7 @@ public class AudioListFragment extends BaseListFragment {
                 Log.d("espectacle", "Pulsado album_button");
                 break;
             case R.id.cancion_button:
-                Log.d("espectacle", "Pulsado cacnion_button");
+                Log.d("espectacle", "Pulsado cancion_button");
                 break;
             default: Log.d("espectacle", "Yo no he sido");
         }
