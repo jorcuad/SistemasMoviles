@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="es.uva.inf.espectacle.Fragments.ListFragment"
+    tools:context="es.uva.inf.espectacle.Fragments.BaseListFragment"
     android:id="@+id/mediaList">
 
     <LinearLayout
@@ -51,7 +51,7 @@
 
     </LinearLayout>
 
-    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
+    <TextView android:id="@+id/emptyList" android:layout_width="match_parent"
         android:layout_height="match_parent" android:gravity="center" />
 
 </FrameLayout>

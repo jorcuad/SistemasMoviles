@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.view.View;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -89,5 +91,10 @@ public class Imagen implements Comparable {
 
     public String getTitle() {
         return this.tittle;
+    }
+
+    public static Bitmap getBitmap(String path){
+        File imgFile = new  File(path);
+        return BitmapFactory.decodeFile(imgFile.getAbsolutePath());
     }
 }

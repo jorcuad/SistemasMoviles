@@ -1,71 +1,42 @@
 package es.uva.inf.espectacle.Fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.VideoView;
 
+import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link VideoPlayerFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link VideoPlayerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class VideoPlayerFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String PATH = "path";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam2;
+    //private OrientationEventListener mOrientationListener;
     private MediaPlayer mediaPlayer;
     private SurfaceView surfaceView;
-    private boolean pause;
+    private boolean pause = false;
+    private boolean playing = false;
     private String path;
     private int savePos = 0;
-    private OnFragmentInteractionListener mListener;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment VideoPlayerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static VideoPlayerFragment newInstance(String param1, String param2) {
-        VideoPlayerFragment fragment = new VideoPlayerFragment();
-        Bundle args = new Bundle();
-        args.putString(PATH, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ComunicationListener mListener;
+    private Button bPlay;
 
     public VideoPlayerFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            path = getArguments().getString(PATH);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -78,29 +49,76 @@ public class VideoPlayerFragment extends Fragment {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 video.requestFocus();
-                video.start();
+                //video.start();
             }
         });
-        path = Video.getAllVideos(getContext()).get(0).getPath();
-        video.setVideoURI(Uri.parse(path));//TODO path for the file is null
+        bPlay = (Button) view.findViewById(R.id.buttonPlay);
+        bPlay.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (video != null) {
+                    if (pause) {
+                        video.resume();
+                    } else {
+                        if(playing){
+                            playing = false;
+                            pause = true;
+                            video.pause();
+                        }
+                        playing = true;
+                        bPlay.setText("Pause");
+                        path = Video.getAllVideos(getContext()).get(0).getPath();
+                        playVideo(video, path);
+                    }
+                }
+            }
+        });
+
+        //path = Video.getAllVideos(getContext()).get(0).getPath();
+        //video.setVideoURI(Uri.parse(path));//TODO query for the path
+
+        /*mOrientationListener = new OrientationEventListener(this,
+                SensorManager.SENSOR_DELAY_NORMAL) {
+
+            public Activity getActivity() {
+                return this.getActivity();
+            }
+
+            @Override
+            public void onOrientationChanged(int orientation) {
+                if(orientation>=90 && orientation<180 || orientation>=270 && orientation<360 ) {
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                }
+            }
+        };*/
         return view;
+    }
+
+    private void playVideo(VideoView video, String path) {
+        try {
+            pause = false;
+            video.setVideoURI(Uri.parse(path));
+            video.seekTo(savePos);
+            video.requestFocus();
+            video.start();
+        } catch (Exception e) {
+            Log.d("ERROR" , e.getMessage());
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            //mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            mListener = (ComunicationListener) context;
         }
     }
 
@@ -108,21 +126,6 @@ public class VideoPlayerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
     }
 
     @Override
