@@ -2,6 +2,7 @@ package es.uva.inf.espectacle.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,18 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder>{
 
     private ArrayList<Imagen> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
+    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //TODO conseguir obtener la posición del elemento clickado
+            Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().toString());
+        }
+    };
 
     @Override
     public MediaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        view.setOnClickListener(mOnClickListener);
         return new MediaHolder(view);
     }
 
@@ -53,4 +62,5 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder>{
     public void setContext(Context context) {
         this.context = context;
     }
+
 }

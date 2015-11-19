@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Collections;
+
 import es.uva.inf.espectacle.Adapters.ImageAdapter;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Imagen;
@@ -79,6 +81,8 @@ public class ImageListFragment extends BaseListFragment {
         switch (v.getId()) {
             case R.id.interprete_button:
                 mListener.setMedia(mAdapter.getDatos().get(0));
+                Collections.sort(Imagen.getAllImagenes(getContext()));
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
             case R.id.album_button:
