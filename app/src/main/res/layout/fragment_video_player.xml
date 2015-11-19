@@ -7,12 +7,31 @@
     <VideoView android:id="@+id/surfaceView"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_gravity="center"
-        android:minHeight="100dp" />
+        android:layout_gravity="center" />
     <ScrollView android:id="@+id/ScrollView"
         android:layout_height="50dp"
         android:layout_width="fill_parent"
         android:layout_gravity="bottom">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Backward"
+            android:id="@+id/buttonBack" />
     </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Play"
+        android:id="@+id/buttonPlay"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Forward"
+        android:id="@+id/buttonFor"
+        android:layout_gravity="right|bottom" />
 
 </FrameLayout>
