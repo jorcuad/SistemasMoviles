@@ -41,13 +41,13 @@ public class ImageListFragment extends BaseListFragment {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
         Button interprete_button = (Button) view.findViewById(R.id.interprete_button);
-        interprete_button.setText("Fecha");
+        interprete_button.setText(R.string.fecha);
         interprete_button.setOnClickListener(this);
         Button album_button = (Button) view.findViewById(R.id.album_button);
-        album_button.setText("Tamaño");
+        album_button.setText(R.string.tamano);
         album_button.setOnClickListener(this);
         Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
-        cancion_button.setText("Definición");
+        cancion_button.setText(R.string.definicion);
         cancion_button.setOnClickListener(this);
 
         mListView = (RecyclerView) view.findViewById(android.R.id.list);
@@ -59,7 +59,7 @@ public class ImageListFragment extends BaseListFragment {
         } else {
             mListView.setVisibility(View.GONE);
             view.findViewById(R.id.emptyList).setVisibility(View.VISIBLE);
-            ((TextView) view.findViewById(R.id.emptyList)).setText("No hay elementos que mostrar");
+            ((TextView) view.findViewById(R.id.emptyList)).setText(R.string.no_hay_elementos);
         }
         return view;
     }

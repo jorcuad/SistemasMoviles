@@ -29,7 +29,7 @@ public class BaseListFragment extends Fragment implements OnClickListener {
         RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
         mListView.setVisibility(View.GONE);
         view.findViewById(R.id.emptyList).setVisibility(View.VISIBLE);
-        ((TextView) view.findViewById(R.id.emptyList)).setText("No hay elementos que mostrar");
+        ((TextView) view.findViewById(R.id.emptyList)).setText(R.string.no_hay_elementos);
 
         return view;
     }

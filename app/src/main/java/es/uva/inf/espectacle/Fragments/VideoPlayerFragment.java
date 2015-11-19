@@ -65,7 +65,7 @@ public class VideoPlayerFragment extends Fragment {
                             video.pause();
                         }
                         playing = true;
-                        bPlay.setText("Pause");
+                        bPlay.setText(R.string.pause);
                         path = Video.getAllVideos(getContext()).get(0).getPath();
                         playVideo(video, path);
                     }

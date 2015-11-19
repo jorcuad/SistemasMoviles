@@ -21,7 +21,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Intérprete"
+                android:text="@string/interprete"
                 android:id="@+id/interprete_button"
                 android:layout_weight="1"
                 style="?android:attr/borderlessButtonStyle"/>
@@ -29,7 +29,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Álbum"
+                android:text="@string/album"
                 android:id="@+id/album_button"
                 android:layout_weight="1"
                 style="?android:attr/borderlessButtonStyle"/>
@@ -37,7 +37,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Canción"
+                android:text="@string/cancion"
                 android:id="@+id/cancion_button"
                 android:layout_weight="1"
                 style="?android:attr/borderlessButtonStyle"/>
