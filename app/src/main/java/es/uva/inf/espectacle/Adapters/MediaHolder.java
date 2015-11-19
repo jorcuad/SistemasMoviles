@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import es.uva.inf.espectacle.R;
 
-public class MediaHolder extends RecyclerView.ViewHolder {
+public class MediaHolder extends RecyclerView.ViewHolder{
     FrameLayout listItem;
     TextView title;
     TextView subtitle;
@@ -22,5 +22,13 @@ public class MediaHolder extends RecyclerView.ViewHolder {
         subtitle = (TextView)itemView.findViewById(R.id.subtitle);
         duration = (TextView)itemView.findViewById(R.id.duration);
         imagen = (ImageView)itemView.findViewById(R.id.imagen);
+    }
+
+    public TextView getTitle() {
+        return title;
+    }
+
+    public void setTitle(TextView title) {
+        this.title = title;
     }
 }

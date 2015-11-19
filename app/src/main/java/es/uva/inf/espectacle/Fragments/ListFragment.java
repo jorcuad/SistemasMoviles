@@ -13,6 +13,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import es.uva.inf.espectacle.Adapters.AudioAdapter;
 import es.uva.inf.espectacle.Adapters.ImageAdapter;
 import es.uva.inf.espectacle.Adapters.VideoAdapter;
@@ -89,6 +92,8 @@ public class ListFragment extends Fragment implements
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.interprete_button:
+                Collections.sort(Imagen.getAllImagenes(getContext()));
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
             case R.id.album_button:

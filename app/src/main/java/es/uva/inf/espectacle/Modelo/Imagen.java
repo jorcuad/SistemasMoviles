@@ -14,7 +14,7 @@ import es.uva.inf.espectacle.Utils.DeviceFiles;
 /**
  * Representación de un archivo de imagen.
  */
-public class Imagen {
+public class Imagen implements Comparable {
 
     private String id;
     private String tittle;
@@ -22,6 +22,7 @@ public class Imagen {
     private String display_name;
     private Long dateAdded;
     private Long size;
+    private Double title;
 
     public Imagen(String id, String tittle, String path, String display_name, Long dateAdded, Long size){
         this.setId(id);
@@ -73,5 +74,20 @@ public class Imagen {
     public Bitmap getThumbnail(){
         final int THUMBSIZE = 120;
         return ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(getPath()), THUMBSIZE, THUMBSIZE);
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        if(((Imagen)another).getTitle().compareTo(tittle)==1){
+            return 1;
+        }if(((Imagen)another).getTitle().equals(tittle)){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+
+    public String getTitle() {
+        return this.tittle;
     }
 }
