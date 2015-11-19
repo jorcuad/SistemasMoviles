@@ -57,7 +57,7 @@ public class VideoPlayerFragment extends Fragment {
             public void onClick(View view) {
                 if (video != null) {
                     if (pause) {
-                        video.start();
+                        video.resume();
                     } else {
                         if(playing){
                             playing = false;
