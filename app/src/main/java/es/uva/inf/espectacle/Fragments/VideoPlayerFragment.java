@@ -68,6 +68,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setMinimumWidth(width);
         video.setMinimumHeight(height);
         video.setMediaController(mediaController);
+        mediaController.setAnchorView(video);
         /*bPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
         bPlay.setOnClickListener(this);
         bPlay.setImageResource(R.drawable.play_button_selector);
