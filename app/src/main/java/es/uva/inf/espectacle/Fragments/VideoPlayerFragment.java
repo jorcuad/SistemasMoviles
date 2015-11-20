@@ -65,14 +65,13 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setMinimumWidth(width);
         video.setMinimumHeight(height);
         video.setMediaController(mediaController);
-        /*bPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
+        bPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
         bPlay.setOnClickListener(this);
         bPlay.setImageResource(R.drawable.play_button_selector);
         bNext = (ImageButton) view.findViewById(R.id.buttonNext);
         bNext.setOnClickListener(this);
         bBack = (ImageButton) view.findViewById(R.id.buttonBack);
-        bBack.setOnClickListener(this);*/
-        mediaController.show();
+        bBack.setOnClickListener(this);
         video.setVideoPath(path);
         return view;
     }
@@ -138,13 +137,13 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        /*if(v.getId()==R.id.buttonPlay){
+        if(v.getId()==R.id.buttonPlay){
             onPlayButton();
         }else if(v.getId()==R.id.buttonNext){
             onNextButton();
         }else if(v.getId()==R.id.buttonBack){
             onBackButton();
-        }*/
+        }
     }
 
     private void onBackButton() {
