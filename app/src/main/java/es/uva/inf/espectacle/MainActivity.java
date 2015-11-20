@@ -4,6 +4,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -133,6 +134,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imagen = new ImagePlayerFragment();
         imagen.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, imagen).commit();
+    }
+
+    @Override
+    public void setAudioPos(int pos) {
+        Log.d("SetAudioPos" , " "+pos);
+        audioFragment.setAudioPos(pos);
+
     }
 
     @Override

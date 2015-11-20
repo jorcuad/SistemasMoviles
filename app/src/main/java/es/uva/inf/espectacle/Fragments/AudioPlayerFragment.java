@@ -114,6 +114,11 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         musicSrv.pause();
     }
 
+    public void setAudioPos(int pos){
+        musicSrv.playSongPos(pos);
+        updateInfo();
+    }
+
     /**
      * Handler para el click en el componente
      * @param v La vista del componente
@@ -148,14 +153,14 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     }
     /**
      * Handler para el boton de atras de audio
-     * @param view La vista del componente
+     * @param v La vista del componente
      */
     private void onBackButton(View v) {
         musicSrv.back();
     }
     /**
      * Handler para el boton de adelante de audio
-     * @param view La vista del componente
+     * @param v La vista del componente
      */
     private void onNextButton(View v) {
         musicSrv.next();
