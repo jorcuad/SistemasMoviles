@@ -104,8 +104,8 @@ public class ImageListFragment extends BaseListFragment {
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
             case R.id.album_button:
-                //Ordenar por tamaño
-                Comparator<Imagen> OrderByTamaño = new Comparator<Imagen>() {
+                //Ordenar por tamano
+                Comparator<Imagen> OrderByTamano = new Comparator<Imagen>() {
                     @Override
                     public int compare(Imagen lhs, Imagen rhs) {
                         Long another =((Imagen)lhs).getSize() ;
@@ -119,7 +119,7 @@ public class ImageListFragment extends BaseListFragment {
                         }
                     }
                 };
-                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTamaño);
+                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTamano);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
