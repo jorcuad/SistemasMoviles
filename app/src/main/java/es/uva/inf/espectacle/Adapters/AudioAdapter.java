@@ -36,7 +36,7 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     @Override
     public void onBindViewHolder(MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getTittle());
-        holder.subtitle.setText(getDatos().get(position).getArtist());
+        holder.subtitle.setText(getDatos().get(position).getArtist()+ " - "+ getDatos().get(position).getAlbum());
         //holder.subtitle.setVisibility(View.GONE); //Escondemos el subtitulo ya que en el video no nos interesa.
         holder.duration.setText(getDatos().get(position).getStringDuration());
         holder.imagen.setImageResource(R.drawable.side_nav_bar);
