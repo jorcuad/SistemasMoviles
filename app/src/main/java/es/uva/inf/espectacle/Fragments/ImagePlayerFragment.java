@@ -12,11 +12,11 @@ import android.widget.ImageView;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
-
+/**
+ * Clase que modela el fragment del reproductor de imagenes
+ */
 public class ImagePlayerFragment extends Fragment {
-    /**
-     * Clase que modela el fragment del reproductor de imagenes
-     */
+
     private ComunicationListener mListener;
     ImageView image;
 

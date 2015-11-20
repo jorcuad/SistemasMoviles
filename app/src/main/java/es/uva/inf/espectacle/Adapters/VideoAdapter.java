@@ -15,12 +15,10 @@ import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
 
 /**
- * Created by coke on 16/11/15.
+ * Clase que modela el adaptador para la lista de videos
  */
 public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
-    /**
-     * Clase que modela el adaptador para la lista de videos
-     */
+
     private ArrayList<Video> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
 

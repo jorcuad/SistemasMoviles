@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
-
+/**
+ * Clase que modela el fragment del reproductor de video
+ */
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
-    /**
-     * Clase que modela el fragment del reproductor de video
-     */
+
     //private OrientationEventListener mOrientationListener;
     private SurfaceView surfaceView;
     private DisplayMetrics dm;

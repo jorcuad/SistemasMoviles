@@ -17,6 +17,9 @@ import java.util.Random;
 
 import es.uva.inf.espectacle.Modelo.Audio;
 
+/**
+ * Clase que modela e implementa el servicio de reproducción de música
+ */
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener,
         MediaPlayer.OnCompletionListener,
         MediaPlayer.OnErrorListener{

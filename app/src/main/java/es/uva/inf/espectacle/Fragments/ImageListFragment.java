@@ -20,11 +20,11 @@ import es.uva.inf.espectacle.Adapters.ImageAdapter;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
-
+/**
+ * Clase que modela el fragment de la lista de imagenes
+ */
 public class ImageListFragment extends BaseListFragment {
-    /**
-     * Clase que modela el fragment de la lista de imagenes
-     */
+
     private RecyclerView mListView;
     private ImageAdapter mAdapter;
     private ComunicationListener mListener;

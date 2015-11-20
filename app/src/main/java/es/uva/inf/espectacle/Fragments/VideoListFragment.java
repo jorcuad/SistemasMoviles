@@ -20,11 +20,11 @@ import es.uva.inf.espectacle.Adapters.VideoAdapter;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
-
+/**
+ * Clase que modela el fragment de la lista de video
+ */
 public class VideoListFragment extends BaseListFragment {
-    /**
-     * Clase que modela el fragment de la lista de video
-     */
+
     private RecyclerView mListView;
     private VideoAdapter mAdapter;
     private ComunicationListener mListener;

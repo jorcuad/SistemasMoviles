@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import es.uva.inf.espectacle.R;
 
+/**
+ * Clase que define el MediaHolder de un elemento, que contiene varios datos acerca de el para la visualizacion en lista
+ */
 public class MediaHolder extends RecyclerView.ViewHolder{
-    /**
-     * Clase que define el MediaHolder de un elemento, que contiene varios datos acerca de el para la visualizacion en lista
-     */
     FrameLayout listItem;
     TextView title;
     TextView subtitle;

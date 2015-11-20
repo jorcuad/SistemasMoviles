@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import es.uva.inf.espectacle.Utils.DeviceFiles;
 
 /**
- * Representación de un archivo de video.
+ * Clase de representacion de un archivo de video
  */
 public class Video {
 
@@ -18,6 +18,14 @@ public class Video {
     private String resolution;
     private Long duration;
 
+    /**
+     * Constructor del objeto Video, con varios datos sobre el archivo que modela
+     * @param id
+     * @param tittle
+     * @param path
+     * @param resolution
+     * @param duration
+     */
     public Video(Long id, String tittle, String path, String resolution, Long duration){
         this.setId(id);
         this.setTittle(tittle);
@@ -26,10 +34,21 @@ public class Video {
         this.setDuration(duration);
     }
 
+    /**
+     * Retorna la lista de videos encontrados en el dispositivo
+     * @param context Contexto de la aplicacion
+     * @return ArrayList como lista de videos
+     */
     public static ArrayList<Video> getAllVideos(Context context){
         return DeviceFiles.getAllVideos(context);
     }
 
+    /**
+     * Retorna el thumbnail del video para previsualizacion
+     * @param context Contexto de la aplicacion
+     * @param id Id del video
+     * @return Thumbnail
+     */
     public static Bitmap getThumbnail(Context context, Long id){
         return DeviceFiles.getThumbnail(context, id);
     }
@@ -65,6 +84,10 @@ public class Video {
         this.duration = duration;
     }
 
+    /**
+     * Devuelve como string la duracion del video
+     * @return Duracion
+     */
     public String getStringDuration(){
         long second = (getDuration() / 1000) % 60;
         long minute = (getDuration() / (1000 * 60)) % 60;

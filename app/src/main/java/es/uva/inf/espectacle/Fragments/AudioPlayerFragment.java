@@ -22,11 +22,11 @@ import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.Services.MusicService;
-
+/**
+ * Clase que modela el fragment del reproductor de audio
+ */
 public class AudioPlayerFragment extends Fragment implements View.OnClickListener {
-    /**
-     * Clase que modela el fragment del reproductor de audio
-     */
+
     private MusicService musicSrv;
     private ArrayList<Audio> audioList;
     boolean musicBound = false;

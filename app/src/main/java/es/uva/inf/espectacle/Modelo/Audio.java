@@ -8,7 +8,7 @@ import java.util.List;
 import es.uva.inf.espectacle.Utils.DeviceFiles;
 
 /**
- * Representación de un archivo de audio.
+ * Clase de representacion de un archivo de audio
  */
 public class Audio {
 
@@ -20,6 +20,16 @@ public class Audio {
     private Long duration;
     private String album;
 
+    /**
+     * Constructor del objeto Audio, con varios datos acerca de la pista modelada
+     * @param id
+     * @param artist
+     * @param tittle
+     * @param path
+     * @param display_name
+     * @param duration
+     * @param album
+     */
     public Audio(Long id, String artist, String tittle, String path, String display_name, Long duration, String album){
         this.setId(id);
         this.setArtist(artist);
@@ -30,6 +40,11 @@ public class Audio {
         this.setAlbum(album);
     }
 
+    /**
+     * Retorna la lista de audios encontrados en el dispositivo
+     * @param context Contexto de la aplicación
+     * @return ArrayList como lista de los audios
+     */
     public static ArrayList<Audio> getAllAudios(Context context){
         return DeviceFiles.getAllAudios(context);
     }
@@ -82,6 +97,10 @@ public class Audio {
        return display_name;
     }
 
+    /**
+     * Retorna la duracion de la pista de audio
+     * @return Duracion como String
+     */
     public String getStringDuration(){
         long second = (getDuration() / 1000) % 60;
         long minute = (getDuration() / (1000 * 60)) % 60;

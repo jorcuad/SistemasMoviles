@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.R;
 
+/**
+ * Clase que modela el adaptador para la lista de audio
+ */
 public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
-    /**
-     * Clase que modela el adaptador para la lista de audio
-     */
     private ArrayList<Audio> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {

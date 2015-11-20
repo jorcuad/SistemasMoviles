@@ -15,10 +15,10 @@ import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
 
+/**
+ * Clase que modela el adaptador para la lista de imagenes
+ */
 public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements Comparator{
-    /**
-     * Clase que modela el adaptador para la lista de imagenes
-     */
     private ArrayList<Imagen> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent
     private ImageListFragment fragment;
