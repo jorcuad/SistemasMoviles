@@ -32,6 +32,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public MusicService() {
     }
 
+    /**
+     * Creación del servicio reproductor de musica
+     */
     public void onCreate(){
         super.onCreate();
         songPos = 0;
@@ -44,10 +47,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
         //create the service
     }
+
+    /**
+     * Establece la lista de reproduccion de audios
+     * @param audios ArrayList de audios a reproducir
+     */
     public void setList(ArrayList<Audio> audios){
         this.audios = audios;
     }
 
+    /**
+     * Inicia la ejecucion en segundo plano
+     */
     public void startForefround(){
         android.support.v4.app.NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -58,11 +69,12 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         startForeground(1, playing);
     }
 
+    /**
+     * Detiene la reproduccion en segundo plano
+     */
     public void stopForeground(){
         stopForeground(true);
     }
-
-
 
     public class MusicBinder extends Binder {
         public MusicService getService() {
@@ -100,6 +112,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return false;
     }
 
+    /**
+     * Reproduce pista de audio
+     */
     private void playSong(){
 
         //startForefround();
@@ -118,6 +133,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         player.prepareAsync();
     }
 
+    /**
+     * Pausa la reproduccion de una pista de audio
+     */
     public void pause(){
         if(player.isPlaying()){
             player.pause();
@@ -129,40 +147,62 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
+    /**
+     * Pasa a siguiente pista de audio
+     */
     public void next() {
         setNextSongPos();
         playSong();
     }
 
+    /**
+     * Vuelve a la anterior pista de audio
+     */
     public  void back(){
         setPrevSongPos();
         playSong();
     }
 
+    /**
+     * Reproduce pista aleatoria
+     */
     public void shuffle(){
         setRandomSongPos();
         playSong();
     }
 
+    /**
+     * Establece la posicion de la siguiente pista de audio
+     * @return Posicion
+     */
     private int setNextSongPos(){
         songPos++;
         if(songPos>=audios.size()) songPos = 0;
         return songPos;
     }
-
+    /**
+     * Establece la posicion de la anterior pista de audio
+     * @return Posicion
+     */
     private int setPrevSongPos(){
         songPos--;
         if(songPos<0) songPos = audios.size()-1;
         return songPos;
     }
-
+    /**
+     * Establece la posicion de la pista de audio aleatoria
+     * @return Posicion
+     */
     private int setRandomSongPos(){
         songPos = r.nextInt(audios.size());
         return songPos;
     }
 
 
-
+    /**
+     * Establece la cancion a reproducir
+     * @param songIndex Indice de la cancion
+     */
     public void setSong(int songIndex){
         Log.d("Music Service", "Songindex: "+ songIndex);
         songPos = songIndex;
@@ -175,6 +215,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         player.release();
     }
 
+    /**
+     * Devuelve el audio en reproduccion
+     * @return Audio
+     */
     public Audio getPlayingAudio(){
         return audios.get(songPos);
     }
