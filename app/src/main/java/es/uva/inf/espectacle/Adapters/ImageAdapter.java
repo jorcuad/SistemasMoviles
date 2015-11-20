@@ -34,12 +34,19 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
     }
 
     @Override
-    public void onBindViewHolder(MediaHolder holder, int position) {
+    public void onBindViewHolder(MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getDisplay_name());
         holder.subtitle.setText(getDatos().get(position).getDateAdded());
         //holder.subtitle.setVisibility(View.GONE); //Escondemos el subtitulo ya que en el video no nos interesa.
         holder.duration.setText(getDatos().get(position).getSize(context));
         holder.imagen.setImageBitmap(getDatos().get(position).getThumbnail());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Rober ya puedes reproducir el item con la posicion
+                Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getDisplay_name());
+            }
+        });
     }
 
     @Override

@@ -20,7 +20,6 @@ import es.uva.inf.espectacle.Adapters.ImageAdapter;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
-import es.uva.inf.espectacle.Utils.OrderByTitulo;
 
 public class ImageListFragment extends BaseListFragment {
 

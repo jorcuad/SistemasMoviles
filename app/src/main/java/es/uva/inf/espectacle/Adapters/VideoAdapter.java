@@ -21,29 +21,27 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
 
     private ArrayList<Video> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
-    private final OnClickListener mOnClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //TODO conseguir obtener la posición del elemento clickado
-            Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().toString());
-        }
-    };
 
     @Override
-    public MediaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        view.setOnClickListener(mOnClickListener);
+    public MediaHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         return new MediaHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MediaHolder holder, int position) {
+    public void onBindViewHolder(final MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getTittle());
         holder.subtitle.setText(getDatos().get(position).getResolution());
         //holder.subtitle.setVisibility(View.GONE); //Escondemos el subtitulo ya que en el video no nos interesa.
         holder.duration.setText(getDatos().get(position).getStringDuration());
         holder.imagen.setImageBitmap(Video.getThumbnail(getContext(), getDatos().get(position).getId())); //TODO refactor, obtenerlas de carpeta de app.
-
+        holder.itemView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Rober ya puedes reproducir el item con la posicion
+                Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getTittle());
+            }
+        });
     }
 
     @Override
