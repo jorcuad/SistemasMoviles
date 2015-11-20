@@ -12,7 +12,9 @@ import android.widget.TextView;
 import es.uva.inf.espectacle.R;
 
 public class BaseListFragment extends Fragment implements OnClickListener {
-
+    /**
+     * Clase que modela el fragment de la lista base, de la que heredan las listas especificas para audio, video e imagen
+     */
     public BaseListFragment() {
     }
 

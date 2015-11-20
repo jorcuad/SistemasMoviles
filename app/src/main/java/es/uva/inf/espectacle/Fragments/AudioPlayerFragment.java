@@ -24,7 +24,9 @@ import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.Services.MusicService;
 
 public class AudioPlayerFragment extends Fragment implements View.OnClickListener {
-
+    /**
+     * Clase que modela el fragment del reproductor de audio
+     */
     private MusicService musicSrv;
     private ArrayList<Audio> audioList;
     boolean musicBound = false;
@@ -102,12 +104,20 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         Log.d("onDetach", "onDetach");
     }
 
+    /**
+     * Handler para el botón de reproducción de audio
+     * @param view La vista del componente
+     */
     public void onPlayButton(View view) {
         Log.d("Set song to", "9");
         //musicSrv.setSong(9);
         musicSrv.pause();
     }
 
+    /**
+     * Handler para el click en el componente
+     * @param v La vista del componente
+     */
     public void onClick(View v){
         if(v.getId()==R.id.buttonPlay){
             onPlayButton(v);
@@ -121,28 +131,46 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         updateInfo(); //TODO corregir para que la info se actualize automaticamente cuando cambia la cancion
     }
 
+    /**
+     * Handler para el boton de aleatorio
+     * @param v La vista del componente
+     */
     private void onShuffleButton(View v) {
         musicSrv.shuffle();
     }
 
+    /**
+     * Actualiza el titulo del audio
+     */
     public void updateInfo(){
         titleText.setText(musicSrv.getPlayingAudio().getTittle());
         //musicSrv.getPlayingAudio();
     }
-
+    /**
+     * Handler para el boton de atras de audio
+     * @param view La vista del componente
+     */
     private void onBackButton(View v) {
         musicSrv.back();
     }
-
+    /**
+     * Handler para el boton de adelante de audio
+     * @param view La vista del componente
+     */
     private void onNextButton(View v) {
         musicSrv.next();
     }
-
+    /**
+     * Establece una lista de reproducción de audio
+     * @param list ArrayList con la lista de audio
+     */
     public void setPlayList(ArrayList<Audio> list){
         audioList = list;
         musicSrv.setList(audioList);
     }
-
+    /**
+     * Conecta con el servicio de reproduccion de audio
+     */
     private ServiceConnection musicConnection = new ServiceConnection(){
 
         @Override

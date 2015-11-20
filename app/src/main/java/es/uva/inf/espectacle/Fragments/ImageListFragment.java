@@ -22,7 +22,9 @@ import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
 
 public class ImageListFragment extends BaseListFragment {
-
+    /**
+     * Clase que modela el fragment de la lista de imagenes
+     */
     private RecyclerView mListView;
     private ImageAdapter mAdapter;
     private ComunicationListener mListener;
@@ -145,6 +147,10 @@ public class ImageListFragment extends BaseListFragment {
         mListener = null;
     }
 
+    /**
+     * Retorna el listener para comunicación
+     * @return Listener
+     */
     public ComunicationListener getmListener() {
         return mListener;
     }

@@ -14,6 +14,9 @@ import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
 
 public class ImagePlayerFragment extends Fragment {
+    /**
+     * Clase que modela el fragment del reproductor de imagenes
+     */
     private ComunicationListener mListener;
     ImageView image;
 
@@ -52,7 +55,10 @@ public class ImagePlayerFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
+    /**
+     * Establece una imagen para la visualizacion
+     * @param imagen La imagen a visualizar
+     */
     public void setImage(Imagen imagen){
         image.setImageBitmap(Imagen.getBitmap(imagen.getPath()));
     }

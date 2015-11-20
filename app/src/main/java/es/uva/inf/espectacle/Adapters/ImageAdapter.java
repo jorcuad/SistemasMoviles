@@ -16,7 +16,9 @@ import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
 
 public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements Comparator{
-
+    /**
+     * Clase que modela el adaptador para la lista de imagenes
+     */
     private ArrayList<Imagen> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent
     private ImageListFragment fragment;
@@ -51,19 +53,35 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
         return getDatos().size();
     }
 
+    /**
+     * Retorna los datos de imagen en forma de ArrayList
+     * @return ArrayList con los datos de imagen
+     */
     public ArrayList<Imagen> getDatos() {
         return datos;
     }
 
+    /**
+     * Establece los datos de imagen en forma de ArrayList
+     * @param datos Los datos de imagen
+     */
     public void setDatos(ArrayList<Imagen> datos) {
         this.datos = datos;
         this.notifyDataSetChanged();
     }
 
+    /**
+     * Retorna el contexto de la aplicacion
+     * @return Contexto de la aplicacion
+     */
     public Context getContext() {
         return context;
     }
 
+    /**
+     * Establece el contexto de la aplicacion
+     * @param context Contexto de la aplicacion
+     */
     public void setContext(Context context) {
         this.context = context;
     }

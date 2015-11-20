@@ -23,6 +23,9 @@ import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
 
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
+    /**
+     * Clase que modela el fragment del reproductor de video
+     */
     //private OrientationEventListener mOrientationListener;
     private SurfaceView surfaceView;
     private DisplayMetrics dm;
@@ -76,7 +79,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setVideoPath(path);
         return view;
     }
-
+    /**
+     * Handler para el boton de reproducir video
+     */
     private void onPlayButton() {
         try {
             if(pause){
@@ -94,6 +99,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+    /**
+     * Handler para el click en un boton del reproductor
+     */
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             //mListener.onFragmentInteraction(uri);
@@ -147,6 +155,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         }*/
     }
 
+    /**
+     * Handler para el boton de anterior del reproductor de video
+     */
     private void onBackButton() {
         path = videoList.get(numVideo-1).getPath();
         numVideo--;
@@ -154,6 +165,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.start();
     }
 
+    /**
+     * Handler para el boton de siguiente del reproductor de video
+     */
     private void onNextButton() {
         path = videoList.get(numVideo+1).getPath();
         numVideo++;

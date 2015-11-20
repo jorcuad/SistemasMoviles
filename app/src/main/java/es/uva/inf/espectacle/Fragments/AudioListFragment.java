@@ -22,7 +22,9 @@ import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.R;
 
 public class AudioListFragment extends BaseListFragment {
-
+    /**
+     * Clase que modela el fragment de la lista de audio
+     */
     private RecyclerView mListView;
     private AudioAdapter mAdapter;
     private ComunicationListener mListener;

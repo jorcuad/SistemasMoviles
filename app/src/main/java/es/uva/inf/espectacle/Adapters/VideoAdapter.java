@@ -18,7 +18,9 @@ import es.uva.inf.espectacle.R;
  * Created by coke on 16/11/15.
  */
 public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
-
+    /**
+     * Clase que modela el adaptador para la lista de videos
+     */
     private ArrayList<Video> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
 
@@ -49,19 +51,35 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
         return getDatos().size();
     }
 
+    /**
+     * Retorna los datos de video en forma de ArrayList
+     * @return ArrayList con los datos de video
+     */
     public ArrayList<Video> getDatos() {
         return datos;
     }
 
+    /**
+     * Establece los datos de video en forma de ArrayList
+     * @param datos Los datos de video
+     */
     public void setDatos(ArrayList<Video> datos) {
         this.datos = datos;
         this.notifyDataSetChanged();
     }
 
+    /**
+     * Retorna el contexto de la aplicacion
+     * @return Contexto de la aplicacion
+     */
     public Context getContext() {
         return context;
     }
 
+    /**
+     * Establece el contexto de la aplicacion
+     * @param context Contexto de la aplicacion
+     */
     public void setContext(Context context) {
         this.context = context;
     }

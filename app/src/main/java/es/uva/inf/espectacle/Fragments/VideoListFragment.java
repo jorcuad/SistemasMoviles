@@ -22,7 +22,9 @@ import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
 
 public class VideoListFragment extends BaseListFragment {
-
+    /**
+     * Clase que modela el fragment de la lista de video
+     */
     private RecyclerView mListView;
     private VideoAdapter mAdapter;
     private ComunicationListener mListener;
