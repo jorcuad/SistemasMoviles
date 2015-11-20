@@ -2,6 +2,7 @@ package es.uva.inf.espectacle.Utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import es.uva.inf.espectacle.Modelo.Video;
  */
 public class DeviceFiles {
 
-    public static List<Audio> getAllAudios(Context context) {
+    public static ArrayList<Audio> getAllAudios(Context context) {
         //Some audio may be explicitly marked as not being music
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
 
@@ -38,17 +39,17 @@ public class DeviceFiles {
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        List<Audio> audios = new ArrayList<Audio>();
+        ArrayList<Audio> audios = new ArrayList<Audio>();
 
         if(cursor == null) { return audios; }
 
         while (cursor.moveToNext()) {
-            audios.add(new Audio(cursor.getString(0),
+            audios.add(new Audio(cursor.getLong(0),
                                  cursor.getString(1),
                                  cursor.getString(2),
                                  cursor.getString(3),
                                  cursor.getString(4),
-                                 cursor.getString(5),
+                                 cursor.getLong(5),
                                  cursor.getString(6)));
         }
 
@@ -57,34 +58,34 @@ public class DeviceFiles {
         return audios;
     }
 
-    public static List<Video> getAllVideos(Context context){
+    public static ArrayList<Video> getAllVideos(Context context){
 
         //TODO eliminar videos de whatsapp y otras app
         String[] projection = {
-                MediaStore.Video.Media._ID,
+                MediaStore.Video.VideoColumns._ID,
                 MediaStore.Video.Media.TITLE,
                 MediaStore.Video.Media.DATA,
-                MediaStore.Video.Media.DISPLAY_NAME,
+                MediaStore.Video.Media.RESOLUTION,
                 MediaStore.Video.Media.DURATION
         };
 
         Cursor cursor = context.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                 projection,
                 null,
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        List<Video> videos = new ArrayList<Video>();
+        ArrayList<Video> videos = new ArrayList<Video>();
 
         if(cursor == null) { return videos; }
 
         while (cursor.moveToNext()) {
-            videos.add(new Video(cursor.getString(0),
+            videos.add(new Video(cursor.getLong(0),
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4)));
+                    cursor.getLong(4)));
         }
 
         cursor.close();
@@ -92,7 +93,7 @@ public class DeviceFiles {
         return videos;
     }
 
-    public static List<Imagen> getAllImagenes(Context context){
+    public static ArrayList<Imagen> getAllImagenes(Context context){
 
         //TODO eliminar imagenes de whatsapp?
         String[] projection = {
@@ -100,17 +101,18 @@ public class DeviceFiles {
                 MediaStore.Images.Media.TITLE,
                 MediaStore.Images.Media.DATA,
                 MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media.DATE_ADDED
+                MediaStore.Images.Media.DATE_ADDED,
+                MediaStore.Images.Media.SIZE
         };
 
         Cursor cursor = context.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 projection,
                 null,
                 null,
-                MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
+                MediaStore.Images.Media.DISPLAY_NAME + " ASC");
 
-        List<Imagen> imagenes = new ArrayList<Imagen>();
+        ArrayList<Imagen> imagenes = new ArrayList<Imagen>();
 
         if(cursor == null) { return imagenes; }
 
@@ -119,11 +121,18 @@ public class DeviceFiles {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4)));
+                    cursor.getLong(4),
+                    cursor.getLong(5)));
         }
 
         cursor.close();
 
         return imagenes;
+    }
+
+    public static Bitmap getThumbnail(Context context, Long videoId){
+        return MediaStore.Video.Thumbnails.getThumbnail(context.getContentResolver(), videoId,
+                                                        MediaStore.Video.Thumbnails.MICRO_KIND,
+                                                        null );
     }
 }

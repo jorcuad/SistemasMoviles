@@ -1,14 +1,48 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="es.uva.inf.espectacle.Fragments.VideoPlayerFragment">
 
     <VideoView android:id="@+id/surfaceView"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
-    <ScrollView android:id="@+id/ScrollView"
-        android:layout_height="50dp"
-        android:layout_width="match_parent">
-    </ScrollView>
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_gravity="center" />
+
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonPlay"
+            android:src="@android:drawable/ic_media_play"
+            android:background="@null"
+            android:layout_gravity="right|bottom"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonNext"
+            android:background="@null"
+            android:src="@drawable/ic_navigate_next"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginStart="58dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/buttonPlay" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonBack"
+            android:src="@drawable/ic_navigate_before"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/buttonPlay"
+            android:layout_marginEnd="58dp" />
+    </RelativeLayout>-->
 
 </FrameLayout>

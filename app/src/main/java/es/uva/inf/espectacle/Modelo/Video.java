@@ -1,38 +1,62 @@
 package es.uva.inf.espectacle.Modelo;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import es.uva.inf.espectacle.Utils.DeviceFiles;
 
 /**
- * Representación de un archivo de video.
+ * Clase de representacion de un archivo de video
  */
 public class Video {
 
-    private String id;
+    private Long id;
     private String tittle;
     private String path;
-    private String display_name;
-    private String duration;
+    private String resolution;
+    private Long duration;
 
-    public Video(String id, String tittle, String path, String display_name, String duration){
+    /**
+     * Constructor del objeto Video, con varios datos sobre el archivo que modela
+     * @param id
+     * @param tittle
+     * @param path
+     * @param resolution
+     * @param duration
+     */
+    public Video(Long id, String tittle, String path, String resolution, Long duration){
         this.setId(id);
         this.setTittle(tittle);
         this.setPath(path);
-        this.setDisplay_name(display_name);
+        this.setResolution(resolution);
         this.setDuration(duration);
     }
 
-    public static List<Audio> getAllVideos(Context context){
-        return DeviceFiles.getAllAudios(context);
+    /**
+     * Retorna la lista de videos encontrados en el dispositivo
+     * @param context Contexto de la aplicacion
+     * @return ArrayList como lista de videos
+     */
+    public static ArrayList<Video> getAllVideos(Context context){
+        return DeviceFiles.getAllVideos(context);
     }
 
-    public String getId() {
+    /**
+     * Retorna el thumbnail del video para previsualizacion
+     * @param context Contexto de la aplicacion
+     * @param id Id del video
+     * @return Thumbnail
+     */
+    public static Bitmap getThumbnail(Context context, Long id){
+        return DeviceFiles.getThumbnail(context, id);
+    }
+
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getTittle() {
@@ -47,16 +71,27 @@ public class Video {
     public void setPath(String path) {
         this.path = path;
     }
-    public String getDisplay_name() {
-        return display_name;
+    public String getResolution() {
+        return resolution;
     }
-    public void setDisplay_name(String display_name) {
-        this.display_name = display_name;
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
     }
-    public String getDuration() {
+    public Long getDuration() {
         return duration;
     }
-    public void setDuration(String duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
+    }
+
+    /**
+     * Devuelve como string la duracion del video
+     * @return Duracion
+     */
+    public String getStringDuration(){
+        long second = (getDuration() / 1000) % 60;
+        long minute = (getDuration() / (1000 * 60)) % 60;
+        long hour = (getDuration() / (1000 * 60 * 60)) % 24;
+        return String.format("%02d:%02d:%02d", hour, minute, second);
     }
 }

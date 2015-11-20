@@ -3,13 +3,13 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_menu_camera"
-            android:title="Música" />
+            android:title="@string/musica" />
         <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Imágenes" />
+            android:title="@string/imagenes" />
         <item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Video" />
+            android:title="@string/video" />
         <item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"
-            android:title="360º" />
+            android:title="@string/v360" />
     </group>
 
 </menu>

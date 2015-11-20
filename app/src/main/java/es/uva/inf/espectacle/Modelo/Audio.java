@@ -2,24 +2,35 @@ package es.uva.inf.espectacle.Modelo;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.uva.inf.espectacle.Utils.DeviceFiles;
 
 /**
- * Representación de un archivo de audio.
+ * Clase de representacion de un archivo de audio
  */
 public class Audio {
 
-    private String id;
+    private Long id;
     private String artist;
     private String tittle;
     private String path;
     private String display_name;
-    private String duration;
+    private Long duration;
     private String album;
 
-    public Audio(String id, String artist, String tittle, String path, String display_name, String duration, String album){
+    /**
+     * Constructor del objeto Audio, con varios datos acerca de la pista modelada
+     * @param id
+     * @param artist
+     * @param tittle
+     * @param path
+     * @param display_name
+     * @param duration
+     * @param album
+     */
+    public Audio(Long id, String artist, String tittle, String path, String display_name, Long duration, String album){
         this.setId(id);
         this.setArtist(artist);
         this.setTittle(tittle);
@@ -29,14 +40,19 @@ public class Audio {
         this.setAlbum(album);
     }
 
-    public static List<Audio> getAllAudios(Context context){
+    /**
+     * Retorna la lista de audios encontrados en el dispositivo
+     * @param context Contexto de la aplicación
+     * @return ArrayList como lista de los audios
+     */
+    public static ArrayList<Audio> getAllAudios(Context context){
         return DeviceFiles.getAllAudios(context);
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getArtist() {
@@ -63,10 +79,10 @@ public class Audio {
     public void setDisplay_name(String display_name) {
         this.display_name = display_name;
     }
-    public String getDuration() {
+    public Long getDuration() {
         return duration;
     }
-    public void setDuration(String duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
     }
     public String getAlbum() {
@@ -79,5 +95,16 @@ public class Audio {
     @Override
     public String toString(){
        return display_name;
+    }
+
+    /**
+     * Retorna la duracion de la pista de audio
+     * @return Duracion como String
+     */
+    public String getStringDuration(){
+        long second = (getDuration() / 1000) % 60;
+        long minute = (getDuration() / (1000 * 60)) % 60;
+        long hour = (getDuration() / (1000 * 60 * 60)) % 24;
+        return String.format("%02d:%02d:%02d", hour, minute, second);
     }
 }

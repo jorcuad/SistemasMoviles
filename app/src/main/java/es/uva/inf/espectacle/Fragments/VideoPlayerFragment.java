@@ -1,69 +1,56 @@
 package es.uva.inf.espectacle.Fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
+import java.util.ArrayList;
+
+import es.uva.inf.espectacle.Interfaces.ComunicationListener;
+import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
-
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link VideoPlayerFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link VideoPlayerFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Clase que modela el fragment del reproductor de video
  */
-public class VideoPlayerFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String PATH = "path";
-    private static final String ARG_PARAM2 = "param2";
+public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename and change types of parameters
-    private String mParam2;
-    private MediaPlayer mediaPlayer;
+    //private OrientationEventListener mOrientationListener;
     private SurfaceView surfaceView;
-    private boolean pause;
+    private DisplayMetrics dm;
+    private MediaController mediaController;
+    private boolean pause = false;
     private String path;
     private int savePos = 0;
-    private OnFragmentInteractionListener mListener;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment VideoPlayerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static VideoPlayerFragment newInstance(String param1, String param2) {
-        VideoPlayerFragment fragment = new VideoPlayerFragment();
-        Bundle args = new Bundle();
-        args.putString(PATH, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ComunicationListener mListener;
+    private ImageButton bPlay, bNext, bBack;
+    private ArrayList<Video> videoList;
+    private VideoView video;
+    private int numVideo = 0;
 
     public VideoPlayerFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            path = getArguments().getString(PATH);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        }else{
+            videoList = new ArrayList<Video>(Video.getAllVideos(getContext()));
+            path = videoList.get(0).getPath();
+            Log.d("OnCreateFragment:", "Arguments==null");
         }
     }
 
@@ -72,33 +59,61 @@ public class VideoPlayerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
-        final VideoView video = (VideoView) view.findViewById(R.id.surfaceView);
-        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
+        mediaController = new MediaController(this.getActivity());
+        video = (VideoView) view.findViewById(R.id.surfaceView);
+        dm = new DisplayMetrics();
+        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int height = dm.heightPixels;
+        int width = dm.widthPixels;
+        video.setMinimumWidth(width);
+        video.setMinimumHeight(height);
+        video.setMediaController(mediaController);
+        /*bPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
+        bPlay.setOnClickListener(this);
+        bPlay.setImageResource(R.drawable.play_button_selector);
+        bNext = (ImageButton) view.findViewById(R.id.buttonNext);
+        bNext.setOnClickListener(this);
+        bBack = (ImageButton) view.findViewById(R.id.buttonBack);
+        bBack.setOnClickListener(this);*/
+        mediaController.show();
+        video.setVideoPath(path);
+        return view;
+    }
+    /**
+     * Handler para el boton de reproducir video
+     */
+    private void onPlayButton() {
+        try {
+            if(pause){
+                video.seekTo(savePos);
+                video.pause();
+            }else{
+                savePos = video.getCurrentPosition();
                 video.requestFocus();
                 video.start();
             }
-        });
-        video.setVideoURI(Uri.parse(path));//TODO path for the file is null
-        return view;
+        } catch (Exception e) {
+            Log.d("ERROR" , e.getMessage());
+        }
+        pause = !pause;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+    /**
+     * Handler para el click en un boton del reproductor
+     */
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            //mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            mListener = (ComunicationListener) context;
         }
     }
 
@@ -108,28 +123,13 @@ public class VideoPlayerFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
-
     @Override
     public void onSaveInstanceState(Bundle guardarEstado) {
         super.onSaveInstanceState(guardarEstado);
-        if (mediaPlayer != null) {
-            int pos = mediaPlayer.getCurrentPosition();
+        if (video != null) {
+            savePos = video.getCurrentPosition();
             guardarEstado.putString("ruta", path);
-            guardarEstado.putInt("posicion", pos);
+            guardarEstado.putInt("posicion", savePos);
         }
     }
 
@@ -144,19 +144,35 @@ public class VideoPlayerFragment extends Fragment {
 
     }
 
-    //TODO implementar controles de pausa y resumen
-/*
-    @Override public void onPause() {
-        super.onPause();
-        if (mediaPlayer != null & !pause) {
-            mediaPlayer.pause();
-        }
+    @Override
+    public void onClick(View v) {
+        /*if(v.getId()==R.id.buttonPlay){
+            onPlayButton();
+        }else if(v.getId()==R.id.buttonNext){
+            onNextButton();
+        }else if(v.getId()==R.id.buttonBack){
+            onBackButton();
+        }*/
     }
-    @Override public void onResume() {
-        super.onResume();
-        if (mediaPlayer != null & !pause) {
-            mediaPlayer.start();
-        }
+
+    /**
+     * Handler para el boton de anterior del reproductor de video
+     */
+    private void onBackButton() {
+        path = videoList.get(numVideo-1).getPath();
+        numVideo--;
+        video.setVideoPath(path);
+        video.start();
     }
-*/
+
+    /**
+     * Handler para el boton de siguiente del reproductor de video
+     */
+    private void onNextButton() {
+        path = videoList.get(numVideo+1).getPath();
+        numVideo++;
+        video.setVideoPath(path);
+        video.start();
+    }
+
 }

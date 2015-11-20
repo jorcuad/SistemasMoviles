@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="es.uva.inf.espectacle.Fragments.ListFragment"
+    tools:context="es.uva.inf.espectacle.Fragments.BaseListFragment"
     android:id="@+id/mediaList">
 
     <LinearLayout
@@ -15,12 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#44487e"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:elevation="10dp">
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Intérprete"
+                android:text="@string/interprete"
                 android:id="@+id/interprete_button"
                 android:layout_weight="1"
                 style="?android:attr/borderlessButtonStyle"/>
@@ -28,7 +29,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Álbum"
+                android:text="@string/album"
                 android:id="@+id/album_button"
                 android:layout_weight="1"
                 style="?android:attr/borderlessButtonStyle"/>
@@ -36,19 +37,21 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Canción"
+                android:text="@string/cancion"
                 android:id="@+id/cancion_button"
                 android:layout_weight="1"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
-        <ListView android:id="@android:id/list" android:layout_width="match_parent"
+        <android.support.v7.widget.RecyclerView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
     </LinearLayout>
 
-    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
+    <TextView android:id="@+id/emptyList" android:layout_width="match_parent"
         android:layout_height="match_parent" android:gravity="center" />
 
 </FrameLayout>
