@@ -87,8 +87,8 @@ public class ImageListFragment extends BaseListFragment {
                 Comparator<Imagen> OrderByFecha = new Comparator<Imagen>() {
                     @Override
                     public int compare(Imagen lhs, Imagen rhs) {
-                        Long another =((Imagen)lhs).getDateLong() ;
-                        Long other = ((Imagen)rhs).getDateLong();
+                        Long another = ((Imagen) lhs).getDateLong();
+                        Long other = ((Imagen) rhs).getDateLong();
                         if(another>other){
                             return 1;
                         }if(another==other){
@@ -129,13 +129,7 @@ public class ImageListFragment extends BaseListFragment {
                     public int compare(Imagen lhs, Imagen rhs) {
                         String another =((Imagen)lhs).getTitle() ;
                         String other = ((Imagen)rhs).getTitle();
-                        if(another.compareTo(other)==1){
-                            return 1;
-                        }if(another.equals(other)){
-                            return 0;
-                        }else{
-                            return -1;
-                        }
+                        return another.compareTo(other);
                     }
                 };
                 Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTitulo);

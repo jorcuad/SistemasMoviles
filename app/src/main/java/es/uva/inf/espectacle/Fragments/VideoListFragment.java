@@ -108,13 +108,7 @@ public class VideoListFragment extends BaseListFragment {
                     public int compare(Video lhs, Video rhs) {
                         String another =((Video)lhs).getResolution() ;
                         String other = ((Video)rhs).getResolution();
-                        if(another.compareTo(other)==1){
-                            return 1;
-                        }if(another.equals(other)){
-                            return 0;
-                        }else{
-                            return -1;
-                        }
+                        return another.compareTo(other);
                     }
                 };
                 Collections.sort((List<Video>) mAdapter.getDatos(), OrderByCalidad);
@@ -128,13 +122,7 @@ public class VideoListFragment extends BaseListFragment {
                     public int compare(Video lhs, Video rhs) {
                         String another =((Video)lhs).getTittle() ;
                         String other = ((Video)rhs).getTittle();
-                        if(another.compareTo(other)==1){
-                            return 1;
-                        }if(another.equals(other)){
-                            return 0;
-                        }else{
-                            return -1;
-                        }
+                        return another.compareTo(other);
                     }
                 };
                 Collections.sort((List<Video>) mAdapter.getDatos(), OrderByTitulo);

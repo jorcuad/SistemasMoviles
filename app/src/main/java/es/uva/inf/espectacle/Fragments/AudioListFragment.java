@@ -86,13 +86,7 @@ public class AudioListFragment extends BaseListFragment {
                     public int compare(Audio lhs, Audio rhs) {
                         String another =((Audio)lhs).getArtist() ;
                         String other = ((Audio)rhs).getArtist();
-                        if(another.compareTo(other)==1){
-                            return 1;
-                        }if(another.equals(other)){
-                            return 0;
-                        }else{
-                            return -1;
-                        }
+                        return another.compareTo(other);
                     }
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByInterprete);
@@ -106,13 +100,7 @@ public class AudioListFragment extends BaseListFragment {
                     public int compare(Audio lhs, Audio rhs) {
                         String another =((Audio)lhs).getAlbum() ;
                         String other = ((Audio)rhs).getAlbum();
-                        if(another.compareTo(other)==1){
-                            return 1;
-                        }if(another.equals(other)){
-                            return 0;
-                        }else{
-                            return -1;
-                        }
+                        return another.compareTo(other);
                     }
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByAlbum);
@@ -126,13 +114,7 @@ public class AudioListFragment extends BaseListFragment {
                     public int compare(Audio lhs, Audio rhs) {
                         String another =((Audio)lhs).getTittle() ;
                         String other = ((Audio)rhs).getTittle();
-                        if(another.compareTo(other)==1){
-                            return 1;
-                        }if(another.equals(other)){
-                            return 0;
-                        }else{
-                            return -1;
-                        }
+                        return another.compareTo(other);
                     }
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByTitulo);
