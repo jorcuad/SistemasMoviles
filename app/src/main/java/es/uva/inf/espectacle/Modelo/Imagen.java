@@ -97,4 +97,12 @@ public class Imagen implements Comparable {
         File imgFile = new  File(path);
         return BitmapFactory.decodeFile(imgFile.getAbsolutePath());
     }
+
+    public Long getSize() {
+        return size;
+    }
+
+    public Long getDateLong(){
+        return dateAdded;
+    }
 }

@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import es.uva.inf.espectacle.Adapters.AudioAdapter;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Audio;
@@ -76,12 +80,63 @@ public class AudioListFragment extends BaseListFragment {
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.interprete_button:
+                //Ordenar por itnérprete
+                Comparator<Audio> OrderByInterprete = new Comparator<Audio>() {
+                    @Override
+                    public int compare(Audio lhs, Audio rhs) {
+                        String another =((Audio)lhs).getArtist() ;
+                        String other = ((Audio)rhs).getArtist();
+                        if(another.compareTo(other)==1){
+                            return 1;
+                        }if(another.equals(other)){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByInterprete);
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
             case R.id.album_button:
+                //Ordenar por album
+                Comparator<Audio> OrderByAlbum = new Comparator<Audio>() {
+                    @Override
+                    public int compare(Audio lhs, Audio rhs) {
+                        String another =((Audio)lhs).getAlbum() ;
+                        String other = ((Audio)rhs).getAlbum();
+                        if(another.compareTo(other)==1){
+                            return 1;
+                        }if(another.equals(other)){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByAlbum);
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
             case R.id.cancion_button:
+                //Ordenar por cancion
+                Comparator<Audio> OrderByTitulo = new Comparator<Audio>() {
+                    @Override
+                    public int compare(Audio lhs, Audio rhs) {
+                        String another =((Audio)lhs).getTittle() ;
+                        String other = ((Audio)rhs).getTittle();
+                        if(another.compareTo(other)==1){
+                            return 1;
+                        }if(another.equals(other)){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByTitulo);
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cancion_button");
                 break;
             default: Log.d("espectacle", "Yo no he sido");

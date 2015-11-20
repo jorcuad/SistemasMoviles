@@ -8,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
 
-public class ImageAdapter extends RecyclerView.Adapter<MediaHolder>{
+public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements Comparator{
 
     private ArrayList<Imagen> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
@@ -63,4 +64,8 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder>{
         this.context = context;
     }
 
+    @Override
+    public int compare(Object lhs, Object rhs) {
+        return 0;
+    }
 }

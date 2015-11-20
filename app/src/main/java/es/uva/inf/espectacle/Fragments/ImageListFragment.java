@@ -13,11 +13,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import es.uva.inf.espectacle.Adapters.ImageAdapter;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
+import es.uva.inf.espectacle.Utils.OrderByTitulo;
 
 public class ImageListFragment extends BaseListFragment {
 
@@ -80,17 +83,63 @@ public class ImageListFragment extends BaseListFragment {
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.interprete_button:
-                mListener.setMedia(mAdapter.getDatos().get(0));
-                Collections.sort(Imagen.getAllImagenes(getContext()));
+                //Ordenar por fecha
+                Comparator<Imagen> OrderByFecha = new Comparator<Imagen>() {
+                    @Override
+                    public int compare(Imagen lhs, Imagen rhs) {
+                        Long another =((Imagen)lhs).getDateLong() ;
+                        Long other = ((Imagen)rhs).getDateLong();
+                        if(another>other){
+                            return 1;
+                        }if(another==other){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByFecha);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
             case R.id.album_button:
-                mListener.setMedia(mAdapter.getDatos().get(1));
+                //Ordenar por tamaño
+                Comparator<Imagen> OrderByTamaño = new Comparator<Imagen>() {
+                    @Override
+                    public int compare(Imagen lhs, Imagen rhs) {
+                        Long another =((Imagen)lhs).getSize() ;
+                        Long other = ((Imagen)rhs).getSize();
+                        if(another>other){
+                            return 1;
+                        }if(another==other){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTamaño);
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
             case R.id.cancion_button:
-                mListener.setMedia(mAdapter.getDatos().get(2));
+                //Ordenar por nombre
+                Comparator<Imagen> OrderByTitulo = new Comparator<Imagen>() {
+                    @Override
+                    public int compare(Imagen lhs, Imagen rhs) {
+                        String another =((Imagen)lhs).getTitle() ;
+                        String other = ((Imagen)rhs).getTitle();
+                        if(another.compareTo(other)==1){
+                            return 1;
+                        }if(another.equals(other)){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTitulo);
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;
             default: Log.d("espectacle", "Yo no he sido");

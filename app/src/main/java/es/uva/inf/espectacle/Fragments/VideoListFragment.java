@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import es.uva.inf.espectacle.Adapters.VideoAdapter;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Video;
@@ -78,12 +82,63 @@ public class VideoListFragment extends BaseListFragment {
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.interprete_button:
+                //Ordenar por duracion
+                Comparator<Video> OrderByDuracion = new Comparator<Video>() {
+                    @Override
+                    public int compare(Video lhs, Video rhs) {
+                        Long another =((Video)lhs).getDuration() ;
+                        Long other = ((Video)rhs).getDuration();
+                        if(another>other){
+                            return 1;
+                        }if(another==other){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByDuracion);
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
             case R.id.album_button:
+                //Ordenar por calidad
+                Comparator<Video> OrderByCalidad = new Comparator<Video>() {
+                    @Override
+                    public int compare(Video lhs, Video rhs) {
+                        String another =((Video)lhs).getResolution() ;
+                        String other = ((Video)rhs).getResolution();
+                        if(another.compareTo(other)==1){
+                            return 1;
+                        }if(another.equals(other)){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByCalidad);
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
             case R.id.cancion_button:
+                //Ordenar por nombre
+                Comparator<Video> OrderByTitulo = new Comparator<Video>() {
+                    @Override
+                    public int compare(Video lhs, Video rhs) {
+                        String another =((Video)lhs).getTittle() ;
+                        String other = ((Video)rhs).getTittle();
+                        if(another.compareTo(other)==1){
+                            return 1;
+                        }if(another.equals(other)){
+                            return 0;
+                        }else{
+                            return -1;
+                        }
+                    }
+                };
+                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByTitulo);
+                mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;
             default: Log.d("espectacle", "Yo no he sido");
