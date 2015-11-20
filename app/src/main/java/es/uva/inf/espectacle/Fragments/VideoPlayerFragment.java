@@ -2,33 +2,42 @@ package es.uva.inf.espectacle.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.MediaController;
 import android.widget.VideoView;
+
+import java.util.ArrayList;
 
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
+/**
+ * Clase que modela el fragment del reproductor de video
+ */
+public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
 
-public class VideoPlayerFragment extends Fragment {
     //private OrientationEventListener mOrientationListener;
-    private MediaPlayer mediaPlayer;
     private SurfaceView surfaceView;
+    private DisplayMetrics dm;
+    private MediaController mediaController;
     private boolean pause = false;
-    private boolean playing = false;
     private String path;
     private int savePos = 0;
     private ComunicationListener mListener;
-    private Button bPlay;
+    private ImageButton bPlay, bNext, bBack;
+    private ArrayList<Video> videoList;
+    private VideoView video;
+    private int numVideo = 0;
 
     public VideoPlayerFragment() {
     }
@@ -36,7 +45,13 @@ public class VideoPlayerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
 
+        }else{
+            videoList = new ArrayList<Video>(Video.getAllVideos(getContext()));
+            path = videoList.get(0).getPath();
+            Log.d("OnCreateFragment:", "Arguments==null");
+        }
     }
 
     @Override
@@ -44,69 +59,49 @@ public class VideoPlayerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
-        final VideoView video = (VideoView) view.findViewById(R.id.surfaceView);
-        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                video.requestFocus();
-                //video.start();
-            }
-        });
-        bPlay = (Button) view.findViewById(R.id.buttonPlay);
-        bPlay.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (video != null) {
-                    if (pause) {
-                        video.resume();
-                    } else {
-                        if(playing){
-                            playing = false;
-                            pause = true;
-                            video.pause();
-                        }
-                        playing = true;
-                        bPlay.setText(R.string.pause);
-                        path = Video.getAllVideos(getContext()).get(0).getPath();
-                        playVideo(video, path);
-                    }
-                }
-            }
-        });
-
-        //path = Video.getAllVideos(getContext()).get(0).getPath();
-        //video.setVideoURI(Uri.parse(path));//TODO query for the path
-
-        /*mOrientationListener = new OrientationEventListener(this,
-                SensorManager.SENSOR_DELAY_NORMAL) {
-
-            public Activity getActivity() {
-                return this.getActivity();
-            }
-
-            @Override
-            public void onOrientationChanged(int orientation) {
-                if(orientation>=90 && orientation<180 || orientation>=270 && orientation<360 ) {
-                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                            WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                }
-            }
-        };*/
+        mediaController = new MediaController(this.getActivity());
+        video = (VideoView) view.findViewById(R.id.surfaceView);
+        dm = new DisplayMetrics();
+        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int height = dm.heightPixels;
+        int width = dm.widthPixels;
+        video.setMinimumWidth(width);
+        video.setMinimumHeight(height);
+        video.setMediaController(mediaController);
+        /*bPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
+        bPlay.setOnClickListener(this);
+        bPlay.setImageResource(R.drawable.play_button_selector);
+        bNext = (ImageButton) view.findViewById(R.id.buttonNext);
+        bNext.setOnClickListener(this);
+        bBack = (ImageButton) view.findViewById(R.id.buttonBack);
+        bBack.setOnClickListener(this);*/
+        mediaController.show();
+        video.setVideoPath(path);
         return view;
     }
-
-    private void playVideo(VideoView video, String path) {
+    /**
+     * Handler para el boton de reproducir video
+     */
+    private void onPlayButton() {
         try {
-            pause = false;
-            video.setVideoURI(Uri.parse(path));
-            video.seekTo(savePos);
-            video.requestFocus();
-            video.start();
+            if(pause){
+                video.seekTo(savePos);
+                video.pause();
+            }else{
+                savePos = video.getCurrentPosition();
+                video.requestFocus();
+                video.start();
+            }
         } catch (Exception e) {
             Log.d("ERROR" , e.getMessage());
         }
+        pause = !pause;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+    /**
+     * Handler para el click en un boton del reproductor
+     */
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             //mListener.onFragmentInteraction(uri);
@@ -131,10 +126,10 @@ public class VideoPlayerFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle guardarEstado) {
         super.onSaveInstanceState(guardarEstado);
-        if (mediaPlayer != null) {
-            int pos = mediaPlayer.getCurrentPosition();
+        if (video != null) {
+            savePos = video.getCurrentPosition();
             guardarEstado.putString("ruta", path);
-            guardarEstado.putInt("posicion", pos);
+            guardarEstado.putInt("posicion", savePos);
         }
     }
 
@@ -149,19 +144,35 @@ public class VideoPlayerFragment extends Fragment {
 
     }
 
-    //TODO implementar controles de pausa y resumen
-/*
-    @Override public void onPause() {
-        super.onPause();
-        if (mediaPlayer != null & !pause) {
-            mediaPlayer.pause();
-        }
+    @Override
+    public void onClick(View v) {
+        /*if(v.getId()==R.id.buttonPlay){
+            onPlayButton();
+        }else if(v.getId()==R.id.buttonNext){
+            onNextButton();
+        }else if(v.getId()==R.id.buttonBack){
+            onBackButton();
+        }*/
     }
-    @Override public void onResume() {
-        super.onResume();
-        if (mediaPlayer != null & !pause) {
-            mediaPlayer.start();
-        }
+
+    /**
+     * Handler para el boton de anterior del reproductor de video
+     */
+    private void onBackButton() {
+        path = videoList.get(numVideo-1).getPath();
+        numVideo--;
+        video.setVideoPath(path);
+        video.start();
     }
-*/
+
+    /**
+     * Handler para el boton de siguiente del reproductor de video
+     */
+    private void onNextButton() {
+        path = videoList.get(numVideo+1).getPath();
+        numVideo++;
+        video.setVideoPath(path);
+        video.start();
+    }
+
 }

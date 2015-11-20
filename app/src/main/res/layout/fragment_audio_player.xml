@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="es.uva.inf.espectacle.Fragments.AudioPlayerFragment">
+    tools:context="es.uva.inf.espectacle.Fragments.AudioPlayerFragment"
+    android:background="#3d0455">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -9,31 +10,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/play_test"
-            android:id="@+id/buttonPlayTest"
-            android:layout_gravity="center"
-            android:onClick="onPlayTestButton"
+            android:id="@+id/buttonPlay"
+            android:src="@android:drawable/ic_media_play"
+            android:background="@null"
+            android:layout_gravity="right|bottom"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pause"
-            android:id="@+id/buttonPause"
-            android:layout_alignTop="@+id/buttonPlayTest"
             android:layout_centerHorizontal="true" />
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next"
             android:id="@+id/buttonNext"
-            android:layout_alignTop="@+id/buttonPause"
+            android:background="@null"
+            android:src="@drawable/ic_navigate_next"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginStart="58dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/buttonPlay" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonBack"
+            android:src="@drawable/ic_navigate_before"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/buttonPlay"
+            android:layout_marginEnd="58dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonShuffle"
+            android:src="@drawable/ic_shuffle"
+            android:background="@null"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:layout_gravity="right|top"
+            android:layout_above="@+id/buttonNext"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="46dp" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"></LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

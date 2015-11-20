@@ -13,7 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,9 @@ import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.Services.MusicService;
-
+/**
+ * Clase que modela el fragment del reproductor de audio
+ */
 public class AudioPlayerFragment extends Fragment implements View.OnClickListener {
 
     private MusicService musicSrv;
@@ -30,7 +33,8 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     private Intent playIntent;
 
     private ComunicationListener mListener;
-    Button buttonPlay, buttonNext, buttonPause;
+    ImageButton buttonPlay, buttonNext, buttonBack, buttonShuffle;
+    TextView titleText;
 
     public AudioPlayerFragment() {
     }
@@ -56,12 +60,20 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_audio_player, container, false);
-        buttonPlay = (Button) view.findViewById(R.id.buttonPlayTest);
-        buttonNext = (Button) view.findViewById(R.id.buttonNext);
-        buttonPause = (Button) view.findViewById(R.id.buttonPause);
+        buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(this);
+        buttonPlay.setImageResource(R.drawable.play_button_selector);
+        buttonNext = (ImageButton) view.findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(this);
-        buttonPause.setOnClickListener(this);
+        buttonBack = (ImageButton) view.findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(this);
+        buttonShuffle = (ImageButton) view.findViewById(R.id.buttonShuffle);
+        buttonShuffle.setOnClickListener(this);
+        titleText = (TextView) view.findViewById(R.id.textTitle);
+        /*buttonNext = (Button) view.findViewById(R.id.buttonNext);
+        buttonPause = (Button) view.findViewById(R.id.buttonPause);
+        /*buttonNext.setOnClickListener(this);
+        buttonPause.setOnClickListener(this);*/
         return view;
     }
 
@@ -92,43 +104,79 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         Log.d("onDetach", "onDetach");
     }
 
-    public void onPlayTestButton(View view) {
+    /**
+     * Handler para el botón de reproducción de audio
+     * @param view La vista del componente
+     */
+    public void onPlayButton(View view) {
         Log.d("Set song to", "9");
-        musicSrv.setSong(9);
-        musicSrv.playSong();
-    }
-
-    public void onClick(View v){
-        if(v.getId()==R.id.buttonPlayTest){
-            onPlayTestButton(v);
-        }else if(v.getId()==R.id.buttonPause){
-            onPauseButton(v);
-        }else if(v.getId()==R.id.buttonNext){
-            onNextButton(v);
-        }
-    }
-
-    private void onPauseButton(View v) {
+        //musicSrv.setSong(9);
         musicSrv.pause();
     }
 
+    /**
+     * Handler para el click en el componente
+     * @param v La vista del componente
+     */
+    public void onClick(View v){
+        if(v.getId()==R.id.buttonPlay){
+            onPlayButton(v);
+        }else if(v.getId()==R.id.buttonNext){
+            onNextButton(v);
+        }else if(v.getId()==R.id.buttonBack){
+            onBackButton(v);
+        }else if(v.getId()==R.id.buttonShuffle){
+            onShuffleButton(v);
+        }
+        updateInfo(); //TODO corregir para que la info se actualize automaticamente cuando cambia la cancion
+    }
+
+    /**
+     * Handler para el boton de aleatorio
+     * @param v La vista del componente
+     */
+    private void onShuffleButton(View v) {
+        musicSrv.shuffle();
+    }
+
+    /**
+     * Actualiza el titulo del audio
+     */
+    public void updateInfo(){
+        titleText.setText(musicSrv.getPlayingAudio().getTittle());
+        //musicSrv.getPlayingAudio();
+    }
+    /**
+     * Handler para el boton de atras de audio
+     * @param view La vista del componente
+     */
+    private void onBackButton(View v) {
+        musicSrv.back();
+    }
+    /**
+     * Handler para el boton de adelante de audio
+     * @param view La vista del componente
+     */
     private void onNextButton(View v) {
         musicSrv.next();
     }
-
+    /**
+     * Establece una lista de reproducción de audio
+     * @param list ArrayList con la lista de audio
+     */
     public void setPlayList(ArrayList<Audio> list){
         audioList = list;
         musicSrv.setList(audioList);
     }
-
+    /**
+     * Conecta con el servicio de reproduccion de audio
+     */
     private ServiceConnection musicConnection = new ServiceConnection(){
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             MusicService.MusicBinder binder = (MusicService.MusicBinder)service;
-            //get service
             musicSrv = binder.getService();
-            //pass list
             musicSrv.setList(audioList);
             musicBound = true;
         }
