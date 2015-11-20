@@ -8,30 +8,41 @@
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:layout_gravity="center" />
-    <ScrollView android:id="@+id/ScrollView"
-        android:layout_height="50dp"
-        android:layout_width="fill_parent"
-        android:layout_gravity="bottom">
 
-        <Button
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/backward"
-            android:id="@+id/buttonBack" />
-    </ScrollView>
+            android:id="@+id/buttonPlay"
+            android:src="@android:drawable/ic_media_play"
+            android:background="@null"
+            android:layout_gravity="right|bottom"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/play"
-        android:id="@+id/buttonPlay"
-        android:layout_gravity="center_horizontal|bottom" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonNext"
+            android:background="@null"
+            android:src="@drawable/ic_navigate_next"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginStart="58dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/buttonPlay" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forward"
-        android:id="@+id/buttonFor"
-        android:layout_gravity="right|bottom" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonBack"
+            android:src="@drawable/ic_navigate_before"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/buttonPlay"
+            android:layout_marginEnd="58dp" />
+    </RelativeLayout>
 
 </FrameLayout>
