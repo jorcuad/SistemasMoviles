@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import es.uva.inf.espectacle.Fragments.ImageListFragment;
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.Modelo.Imagen;
 import es.uva.inf.espectacle.R;
@@ -17,19 +18,16 @@ import es.uva.inf.espectacle.R;
 public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements Comparator{
 
     private ArrayList<Imagen> datos = new ArrayList<>();
-    private Context context; //TODO meterlo con un bundle en el intent;
-    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //TODO conseguir obtener la posición del elemento clickado
-            Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().toString());
-        }
-    };
+    private Context context; //TODO meterlo con un bundle en el intent
+    private ImageListFragment fragment;
+
+    public ImageAdapter(ImageListFragment fragment){
+        this.fragment = fragment;
+    }
 
     @Override
     public MediaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        view.setOnClickListener(mOnClickListener);
         return new MediaHolder(view);
     }
 
@@ -43,8 +41,7 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Rober ya puedes reproducir el item con la posicion
-                Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getDisplay_name());
+                fragment.getmListener().setMedia(getDatos().get(position));
             }
         });
     }

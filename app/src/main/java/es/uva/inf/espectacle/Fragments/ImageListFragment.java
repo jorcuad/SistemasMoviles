@@ -34,7 +34,7 @@ public class ImageListFragment extends BaseListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAdapter = new ImageAdapter();
+        mAdapter = new ImageAdapter(this);
         mAdapter.setContext(getContext());
         mAdapter.setDatos(Imagen.getAllImagenes(getContext()));
     }
@@ -143,5 +143,9 @@ public class ImageListFragment extends BaseListFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public ComunicationListener getmListener() {
+        return mListener;
     }
 }
