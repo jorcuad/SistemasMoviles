@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import es.uva.inf.espectacle.Fragments.AudioListFragment;
 import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.R;
 
@@ -18,25 +19,28 @@ import es.uva.inf.espectacle.R;
 public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private ArrayList<Audio> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
-    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+    private AudioListFragment fragment;
+   /* private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             //TODO conseguir obtener la posición del elemento clickado
             Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().toString());
         }
-    };
+    };*/
+
+    public AudioAdapter(AudioListFragment fragment){this.fragment=fragment;}
 
     @Override
     public MediaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        view.setOnClickListener(mOnClickListener);
+        //view.setOnClickListener(mOnClickListener);
         return new MediaHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getTittle());
-        holder.subtitle.setText(getDatos().get(position).getArtist());
+        holder.subtitle.setText(getDatos().get(position).getArtist()+ " - "+ getDatos().get(position).getAlbum());
         //holder.subtitle.setVisibility(View.GONE); //Escondemos el subtitulo ya que en el video no nos interesa.
         holder.duration.setText(getDatos().get(position).getStringDuration());
         holder.imagen.setImageResource(R.drawable.side_nav_bar);
@@ -44,7 +48,8 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
             @Override
             public void onClick(View v) {
                 //TODO Rober ya puedes reproducir el item con la posicion
-                Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getDisplay_name());
+                Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getDisplay_name()+ " pos: "+ position);
+                fragment.getmListener().setAudioPos(position);
             }
         });
     }

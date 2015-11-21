@@ -76,7 +76,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         bNext.setOnClickListener(this);
         bBack = (ImageButton) view.findViewById(R.id.buttonBack);
         bBack.setOnClickListener(this);*/
-        mediaController.show();
+       // mediaController.show();
         video.setVideoPath(path);
         return view;
     }

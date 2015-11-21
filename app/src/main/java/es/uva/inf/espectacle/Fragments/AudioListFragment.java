@@ -32,11 +32,15 @@ public class AudioListFragment extends BaseListFragment {
     public AudioListFragment() {
     }
 
+    public ComunicationListener getmListener(){
+        return mListener;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAdapter = new AudioAdapter();
+        mAdapter = new AudioAdapter(this);
         mAdapter.setContext(getContext());
         mAdapter.setDatos(Audio.getAllAudios(getContext()));
     }

@@ -28,6 +28,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     int songPos;
     Notification playing;
     Random r = new Random();
+    boolean foreground = false;
     private final IBinder musicBind = new MusicBinder();
     public MusicService() {
     }
@@ -60,20 +61,28 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      * Inicia la ejecucion en segundo plano
      */
     public void startForefround(){
-        android.support.v4.app.NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(android.support.design.R.drawable.notification_template_icon_bg)
-                        .setContentTitle("Espectacle")
-                        .setContentText("Playing...");
-        playing = mBuilder.build();
-        startForeground(1, playing);
+        if(!foreground){
+            android.support.v4.app.NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(this)
+                            .setSmallIcon(android.support.design.R.drawable.notification_template_icon_bg)
+                            .setContentTitle("Espectacle")
+                            .setContentText("Playing...");
+            playing = mBuilder.build();
+            startForeground(1, playing);
+            foreground = true;
+        }
+
     }
 
     /**
      * Detiene la reproduccion en segundo plano
      */
     public void stopForeground(){
-        stopForeground(true);
+        if(foreground){
+            stopForeground(true);
+            foreground = false;
+        }
+
     }
 
     public class MusicBinder extends Binder {
@@ -147,6 +156,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
+
+
     /**
      * Pasa a siguiente pista de audio
      */
@@ -169,6 +180,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void shuffle(){
         setRandomSongPos();
         playSong();
+    }
+
+    public void playSongPos(int pos){
+        setSongPos(pos);
+        playSong();
+        startForefround();
+    }
+
+    private void setSongPos(int pos) {
+        if(pos<audios.size()&&pos>=0){
+            songPos=pos;
+        }
     }
 
     /**
