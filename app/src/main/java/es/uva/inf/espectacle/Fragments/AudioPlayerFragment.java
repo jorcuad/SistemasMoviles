@@ -35,6 +35,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     private ComunicationListener mListener;
     ImageButton buttonPlay, buttonNext, buttonBack, buttonShuffle;
     TextView titleText;
+    boolean play = true;
 
     public AudioPlayerFragment() {
     }
@@ -74,6 +75,8 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         buttonPause = (Button) view.findViewById(R.id.buttonPause);
         /*buttonNext.setOnClickListener(this);
         buttonPause.setOnClickListener(this);*/
+
+        //updateInfo();
         return view;
     }
 
@@ -112,12 +115,16 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         Log.d("Set song to", "9");
         //musicSrv.setSong(9);
         musicSrv.pause();
+        updateInfo();
+
     }
 
     public void setAudioPos(int pos){
         musicSrv.playSongPos(pos);
         updateInfo();
     }
+
+
 
     /**
      * Handler para el click en el componente
@@ -149,6 +156,11 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      */
     public void updateInfo(){
         titleText.setText(musicSrv.getPlayingAudio().getTittle());
+        /*if(musicSrv.isPlaying()){
+            buttonPlay.setImageResource(R.drawable.play_button_selector);
+        }else{
+            buttonPlay.setImageResource(R.drawable.pause_button_selector);
+        }*/
         //musicSrv.getPlayingAudio();
     }
     /**
@@ -171,7 +183,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      */
     public void setPlayList(ArrayList<Audio> list){
         audioList = list;
-        musicSrv.setList(audioList);
+        if(musicSrv!=null) musicSrv.setList(audioList);
     }
     /**
      * Conecta con el servicio de reproduccion de audio

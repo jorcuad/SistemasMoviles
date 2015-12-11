@@ -1,21 +1,30 @@
 package es.uva.inf.espectacle.Services;
 
 import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.session.MediaController;
+import android.media.session.MediaSession;
+import android.media.session.MediaSessionManager;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import es.uva.inf.espectacle.MainActivity;
 import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.R;
 
 /**
  * Clase que modela e implementa el servicio de reproducción de música
@@ -23,6 +32,14 @@ import es.uva.inf.espectacle.Modelo.Audio;
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener,
         MediaPlayer.OnCompletionListener,
         MediaPlayer.OnErrorListener{
+
+    public static final String ACTION_PLAY = "action_play";
+    public static final String ACTION_PAUSE = "action_pause";
+    public static final String ACTION_NEXT = "action_next";
+    public static final String ACTION_PREVIOUS = "action_previous";
+    public static final String ACTION_STOP = "action_stop";
+
+
     MediaPlayer player;
     ArrayList<Audio> audios;
     int songPos;
@@ -32,6 +49,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private final IBinder musicBind = new MusicBinder();
     public MusicService() {
     }
+
+
+
+
+
 
     /**
      * Creación del servicio reproductor de musica
@@ -62,11 +84,22 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      */
     public void startForefround(){
         if(!foreground){
-            android.support.v4.app.NotificationCompat.Builder mBuilder =
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(MainActivity.STARTED_FROM, MainActivity.SFROM_MUSIC_NOTIFICATION);
+            notificationIntent.putExtras(bundle);
+            //notificationIntent.putExtra(MainActivity.STARTED_FROM, MainActivity.SFROM_MUSIC_NOTIFICATION);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent contentIntent = PendingIntent.getActivity(this,
+                    0, notificationIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
                             .setSmallIcon(android.support.design.R.drawable.notification_template_icon_bg)
                             .setContentTitle("Espectacle")
-                            .setContentText("Playing...");
+                            .setContentText("Playing...")
+                            .setContentIntent(contentIntent);
             playing = mBuilder.build();
             startForeground(1, playing);
             foreground = true;
@@ -113,7 +146,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-
+        next();
     }
 
     @Override
@@ -154,6 +187,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             if(!player.isPlaying()) playSong();
             startForefround();
         }
+    }
+
+
+    public boolean isPlaying() {
+        return player.isPlaying();
     }
 
 
