@@ -97,6 +97,7 @@ public class AudioListFragment extends BaseListFragment {
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByInterprete);
                 mAdapter.notifyDataSetChanged();
+
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
             case R.id.album_button:
@@ -129,6 +130,7 @@ public class AudioListFragment extends BaseListFragment {
                 break;
             default: Log.d("espectacle", "Yo no he sido");
         }
+        getmListener().setAudio(mAdapter.getDatos());
     }
 
     @Override
