@@ -38,7 +38,9 @@ public class VideoListFragment extends BaseListFragment {
 
         mAdapter = new VideoAdapter();
         mAdapter.setContext(getContext());
-        mAdapter.setDatos(Video.getAllVideos(getContext()));
+        if(Video.getAllVideos(getContext()) != null) {
+            mAdapter.setDatos(Video.getAllVideos(getContext()));
+        }
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Imagen;
@@ -37,6 +38,8 @@ public class ImagePlayerFragment extends Fragment {
             image.setImageBitmap(Imagen.getBitmap(bundle.getString("path")));
         } else {
             image.setImageResource(R.drawable.side_nav_bar);
+            LinearLayout layout = (LinearLayout) this.getActivity().findViewById(R.id.filtros);
+            layout.setVisibility(LinearLayout.GONE);
         }
         return view;
     }

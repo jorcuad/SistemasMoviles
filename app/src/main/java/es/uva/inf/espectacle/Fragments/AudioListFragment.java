@@ -19,6 +19,7 @@ import java.util.List;
 import es.uva.inf.espectacle.Adapters.AudioAdapter;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
 import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.Modelo.Video;
 import es.uva.inf.espectacle.R;
 /**
  * Clase que modela el fragment de la lista de audio
@@ -42,7 +43,9 @@ public class AudioListFragment extends BaseListFragment {
 
         mAdapter = new AudioAdapter(this);
         mAdapter.setContext(getContext());
-        mAdapter.setDatos(Audio.getAllAudios(getContext()));
+        if(Audio.getAllAudios(getContext()) != null) {
+            mAdapter.setDatos(Audio.getAllAudios(getContext()));
+        }
     }
 
     @Override

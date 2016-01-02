@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -46,11 +47,17 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         if (getArguments() != null) {
 
         }else{
-            audioList = new ArrayList<Audio>(Audio.getAllAudios(getContext()));
-            playIntent = new Intent(getActivity(), MusicService.class);
-            getActivity().bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
-            getActivity().startService(playIntent);
-            Log.d("OnCreateFragment:", "Arguments==null");
+            if(Audio.getAllAudios(getContext()) != null) {
+                audioList = new ArrayList<Audio>(Audio.getAllAudios(getContext()));
+                playIntent = new Intent(getActivity(), MusicService.class);
+                getActivity().bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+                getActivity().startService(playIntent);
+                Log.d("OnCreateFragment:", "Arguments==null");
+            }else{
+                Log.e("Audio","No hay audios en el dispositivo");
+                LinearLayout layout = (LinearLayout) this.getActivity().findViewById(R.id.filtros);
+                layout.setVisibility(LinearLayout.GONE);
+            }
         }
     }
 

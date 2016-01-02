@@ -13,6 +13,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -48,9 +49,17 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         if (getArguments() != null) {
 
         }else{
-            videoList = new ArrayList<Video>(Video.getAllVideos(getContext()));
-            path = videoList.get(0).getPath();
-            Log.d("OnCreateFragment:", "Arguments==null");
+            if(Video.getAllVideos(getContext()) != null) {
+                videoList = new ArrayList<Video>(Video.getAllVideos(getContext()));
+                path = videoList.get(0).getPath();
+                Log.d("OnCreateFragment:", "Arguments==null");
+            }else{
+                Log.e("video","No hay vídeos en el dispositivo");
+                videoList = new ArrayList<Video>();
+                path = null;
+                LinearLayout layout = (LinearLayout) this.getActivity().findViewById(R.id.filtros);
+                layout.setVisibility(LinearLayout.GONE);
+            }
         }
     }
 
@@ -77,7 +86,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         bBack = (ImageButton) view.findViewById(R.id.buttonBack);
         bBack.setOnClickListener(this);*/
        // mediaController.show();
-        video.setVideoPath(path);
+        if(path != null){
+            video.setVideoPath(path);
+        }
         return view;
     }
     /**

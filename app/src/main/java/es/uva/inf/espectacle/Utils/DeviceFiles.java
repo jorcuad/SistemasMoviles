@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,29 +33,33 @@ public class DeviceFiles {
                 MediaStore.Audio.Media.ALBUM
         };
 
-        Cursor cursor = context.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                projection,
-                selection,
-                null,
-                MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
+        ArrayList<Audio> audios = null;
+        try{
+            Cursor cursor = context.getContentResolver().query(
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    projection,
+                    selection,
+                    null,
+                    MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        ArrayList<Audio> audios = new ArrayList<Audio>();
+            audios = new ArrayList<Audio>();
 
-        if(cursor == null) { return audios; }
+            if(cursor == null) { return audios; }
 
-        while (cursor.moveToNext()) {
-            audios.add(new Audio(cursor.getLong(0),
-                                 cursor.getString(1),
-                                 cursor.getString(2),
-                                 cursor.getString(3),
-                                 cursor.getString(4),
-                                 cursor.getLong(5),
-                                 cursor.getString(6)));
+            while (cursor.moveToNext()) {
+                audios.add(new Audio(cursor.getLong(0),
+                                     cursor.getString(1),
+                                     cursor.getString(2),
+                                     cursor.getString(3),
+                                     cursor.getString(4),
+                                     cursor.getLong(5),
+                                     cursor.getString(6)));
+            }
+
+            cursor.close();
+        }catch(Exception e){
+            Log.e("Audio", "No hay audios en el dispositivo");
         }
-
-        cursor.close();
-
         return audios;
     }
 
@@ -68,28 +73,32 @@ public class DeviceFiles {
                 MediaStore.Video.Media.RESOLUTION,
                 MediaStore.Video.Media.DURATION
         };
+        ArrayList<Video> videos = null;
 
-        Cursor cursor = context.getContentResolver().query(
-                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                projection,
-                null,
-                null,
-                MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
+        try {
+            Cursor cursor = context.getContentResolver().query(
+                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                    projection,
+                    null,
+                    null,
+                    MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
+            videos = new ArrayList<Video>();
+            if (cursor == null) {
+                return videos;
+            }
 
-        ArrayList<Video> videos = new ArrayList<Video>();
+            while (cursor.moveToNext()) {
+                videos.add(new Video(cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getLong(4)));
+            }
 
-        if(cursor == null) { return videos; }
-
-        while (cursor.moveToNext()) {
-            videos.add(new Video(cursor.getLong(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getLong(4)));
+            cursor.close();
+        }catch(Exception e){
+            Log.e("Video", "No hay videos en el dispositivo");
         }
-
-        cursor.close();
-
         return videos;
     }
 
@@ -105,28 +114,33 @@ public class DeviceFiles {
                 MediaStore.Images.Media.SIZE
         };
 
-        Cursor cursor = context.getContentResolver().query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                projection,
-                null,
-                null,
-                MediaStore.Images.Media.DISPLAY_NAME + " ASC");
+        ArrayList<Imagen> imagenes = null;
 
-        ArrayList<Imagen> imagenes = new ArrayList<Imagen>();
+        try{
+            Cursor cursor = context.getContentResolver().query(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    projection,
+                    null,
+                    null,
+                    MediaStore.Images.Media.DISPLAY_NAME + " ASC");
 
-        if(cursor == null) { return imagenes; }
+            imagenes = new ArrayList<Imagen>();
 
-        while (cursor.moveToNext()) {
-            imagenes.add(new Imagen(cursor.getString(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getLong(4),
-                    cursor.getLong(5)));
+            if(cursor == null) { return imagenes; }
+
+            while (cursor.moveToNext()) {
+                imagenes.add(new Imagen(cursor.getString(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getLong(4),
+                        cursor.getLong(5)));
+            }
+
+            cursor.close();
+        }catch(Exception e){
+            Log.e("Video", "No hay videos en el dispositivo");
         }
-
-        cursor.close();
-
         return imagenes;
     }
 

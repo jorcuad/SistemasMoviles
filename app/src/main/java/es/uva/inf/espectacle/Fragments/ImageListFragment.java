@@ -38,7 +38,11 @@ public class ImageListFragment extends BaseListFragment {
 
         mAdapter = new ImageAdapter(this);
         mAdapter.setContext(getContext());
-        mAdapter.setDatos(Imagen.getAllImagenes(getContext()));
+        if(Imagen.getAllImagenes(getContext()) != null) {
+            mAdapter.setDatos(Imagen.getAllImagenes(getContext()));
+        }else{
+            Log.e("Image","No hay imagenes en su dispositivo");
+        }
     }
 
     @Override
