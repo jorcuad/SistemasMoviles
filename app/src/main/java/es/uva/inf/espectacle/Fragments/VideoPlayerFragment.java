@@ -48,7 +48,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         if (getArguments() != null) {
 
         }else{
-            videoList = new ArrayList<Video>(Video.getAllVideos(getContext()));
+            videoList = new ArrayList<>(Video.getAllVideos(getContext()));
             path = videoList.get(0).getPath();
             Log.d("OnCreateFragment:", "Arguments==null");
         }

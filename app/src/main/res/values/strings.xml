@@ -28,4 +28,5 @@
     <string name="calidad">Calidad</string>
     <string name="nombre">Nombre</string>
     <string name="no_hay_elementos">No hay elementos que mostrar</string>
+    <string name="VRButton">VR</string>
 </resources>

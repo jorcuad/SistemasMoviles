@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SistemasMoviles.iml" filepath="$PROJECT_DIR$/SistemasMoviles.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SistemasMoviles.iml" filepath="$PROJECT_DIR$/SistemasMoviles.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SistemasMoviles.iml" filepath="$PROJECT_DIR$/SistemasMoviles.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rajawali/rajawali.iml" filepath="$PROJECT_DIR$/rajawali/rajawali.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rajawalicardboard/rajawalicardboard.iml" filepath="$PROJECT_DIR$/rajawalicardboard/rajawalicardboard.iml" />
     </modules>
   </component>
 </project>
