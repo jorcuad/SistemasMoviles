@@ -4,6 +4,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import es.uva.inf.espectacle.Fragments.AudioListFragment;
 import es.uva.inf.espectacle.Fragments.AudioPlayerFragment;
 import es.uva.inf.espectacle.Fragments.BaseListFragment;
@@ -22,6 +25,7 @@ import es.uva.inf.espectacle.Fragments.ImagePlayerFragment;
 import es.uva.inf.espectacle.Fragments.VideoListFragment;
 import es.uva.inf.espectacle.Fragments.VideoPlayerFragment;
 import es.uva.inf.espectacle.Interfaces.ComunicationListener;
+import es.uva.inf.espectacle.Modelo.Audio;
 import es.uva.inf.espectacle.Modelo.Imagen;
 
 /**
@@ -30,6 +34,9 @@ import es.uva.inf.espectacle.Modelo.Imagen;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
     ImagePlayerFragment imagen;
     AudioPlayerFragment audioFragment;
+    public static final String STARTED_FROM = "started_from";
+    public static final String SFROM_MUSIC_NOTIFICATION = "started_from_music";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +61,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        procesarIntent();
+    }
+
+    private void procesarIntent() {
+        String sFrom = getIntent().getStringExtra(STARTED_FROM);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            String a = bundle.getString(STARTED_FROM);
+            if(a.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
+        }
+
+
+
     }
 
     @Override
@@ -88,17 +108,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void musicFragment(){
+        getSupportActionBar().setTitle("Música");
+        audioFragment = new AudioPlayerFragment();
+        AudioListFragment fragment = new AudioListFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, audioFragment).commit();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_camara) {
-            getSupportActionBar().setTitle("Música");
-            audioFragment = new AudioPlayerFragment();
-            AudioListFragment fragment = new AudioListFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, audioFragment).commit();
+            musicFragment();
         } else if (id == R.id.nav_gallery) {
             getSupportActionBar().setTitle("Imágenes");
             ImageListFragment fragment = new ImageListFragment();
@@ -133,6 +158,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imagen = new ImagePlayerFragment();
         imagen.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, imagen).commit();
+    }
+
+    @Override
+    public void setAudioPos(int pos) {
+        Log.d("SetAudioPos", " " + pos);
+        audioFragment.setAudioPos(pos);
+
+    }
+
+    @Override
+    public void setAudio(ArrayList<Audio> audio){
+        audioFragment.setPlayList(audio);
     }
 
     @Override
