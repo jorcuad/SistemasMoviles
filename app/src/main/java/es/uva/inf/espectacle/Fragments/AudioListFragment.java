@@ -96,6 +96,10 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByInterprete);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
 
                 Log.d("espectacle", "Pulsado interprete_button");
@@ -111,6 +115,10 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByAlbum);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -125,6 +133,10 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByTitulo);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cancion_button");
                 break;
