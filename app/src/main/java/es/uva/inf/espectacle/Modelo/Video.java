@@ -1,11 +1,11 @@
-package es.uva.inf.espectacle.Modelo;
+package es.uva.inf.espectacle.modelo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
-import es.uva.inf.espectacle.Utils.DeviceFiles;
+import es.uva.inf.espectacle.utils.DeviceFiles;
 
 /**
  * Clase de representacion de un archivo de video

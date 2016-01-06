@@ -13,16 +13,16 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-import es.uva.inf.espectacle.Fragments.AudioListFragment;
-import es.uva.inf.espectacle.Fragments.AudioPlayerFragment;
-import es.uva.inf.espectacle.Fragments.BaseListFragment;
-import es.uva.inf.espectacle.Fragments.ImageListFragment;
-import es.uva.inf.espectacle.Fragments.ImagePlayerFragment;
-import es.uva.inf.espectacle.Fragments.VideoListFragment;
-import es.uva.inf.espectacle.Fragments.VideoPlayerFragment;
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Audio;
-import es.uva.inf.espectacle.Modelo.Imagen;
+import es.uva.inf.espectacle.fragments.AudioListFragment;
+import es.uva.inf.espectacle.fragments.AudioPlayerFragment;
+import es.uva.inf.espectacle.fragments.BaseListFragment;
+import es.uva.inf.espectacle.fragments.ImageListFragment;
+import es.uva.inf.espectacle.fragments.ImagePlayerFragment;
+import es.uva.inf.espectacle.fragments.VideoListFragment;
+import es.uva.inf.espectacle.fragments.VideoPlayerFragment;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Audio;
+import es.uva.inf.espectacle.modelo.Imagen;
 
 /**
  * Modela la actividad principal de la aplicacion

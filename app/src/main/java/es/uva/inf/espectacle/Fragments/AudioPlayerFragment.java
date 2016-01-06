@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -18,10 +18,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
-import es.uva.inf.espectacle.Services.MusicService;
+import es.uva.inf.espectacle.services.MusicService;
 /**
  * Clase que modela el fragment del reproductor de audio
  */

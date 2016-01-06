@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

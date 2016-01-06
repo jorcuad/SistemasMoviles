@@ -1,17 +1,15 @@
-package es.uva.inf.espectacle.Modelo;
+package es.uva.inf.espectacle.modelo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
-import android.view.View;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import es.uva.inf.espectacle.Utils.DeviceFiles;
+import es.uva.inf.espectacle.utils.DeviceFiles;
 
 /**
  * Clase de representacion de un archivo de imagen

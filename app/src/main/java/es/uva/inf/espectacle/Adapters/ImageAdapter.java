@@ -1,8 +1,7 @@
-package es.uva.inf.espectacle.Adapters;
+package es.uva.inf.espectacle.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import es.uva.inf.espectacle.Fragments.ImageListFragment;
-import es.uva.inf.espectacle.Modelo.Audio;
-import es.uva.inf.espectacle.Modelo.Imagen;
+import es.uva.inf.espectacle.fragments.ImageListFragment;
+import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
 
 /**

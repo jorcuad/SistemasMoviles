@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Utils;
+package es.uva.inf.espectacle.utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,11 +6,10 @@ import android.graphics.Bitmap;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import es.uva.inf.espectacle.Modelo.Audio;
-import es.uva.inf.espectacle.Modelo.Imagen;
-import es.uva.inf.espectacle.Modelo.Video;
+import es.uva.inf.espectacle.modelo.Audio;
+import es.uva.inf.espectacle.modelo.Imagen;
+import es.uva.inf.espectacle.modelo.Video;
 
 /**
  * Utils class for retrieve media files from device.

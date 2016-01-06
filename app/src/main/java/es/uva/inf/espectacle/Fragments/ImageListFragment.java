@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,9 +16,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import es.uva.inf.espectacle.Adapters.ImageAdapter;
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Imagen;
+import es.uva.inf.espectacle.adapters.ImageAdapter;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
 /**
  * Clase que modela el fragment de la lista de imagenes

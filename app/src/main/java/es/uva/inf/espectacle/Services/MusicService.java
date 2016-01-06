@@ -1,17 +1,12 @@
-package es.uva.inf.espectacle.Services;
+package es.uva.inf.espectacle.services;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.session.MediaController;
-import android.media.session.MediaSession;
-import android.media.session.MediaSessionManager;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Bundle;
@@ -23,8 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import es.uva.inf.espectacle.MainActivity;
-import es.uva.inf.espectacle.Modelo.Audio;
-import es.uva.inf.espectacle.R;
+import es.uva.inf.espectacle.modelo.Audio;
 
 /**
  * Clase que modela e implementa el servicio de reproducción de música

@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,9 +16,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import es.uva.inf.espectacle.Adapters.AudioAdapter;
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.adapters.AudioAdapter;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
 /**
  * Clase que modela el fragment de la lista de audio

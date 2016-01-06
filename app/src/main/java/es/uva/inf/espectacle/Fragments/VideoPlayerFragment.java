@@ -1,8 +1,7 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,8 +17,8 @@ import android.widget.VideoView;
 
 import java.util.ArrayList;
 
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Video;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Video;
 import es.uva.inf.espectacle.R;
 /**
  * Clase que modela el fragment del reproductor de video

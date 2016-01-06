@@ -1,8 +1,8 @@
-package es.uva.inf.espectacle.Interfaces;
+package es.uva.inf.espectacle.interfaces;
 
 import java.util.ArrayList;
 
-import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.modelo.Audio;
 
 /** Interfaz que comunica la lista con su fragment
  */

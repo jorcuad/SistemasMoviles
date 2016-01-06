@@ -1,7 +1,6 @@
-package es.uva.inf.espectacle.Adapters;
+package es.uva.inf.espectacle.adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import es.uva.inf.espectacle.Modelo.Video;
+import es.uva.inf.espectacle.modelo.Video;
 import es.uva.inf.espectacle.R;
 
 /**
