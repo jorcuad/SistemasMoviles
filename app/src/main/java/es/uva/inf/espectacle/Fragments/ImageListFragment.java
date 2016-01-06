@@ -100,6 +100,10 @@ public class ImageListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByFecha);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
@@ -120,6 +124,10 @@ public class ImageListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTamano);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -134,6 +142,10 @@ public class ImageListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTitulo);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;

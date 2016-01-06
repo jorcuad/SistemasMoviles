@@ -100,6 +100,10 @@ public class VideoListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Video>) mAdapter.getDatos(), OrderByDuracion);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
@@ -114,6 +118,10 @@ public class VideoListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Video>) mAdapter.getDatos(), OrderByCalidad);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -128,6 +136,10 @@ public class VideoListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Video>) mAdapter.getDatos(), OrderByTitulo);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;

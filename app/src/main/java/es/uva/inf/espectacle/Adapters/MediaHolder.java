@@ -46,4 +46,6 @@ public class MediaHolder extends RecyclerView.ViewHolder{
     public void setTitle(TextView title) {
         this.title = title;
     }
+
+
 }
