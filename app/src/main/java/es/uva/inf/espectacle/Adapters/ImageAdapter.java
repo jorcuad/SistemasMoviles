@@ -62,7 +62,7 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
                 setSeleccionado(holder);
                 //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
                 v.findViewById(R.id.item_texts).setBackgroundColor(0xff7280ce);
-                if(anterior != null) {
+                if(( anterior != null) && (anterior != holder)) {
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(0xffffffff);
                 }
                 fragment.getmListener().setMedia(getDatos().get(position));

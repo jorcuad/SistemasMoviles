@@ -58,7 +58,7 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
                 setSeleccionado(holder);
                 //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
                 v.findViewById(R.id.item_texts).setBackgroundColor(0xff7280ce);
-                if(anterior != null) {
+                if(( anterior != null) && (anterior != holder)) {
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(0xffffffff);
                 }
                 Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getTittle());
