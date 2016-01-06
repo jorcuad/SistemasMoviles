@@ -28,19 +28,19 @@ public class StereoscopicPlayer extends RajawaliCardboardRenderer{
     }
 
     @Override
-    protected void initScene(String path, int savePos) {
+    protected void initScene() {
 
         mMediaPlayer = MediaPlayer.create(getContext(),
-                R.raw.video);
+                R.raw.fredy);
         //mMediaPlayer.setLooping(true);
 
-        mVideoTexture = new StreamingTexture(path, mMediaPlayer);
+        mVideoTexture = new StreamingTexture("video", mMediaPlayer);
         Material material = new Material();
-        material.setColorInfluence(0);
+        material.setColorInfluence(0f);
         try {
             material.addTexture(mVideoTexture);
         } catch (ATexture.TextureException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         Sphere sphere = new Sphere(50, 64, 32);
@@ -53,7 +53,7 @@ public class StereoscopicPlayer extends RajawaliCardboardRenderer{
 
         getCurrentCamera().setFieldOfView(75);
 
-        mMediaPlayer.seekTo(savePos);
+        //mMediaPlayer.seekTo(savePos);
 
         mMediaPlayer.start();
 

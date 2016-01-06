@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -37,6 +38,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     private ImageButton bPlay, bNext, bBack;
     private ArrayList<Video> videoList;
     private VideoView video;
+    private Button vrButton;
     private int numVideo = 0;
 
     public VideoPlayerFragment() {
@@ -69,6 +71,8 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setMinimumHeight(height);
         video.setMediaController(mediaController);
         mediaController.setAnchorView(video);
+        vrButton = (Button) view.findViewById(R.id.VRButton);
+        vrButton.setOnClickListener(this);
         /*bPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
         bPlay.setOnClickListener(this);
         bPlay.setImageResource(R.drawable.play_button_selector);
@@ -147,6 +151,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        if(v.getId()==R.id.VRButton){
+            onVrButton();
+        }
         /*if(v.getId()==R.id.buttonPlay){
             onPlayButton();
         }else if(v.getId()==R.id.buttonNext){
@@ -174,6 +181,11 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         numVideo++;
         video.setVideoPath(path);
         video.start();
+    }
+
+    private void onVrButton(){
+        StereoscopicPlayer vrPlayer = new StereoscopicPlayer(getContext());
+        vrPlayer.initScene();
     }
 
 }
