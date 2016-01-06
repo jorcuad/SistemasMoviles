@@ -20,11 +20,11 @@ public class Video {
 
     /**
      * Constructor del objeto Video, con varios datos sobre el archivo que modela
-     * @param id
-     * @param tittle
-     * @param path
-     * @param resolution
-     * @param duration
+     * @param id del contenido multimedia.
+     * @param tittle título de contenido multimedia.
+     * @param path  dentro del dispositivo al contenido multimedia.
+     * @param resolution resolución del contenido multimedia.
+     * @param duration duración del contenido multimedia.
      */
     public Video(Long id, String tittle, String path, String resolution, Long duration){
         this.setId(id);

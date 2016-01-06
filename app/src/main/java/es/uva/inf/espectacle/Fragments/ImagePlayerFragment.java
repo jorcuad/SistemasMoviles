@@ -12,21 +12,14 @@ import android.widget.ImageView;
 import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
+
 /**
  * Clase que modela el fragment del reproductor de imagenes
  */
 public class ImagePlayerFragment extends Fragment {
 
     private ComunicationListener mListener;
-    ImageView image;
-
-    public ImagePlayerFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private ImageView image;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

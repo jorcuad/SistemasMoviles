@@ -21,13 +21,13 @@ public class Audio {
 
     /**
      * Constructor del objeto Audio, con varios datos acerca de la pista modelada
-     * @param id
-     * @param artist
-     * @param tittle
-     * @param path
-     * @param display_name
-     * @param duration
-     * @param album
+     * @param id del audio.
+     * @param artist artista del contenido multimedia.
+     * @param tittle título de contenido multimedia.
+     * @param path  dentro del dispositivo al contenido multimedia.
+     * @param display_name título del contenido legible por el usuario.
+     * @param duration duración del contenido multimedia.
+     * @param album album al que pertenece el contenido multimedia.
      */
     public Audio(Long id, String artist, String tittle, String path, String display_name, Long duration, String album){
         this.setId(id);

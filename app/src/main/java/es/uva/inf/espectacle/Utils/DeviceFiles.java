@@ -38,7 +38,7 @@ public class DeviceFiles {
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        ArrayList<Audio> audios = new ArrayList<Audio>();
+        ArrayList<Audio> audios = new ArrayList<>();
 
         if(cursor == null) { return audios; }
 
@@ -75,7 +75,7 @@ public class DeviceFiles {
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        ArrayList<Video> videos = new ArrayList<Video>();
+        ArrayList<Video> videos = new ArrayList<>();
 
         if(cursor == null) { return videos; }
 
@@ -111,12 +111,12 @@ public class DeviceFiles {
                 null,
                 MediaStore.Images.Media.DISPLAY_NAME + " ASC");
 
-        ArrayList<Imagen> imagenes = new ArrayList<Imagen>();
+        ArrayList<Imagen> imagenes = new ArrayList<>();
 
         if(cursor == null) { return imagenes; }
 
         while (cursor.moveToNext()) {
-            imagenes.add(new Imagen(cursor.getString(0),
+            imagenes.add(new Imagen(
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),

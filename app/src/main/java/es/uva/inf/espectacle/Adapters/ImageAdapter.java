@@ -69,14 +69,6 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
     }
 
     /**
-     * Retorna el contexto de la aplicacion
-     * @return Contexto de la aplicacion
-     */
-    public Context getContext() {
-        return context;
-    }
-
-    /**
      * Establece el contexto de la aplicacion
      * @param context Contexto de la aplicacion
      */

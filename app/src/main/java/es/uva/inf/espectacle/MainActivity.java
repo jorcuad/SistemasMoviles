@@ -28,8 +28,8 @@ import es.uva.inf.espectacle.modelo.Imagen;
  * Modela la actividad principal de la aplicacion
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
-    ImagePlayerFragment imagen;
-    AudioPlayerFragment audioFragment;
+    private ImagePlayerFragment imagen;
+    private AudioPlayerFragment audioFragment;
     public static final String STARTED_FROM = "started_from";
     public static final String SFROM_MUSIC_NOTIFICATION = "started_from_music";
 
@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void procesarIntent() {
-        String sFrom = getIntent().getStringExtra(STARTED_FROM);
+        //String sFrom = getIntent().getStringExtra(STARTED_FROM);
         Bundle bundle = getIntent().getExtras();
-        if(bundle!=null){
-            String a = bundle.getString(STARTED_FROM);
-            if(a.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
+        if(bundle != null){
+            String bund = bundle.getString(STARTED_FROM);
+            if(bund != null && bund.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
         }
 
 
@@ -166,10 +166,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void setAudio(ArrayList<Audio> audio){
         audioFragment.setPlayList(audio);
-    }
-
-    @Override
-    public Object getMedia(int posicion) {
-        return null;
     }
 }

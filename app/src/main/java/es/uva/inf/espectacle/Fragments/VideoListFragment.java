@@ -1,7 +1,5 @@
 package es.uva.inf.espectacle.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,10 +12,9 @@ import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Objects;
 
 import es.uva.inf.espectacle.adapters.VideoAdapter;
-import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Video;
 import es.uva.inf.espectacle.R;
 /**
@@ -25,9 +22,7 @@ import es.uva.inf.espectacle.R;
  */
 public class VideoListFragment extends BaseListFragment {
 
-    private RecyclerView mListView;
     private VideoAdapter mAdapter;
-    private ComunicationListener mListener;
 
     public VideoListFragment() {
     }
@@ -56,7 +51,7 @@ public class VideoListFragment extends BaseListFragment {
         cancion_button.setText(R.string.nombre);
         cancion_button.setOnClickListener(this);
 
-        mListView = (RecyclerView) view.findViewById(android.R.id.list);
+        RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
         if(mAdapter.getDatos().size() > 0 ) {
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -71,16 +66,6 @@ public class VideoListFragment extends BaseListFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof Activity){
-            mListener = (ComunicationListener) context;
-        }
-
-    }
-
-    @Override
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.interprete_button:
@@ -88,18 +73,18 @@ public class VideoListFragment extends BaseListFragment {
                 Comparator<Video> OrderByDuracion = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        Long another =((Video)lhs).getDuration() ;
-                        Long other = ((Video)rhs).getDuration();
+                        Long another =(lhs).getDuration() ;
+                        Long other = (rhs).getDuration();
                         if(another>other){
                             return 1;
-                        }if(another==other){
+                        }if(Objects.equals(another, other)){
                             return 0;
                         }else{
                             return -1;
                         }
                     }
                 };
-                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByDuracion);
+                Collections.sort( mAdapter.getDatos(), OrderByDuracion);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
@@ -108,12 +93,12 @@ public class VideoListFragment extends BaseListFragment {
                 Comparator<Video> OrderByCalidad = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        String another =((Video)lhs).getResolution() ;
-                        String other = ((Video)rhs).getResolution();
+                        String another =(lhs).getResolution() ;
+                        String other = (rhs).getResolution();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByCalidad);
+                Collections.sort( mAdapter.getDatos(), OrderByCalidad);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -122,22 +107,16 @@ public class VideoListFragment extends BaseListFragment {
                 Comparator<Video> OrderByTitulo = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        String another =((Video)lhs).getTittle() ;
-                        String other = ((Video)rhs).getTittle();
+                        String another =(lhs).getTittle() ;
+                        String other = (rhs).getTittle();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByTitulo);
+                Collections.sort( mAdapter.getDatos(), OrderByTitulo);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;
             default: Log.d("espectacle", "Yo no he sido");
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 }

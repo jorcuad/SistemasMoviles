@@ -16,25 +16,21 @@ import es.uva.inf.espectacle.utils.DeviceFiles;
  */
 public class Imagen implements Comparable {
 
-    private String id;
     private String tittle;
     private String path;
     private String display_name;
     private Long dateAdded;
     private Long size;
-    private Double title;
 
     /**
-     * Constructor del objeto Imagen, con varios datos acerca de la imagen modelada
-     * @param id
-     * @param tittle
-     * @param path
-     * @param display_name
-     * @param dateAdded
-     * @param size
+     * Constructor del objeto Imagen, con varios datos acerca de la imagen modelada.
+     * @param tittle título de contenido multimedia.
+     * @param path  dentro del dispositivo al contenido multimedia.
+     * @param display_name título del contenido legible por el usuario.
+     * @param dateAdded fecha en la que se añadió al dispositivo el contenido multimedia.
+     * @param size tamaño del contenido multimedia.
      */
-    public Imagen(String id, String tittle, String path, String display_name, Long dateAdded, Long size){
-        this.setId(id);
+    public Imagen(String tittle, String path, String display_name, Long dateAdded, Long size){
         this.setTittle(tittle);
         this.setPath(path);
         this.setDisplay_name(display_name);
@@ -49,16 +45,6 @@ public class Imagen implements Comparable {
      */
     public static ArrayList<Imagen> getAllImagenes(Context context){
         return DeviceFiles.getAllImagenes(context);
-    }
-
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getTittle() {
-        return tittle;
     }
     public void setTittle(String tittle) {
         this.tittle = tittle;
@@ -111,8 +97,8 @@ public class Imagen implements Comparable {
 
     /**
      * Devuelve el bitmap de la imagen
-     * @param path
-     * @return Bitmap
+     * @param path dirección del contenido multimedia en el dispositivo.
+     * @return Bitmap de la imagen.
      */
     public static Bitmap getBitmap(String path){
         File imgFile = new  File(path);

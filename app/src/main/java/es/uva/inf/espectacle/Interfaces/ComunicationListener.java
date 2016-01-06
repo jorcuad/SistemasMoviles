@@ -10,5 +10,4 @@ public interface ComunicationListener {
     void setMedia(Object media);
     void setAudioPos(int pos);
     void setAudio(ArrayList<Audio> audio);
-    Object getMedia(int posicion);
 }

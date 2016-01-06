@@ -34,20 +34,16 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public static final String ACTION_STOP = "action_stop";
 
 
-    MediaPlayer player;
-    ArrayList<Audio> audios;
-    int songPos;
-    Notification playing;
-    Random r = new Random();
-    boolean foreground = false;
+    private MediaPlayer player;
+    private ArrayList<Audio> audios;
+    private int songPos;
+    private Notification playing;
+    private Random r = new Random();
+    private boolean foreground = false;
     private final IBinder musicBind = new MusicBinder();
+
     public MusicService() {
     }
-
-
-
-
-
 
     /**
      * Creación del servicio reproductor de musica

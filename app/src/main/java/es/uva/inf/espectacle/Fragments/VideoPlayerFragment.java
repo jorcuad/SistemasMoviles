@@ -8,10 +8,8 @@ import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -25,15 +23,10 @@ import es.uva.inf.espectacle.R;
  */
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
 
-    //private OrientationEventListener mOrientationListener;
-    private SurfaceView surfaceView;
-    private DisplayMetrics dm;
-    private MediaController mediaController;
     private boolean pause = false;
     private String path;
     private int savePos = 0;
     private ComunicationListener mListener;
-    private ImageButton bPlay, bNext, bBack;
     private ArrayList<Video> videoList;
     private VideoView video;
     private int numVideo = 0;
@@ -44,10 +37,8 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }else{
-            videoList = new ArrayList<Video>(Video.getAllVideos(getContext()));
+        if (getArguments() == null) {
+            videoList = new ArrayList<>(Video.getAllVideos(getContext()));
             path = videoList.get(0).getPath();
             Log.d("OnCreateFragment:", "Arguments==null");
         }
@@ -58,9 +49,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
-        mediaController = new MediaController(this.getActivity());
+        MediaController mediaController = new MediaController(this.getActivity());
         video = (VideoView) view.findViewById(R.id.surfaceView);
-        dm = new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int height = dm.heightPixels;
         int width = dm.widthPixels;
@@ -68,14 +59,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setMinimumHeight(height);
         video.setMediaController(mediaController);
         mediaController.setAnchorView(video);
-        /*bPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
-        bPlay.setOnClickListener(this);
-        bPlay.setImageResource(R.drawable.play_button_selector);
-        bNext = (ImageButton) view.findViewById(R.id.buttonNext);
-        bNext.setOnClickListener(this);
-        bBack = (ImageButton) view.findViewById(R.id.buttonBack);
-        bBack.setOnClickListener(this);*/
-       // mediaController.show();
+        //mediaController.show();
         video.setVideoPath(path);
         return view;
     }
