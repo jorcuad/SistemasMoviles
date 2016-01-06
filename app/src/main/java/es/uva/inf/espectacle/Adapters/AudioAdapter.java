@@ -1,6 +1,7 @@
 package es.uva.inf.espectacle.Adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,9 +52,9 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         holder.imagen.setImageResource(R.drawable.side_nav_bar);
 
         if(getPos_seleccionado() == holder.getAdapterPosition() ) {
-            holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(0xff7280ce);
+            holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
         } else {
-            holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(0xffffffff);
+            holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -65,9 +66,9 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
                 setPos_seleccionado(holder.getAdapterPosition());
                 setSeleccionado(holder);
                 //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
-                v.findViewById(R.id.item_texts).setBackgroundColor(0xff7280ce);
+                v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
                 if(( anterior != null) && (anterior != holder)) {
-                    anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(0xffffffff);
+                    anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
                 }
                 //TODO Rober ya puedes reproducir el item con la posicion
                 Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getDisplay_name()+ " pos: "+ position);

@@ -2,6 +2,7 @@ package es.uva.inf.espectacle.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,9 +43,9 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
         holder.imagen.setImageBitmap(Video.getThumbnail(getContext(), getDatos().get(position).getId())); //TODO refactor, obtenerlas de carpeta de app.
 
         if(getPos_seleccionado() == holder.getAdapterPosition() ) {
-            holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(0xff7280ce);
+            holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
         } else {
-            holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(0xffffffff);
+            holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
         }
         
         holder.itemView.setOnClickListener(new OnClickListener() {
@@ -57,9 +58,9 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
                 setPos_seleccionado(holder.getAdapterPosition());
                 setSeleccionado(holder);
                 //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
-                v.findViewById(R.id.item_texts).setBackgroundColor(0xff7280ce);
+                v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
                 if(( anterior != null) && (anterior != holder)) {
-                    anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(0xffffffff);
+                    anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
                 }
                 Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getTittle());
             }

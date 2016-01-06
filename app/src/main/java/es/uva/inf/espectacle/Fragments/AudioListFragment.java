@@ -3,6 +3,7 @@ package es.uva.inf.espectacle.Fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,12 +51,16 @@ public class AudioListFragment extends BaseListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
-        Button interprete_button = (Button) view.findViewById(R.id.interprete_button);
+        Button interprete_button = (Button) view.findViewById(R.id.filtro1);
+
         interprete_button.setOnClickListener(this);
-        Button album_button = (Button) view.findViewById(R.id.album_button);
+        interprete_button.setText(R.string.interprete);
+        Button album_button = (Button) view.findViewById(R.id.filtro2);
         album_button.setOnClickListener(this);
-        Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
+        album_button.setText(R.string.album);
+        Button cancion_button = (Button) view.findViewById(R.id.filtro3);
         cancion_button.setOnClickListener(this);
+        cancion_button.setText(R.string.cancion);
 
         mListView = (RecyclerView) view.findViewById(android.R.id.list);
         if(mAdapter.getDatos().size() > 0 ) {
@@ -85,7 +90,7 @@ public class AudioListFragment extends BaseListFragment {
     @Override
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.interprete_button:
+            case R.id.filtro1:
                 //Ordenar por itnérprete
                 Comparator<Audio> OrderByInterprete = new Comparator<Audio>() {
                     @Override
@@ -97,6 +102,10 @@ public class AudioListFragment extends BaseListFragment {
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByInterprete);
 
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro2).setActivated(false);
+                getActivity().findViewById(R.id.filtro3).setActivated(false);
+
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
 
@@ -104,7 +113,7 @@ public class AudioListFragment extends BaseListFragment {
 
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
-            case R.id.album_button:
+            case R.id.filtro2:
                 //Ordenar por album
                 Comparator<Audio> OrderByAlbum = new Comparator<Audio>() {
                     @Override
@@ -116,13 +125,17 @@ public class AudioListFragment extends BaseListFragment {
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByAlbum);
 
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro1).setActivated(false);
+                getActivity().findViewById(R.id.filtro3).setActivated(false);
+
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
 
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
-            case R.id.cancion_button:
+            case R.id.filtro3:
                 //Ordenar por cancion
                 Comparator<Audio> OrderByTitulo = new Comparator<Audio>() {
                     @Override
@@ -133,6 +146,10 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
                 Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByTitulo);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro1).setActivated(false);
+                getActivity().findViewById(R.id.filtro2).setActivated(false);
 
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);

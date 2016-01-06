@@ -28,4 +28,7 @@
     <string name="calidad">Calidad</string>
     <string name="nombre">Nombre</string>
     <string name="no_hay_elementos">No hay elementos que mostrar</string>
+    <string name="filtro1">Filtro1</string>
+    <string name="filtro2">Filtro2</string>
+    <string name="filtro3">Filtro3</string>
 </resources>
