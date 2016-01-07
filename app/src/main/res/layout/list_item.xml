@@ -8,7 +8,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff">
+        android:background="@color/backgroundLight">
 
         <ImageView
             android:layout_width="120dp"
@@ -21,14 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="1dp"
-            android:background="#BDBDBD">
+            android:background="@color/backgroundLight">
 
             <LinearLayout
+                android:id="@+id/item_texts"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffffff"
-                android:paddingLeft="10dp"
+                android:background="@color/backgroundLight"
+                android:paddingLeft="10dp">
                 android:paddingRight="0dp">
 
                 <TextView

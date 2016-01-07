@@ -3,6 +3,7 @@ package es.uva.inf.espectacle.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,15 +46,15 @@ public class ImageListFragment extends BaseListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
-        Button interprete_button = (Button) view.findViewById(R.id.interprete_button);
-        interprete_button.setText(R.string.fecha);
-        interprete_button.setOnClickListener(this);
-        Button album_button = (Button) view.findViewById(R.id.album_button);
-        album_button.setText(R.string.tamano);
-        album_button.setOnClickListener(this);
-        Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
-        cancion_button.setText(R.string.definicion);
-        cancion_button.setOnClickListener(this);
+        Button fecha_button = (Button) view.findViewById(R.id.filtro1);
+        fecha_button.setText(R.string.fecha);
+        fecha_button.setOnClickListener(this);
+        Button tamano_button = (Button) view.findViewById(R.id.filtro2);
+        tamano_button.setText(R.string.tamano);
+        tamano_button.setOnClickListener(this);
+        Button definicion_button = (Button) view.findViewById(R.id.filtro3);
+        definicion_button.setText(R.string.definicion);
+        definicion_button.setOnClickListener(this);
 
         RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
         if(mAdapter.getDatos().size() > 0 ) {
@@ -82,7 +83,7 @@ public class ImageListFragment extends BaseListFragment {
     @Override
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.interprete_button:
+            case R.id.filtro1:
                 //Ordenar por fecha
                 Comparator<Imagen> OrderByFecha = new Comparator<Imagen>() {
                     @Override
@@ -98,11 +99,19 @@ public class ImageListFragment extends BaseListFragment {
                         }
                     }
                 };
+
                 Collections.sort( mAdapter.getDatos(), OrderByFecha);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro2).setActivated(false);
+                getActivity().findViewById(R.id.filtro3).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
-            case R.id.album_button:
+            case R.id.filtro2:
                 //Ordenar por tamano
                 Comparator<Imagen> OrderByTamano = new Comparator<Imagen>() {
                     @Override
@@ -118,11 +127,19 @@ public class ImageListFragment extends BaseListFragment {
                         }
                     }
                 };
+
                 Collections.sort( mAdapter.getDatos(), OrderByTamano);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro1).setActivated(false);
+                getActivity().findViewById(R.id.filtro3).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
-            case R.id.cancion_button:
+            case R.id.filtro3:
                 //Ordenar por nombre
                 Comparator<Imagen> OrderByTitulo = new Comparator<Imagen>() {
                     @Override
@@ -132,7 +149,15 @@ public class ImageListFragment extends BaseListFragment {
                         return another.compareTo(other);
                     }
                 };
+
                 Collections.sort( mAdapter.getDatos(), OrderByTitulo);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro1).setActivated(false);
+                getActivity().findViewById(R.id.filtro2).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;

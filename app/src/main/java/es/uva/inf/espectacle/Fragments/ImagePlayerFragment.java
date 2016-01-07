@@ -29,7 +29,7 @@ public class ImagePlayerFragment extends Fragment {
             Bundle bundle = this.getArguments();
             image.setImageBitmap(Imagen.getBitmap(bundle.getString("path")));
         } else {
-            image.setImageResource(R.drawable.side_nav_bar);
+            //image.setImageResource(R.drawable.side_nav_bar);
         }
         return view;
     }

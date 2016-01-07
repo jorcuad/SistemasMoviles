@@ -13,32 +13,38 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
             android:layout_height="50dp"
-            android:background="#44487e"
             android:elevation="10dp">
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/interprete"
-                android:id="@+id/interprete_button"
+                android:text="@string/filtro1"
+                android:textColor="@color/backgroundLight"
+                android:id="@+id/filtro1"
                 android:layout_weight="1"
+                android:background="@drawable/background_selector"
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/album"
-                android:id="@+id/album_button"
+                android:text="@+id/filtro2"
+                android:textColor="@color/backgroundLight"
+                android:id="@+id/filtro2"
                 android:layout_weight="1"
+                android:background="@drawable/background_selector"
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/cancion"
-                android:id="@+id/cancion_button"
+                android:text="@+id/filtro3"
+                android:textColor="@color/backgroundLight"
+                android:id="@+id/filtro3"
                 android:layout_weight="1"
+                android:background="@drawable/background_selector"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 

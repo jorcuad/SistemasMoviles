@@ -41,15 +41,15 @@ public class VideoListFragment extends BaseListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
-        Button interprete_button = (Button) view.findViewById(R.id.interprete_button);
-        interprete_button.setOnClickListener(this);
-        interprete_button.setText(R.string.duracion);
-        Button album_button = (Button) view.findViewById(R.id.album_button);
-        album_button.setOnClickListener(this);
-        album_button.setText(R.string.calidad);
-        Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
-        cancion_button.setText(R.string.nombre);
-        cancion_button.setOnClickListener(this);
+        Button duracion_button = (Button) view.findViewById(R.id.filtro1);
+        duracion_button.setOnClickListener(this);
+        duracion_button.setText(R.string.duracion);
+        Button calidad_button = (Button) view.findViewById(R.id.filtro2);
+        calidad_button.setOnClickListener(this);
+        calidad_button.setText(R.string.calidad);
+        Button nombre_button = (Button) view.findViewById(R.id.filtro3);
+        nombre_button.setText(R.string.nombre);
+        nombre_button.setOnClickListener(this);
 
         RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
         if(mAdapter.getDatos().size() > 0 ) {
@@ -68,7 +68,7 @@ public class VideoListFragment extends BaseListFragment {
     @Override
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.interprete_button:
+            case R.id.filtro1:
                 //Ordenar por duracion
                 Comparator<Video> OrderByDuracion = new Comparator<Video>() {
                     @Override
@@ -84,11 +84,19 @@ public class VideoListFragment extends BaseListFragment {
                         }
                     }
                 };
+
                 Collections.sort( mAdapter.getDatos(), OrderByDuracion);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro2).setActivated(false);
+                getActivity().findViewById(R.id.filtro3).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
-            case R.id.album_button:
+            case R.id.filtro2:
                 //Ordenar por calidad
                 Comparator<Video> OrderByCalidad = new Comparator<Video>() {
                     @Override
@@ -98,11 +106,19 @@ public class VideoListFragment extends BaseListFragment {
                         return another.compareTo(other);
                     }
                 };
+
                 Collections.sort( mAdapter.getDatos(), OrderByCalidad);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro1).setActivated(false);
+                getActivity().findViewById(R.id.filtro3).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
-            case R.id.cancion_button:
+            case R.id.filtro3:
                 //Ordenar por nombre
                 Comparator<Video> OrderByTitulo = new Comparator<Video>() {
                     @Override
@@ -112,7 +128,15 @@ public class VideoListFragment extends BaseListFragment {
                         return another.compareTo(other);
                     }
                 };
+
                 Collections.sort( mAdapter.getDatos(), OrderByTitulo);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro1).setActivated(false);
+                getActivity().findViewById(R.id.filtro2).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;
