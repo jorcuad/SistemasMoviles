@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.Utils;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -16,13 +16,13 @@ import es.uva.inf.espectacle.R;
 /**
  * Created by Rober on 01/01/2016.
  */
-public class StereoscopicPlayer extends RajawaliCardboardRenderer{
+public class StereoscopicRenderer extends RajawaliCardboardRenderer{
     Context mContext;
 
     private MediaPlayer mMediaPlayer;
     private StreamingTexture mVideoTexture;
 
-    public StereoscopicPlayer(Context context) {
+    public StereoscopicRenderer(Context context) {
         super(context);
         mContext = context;
     }
