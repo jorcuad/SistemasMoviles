@@ -2,11 +2,11 @@ package org.rajawali3d.animation;
 
 public abstract class Playable implements IPlayable {
 
-	protected static enum State {
+	protected enum State {
 		// @formatter:off
 		PLAYING
 		, PAUSED
-		, ENDED;
+		, ENDED
 		// @formatter:on
 	}
 

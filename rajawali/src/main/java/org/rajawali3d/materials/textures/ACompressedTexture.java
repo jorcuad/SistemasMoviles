@@ -35,7 +35,7 @@ public abstract class ACompressedTexture extends ATexture {
 		ATC,
 		DXT1,
 		PVRTC
-	};
+	}
 
 	/**
 	 * Texture compression type

@@ -55,7 +55,7 @@ public class LoaderGCode extends AMeshLoader {
 
 		private int val;
 
-		private GCodeFlavor(int val) {
+		GCodeFlavor(int val) {
 			this.val = val;
 		}
 
@@ -97,7 +97,7 @@ public class LoaderGCode extends AMeshLoader {
 
 		private int val;
 
-		private SupportedCommands(int val) {
+		SupportedCommands(int val) {
 			this.val = val;
 		}
 

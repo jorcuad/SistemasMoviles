@@ -27,7 +27,7 @@ public class PvrtcTexture extends ACompressedTexture {
 		RGB_4BPP,
 		RGBA_2BPP,
 		RGBA_4BPP
-	};
+	}
 
 	/**
 	 * PVRCT Texture Compression format. See {@link PvrtcFormat}.

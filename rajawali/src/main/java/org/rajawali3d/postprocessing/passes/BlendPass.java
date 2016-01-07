@@ -19,10 +19,10 @@ import org.rajawali3d.materials.textures.ATexture;
 public class BlendPass extends EffectPass {
 	protected ATexture mBlendTexture;
 	
-	public static enum BlendMode {
+	public enum BlendMode {
 		ADD, SCREEN
-	};
-	
+	}
+
 	public BlendPass(BlendMode blendMode, ATexture blendTexture) {
 		super();
 		createMaterial(R.raw.minimal_vertex_shader, getFragmentShader(blendMode));

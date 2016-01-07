@@ -15,7 +15,7 @@ public class BlockPrimitiveGeometry extends ABaseObjectBlockParser {
 
 	enum PrimitiveType {
 		// These are in order of the specification [1-7] as of 07/09/2013 specification
-		PLANE, CUBE, SPHERE, CYLINDER, CONE, CAPSULE, TORUS;
+		PLANE, CUBE, SPHERE, CYLINDER, CONE, CAPSULE, TORUS
 	}
 
 	protected Object3D mBaseObject;

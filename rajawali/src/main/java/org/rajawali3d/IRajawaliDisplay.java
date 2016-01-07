@@ -19,7 +19,7 @@ public interface IRajawaliDisplay {
      *
      * @return {@link IRajawaliSurfaceRenderer} The renderer which will be assigned to the {@link GLSurfaceView} in this display, or null.
      */
-    public IRajawaliSurfaceRenderer createRenderer();
+    IRajawaliSurfaceRenderer createRenderer();
 
     /**
      * Retrieves the layout resource ID to inflate when creating the display's view. If you handle creating the view
@@ -28,5 +28,5 @@ public interface IRajawaliDisplay {
      *
      * @return {@code int} The layout resource ID to use.
      */
-    public int getLayoutID();
+    int getLayoutID();
 }

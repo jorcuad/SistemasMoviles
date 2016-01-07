@@ -25,7 +25,7 @@ public class ThreeDcTexture extends ACompressedTexture {
 	public enum ThreeDcFormat {
 		X,
 		XY
-	};
+	}
 
 	/**
 	 * 3DC Texture Compression format. See {@link ThreeDcFormat}.

@@ -18,8 +18,8 @@ public class BlurPass extends EffectPass {
 	public enum Direction {
 		HORIZONTAL,
 		VERTICAL
-	};
-	
+	}
+
 	protected Direction mBlurDirection;
 	protected float[] mDirection;
 	protected float mRadius;

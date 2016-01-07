@@ -16,7 +16,7 @@ import android.opengl.GLES20;
 
 public class RenderTargetTexture extends ATexture {
 
-	public static enum RenderTargetTextureFormat
+	public enum RenderTargetTextureFormat
 	{
 		RGBA(GLES20.GL_RGBA), RGB(GLES20.GL_RGB), DEPTH(GLES20.GL_DEPTH_COMPONENT), DEPTH16(GLES20.GL_DEPTH_COMPONENT16);
 
@@ -30,9 +30,9 @@ public class RenderTargetTexture extends ATexture {
 		public int getFormat() {
 			return mFormat;
 		}
-	};
-	
-	public static enum RenderTargetTextureType
+	}
+
+	public enum RenderTargetTextureType
 	{
 		UNSIGNED_BYTE(GLES20.GL_UNSIGNED_BYTE), BYTE(GLES20.GL_BYTE), UNSIGNED_SHORT(GLES20.GL_UNSIGNED_SHORT), 
 		SHORT(GLES20.GL_SHORT), UNSIGNED_INT(GLES20.GL_UNSIGNED_INT), INT(GLES20.GL_INT), FLOAT(GLES20.GL_FLOAT);	

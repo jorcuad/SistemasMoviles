@@ -255,7 +255,7 @@ public class LoaderAWD extends AMeshLoader {
                         RajLog.d(blockHeader.toString());
 
                     // Look for the Block Parser class.
-                    final Class<? extends ABlockParser> blockClass = (Class<? extends ABlockParser>) blockParserClassesMap
+                    final Class<? extends ABlockParser> blockClass = blockParserClassesMap
                             .get(getClassID(
                                     blockHeader.namespace, blockHeader.type));
 

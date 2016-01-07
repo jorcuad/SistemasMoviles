@@ -1149,14 +1149,11 @@ public final class Matrix4 {
 	 */
 	public boolean equals(final Matrix4 m2) {
 		m2.toArray(mTmp);
-        if ( 
-            m[0] != mTmp[0] || m[1] != mTmp[1] || m[2] != mTmp[2] || m[3] != mTmp[3] ||
-            m[4] != mTmp[4] || m[5] != mTmp[5] || m[6] != mTmp[6] || m[7] != mTmp[7] ||
-            m[8] != mTmp[8] || m[9] != mTmp[9] || m[10] != mTmp[10] || m[11] != mTmp[11] ||
-            m[12] != mTmp[12] || m[13] != mTmp[13] || m[14] != mTmp[14] || m[15] != mTmp[15] )
-            return false;
-        return true;
-    }
+		return !(m[0] != mTmp[0] || m[1] != mTmp[1] || m[2] != mTmp[2] || m[3] != mTmp[3] ||
+				m[4] != mTmp[4] || m[5] != mTmp[5] || m[6] != mTmp[6] || m[7] != mTmp[7] ||
+				m[8] != mTmp[8] || m[9] != mTmp[9] || m[10] != mTmp[10] || m[11] != mTmp[11] ||
+				m[12] != mTmp[12] || m[13] != mTmp[13] || m[14] != mTmp[14] || m[15] != mTmp[15]);
+	}
 	
 	/*
 	 * (non-Javadoc)

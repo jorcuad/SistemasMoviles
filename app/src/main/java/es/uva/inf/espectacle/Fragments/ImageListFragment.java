@@ -88,8 +88,8 @@ public class ImageListFragment extends BaseListFragment {
                 Comparator<Imagen> OrderByFecha = new Comparator<Imagen>() {
                     @Override
                     public int compare(Imagen lhs, Imagen rhs) {
-                        Long another = ((Imagen) lhs).getDateLong();
-                        Long other = ((Imagen) rhs).getDateLong();
+                        Long another = lhs.getDateLong();
+                        Long other = rhs.getDateLong();
                         if(another>other){
                             return 1;
                         }if(another==other){
@@ -99,7 +99,7 @@ public class ImageListFragment extends BaseListFragment {
                         }
                     }
                 };
-                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByFecha);
+                Collections.sort(mAdapter.getDatos(), OrderByFecha);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
@@ -108,8 +108,8 @@ public class ImageListFragment extends BaseListFragment {
                 Comparator<Imagen> OrderByTamano = new Comparator<Imagen>() {
                     @Override
                     public int compare(Imagen lhs, Imagen rhs) {
-                        Long another =((Imagen)lhs).getSize() ;
-                        Long other = ((Imagen)rhs).getSize();
+                        Long another = lhs.getSize() ;
+                        Long other = rhs.getSize();
                         if(another>other){
                             return 1;
                         }if(another==other){
@@ -119,7 +119,7 @@ public class ImageListFragment extends BaseListFragment {
                         }
                     }
                 };
-                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTamano);
+                Collections.sort(mAdapter.getDatos(), OrderByTamano);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -128,12 +128,12 @@ public class ImageListFragment extends BaseListFragment {
                 Comparator<Imagen> OrderByTitulo = new Comparator<Imagen>() {
                     @Override
                     public int compare(Imagen lhs, Imagen rhs) {
-                        String another =((Imagen)lhs).getTitle() ;
-                        String other = ((Imagen)rhs).getTitle();
+                        String another = lhs.getTitle() ;
+                        String other = rhs.getTitle();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTitulo);
+                Collections.sort(mAdapter.getDatos(), OrderByTitulo);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;
