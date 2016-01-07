@@ -1,9 +1,8 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,18 +14,16 @@ import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
-import es.uva.inf.espectacle.Adapters.AudioAdapter;
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.adapters.AudioAdapter;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
 /**
  * Clase que modela el fragment de la lista de audio
  */
 public class AudioListFragment extends BaseListFragment {
 
-    private RecyclerView mListView;
     private AudioAdapter mAdapter;
     private ComunicationListener mListener;
 
@@ -62,7 +59,7 @@ public class AudioListFragment extends BaseListFragment {
         cancion_button.setOnClickListener(this);
         cancion_button.setText(R.string.cancion);
 
-        mListView = (RecyclerView) view.findViewById(android.R.id.list);
+        RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
         if(mAdapter.getDatos().size() > 0 ) {
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -95,12 +92,13 @@ public class AudioListFragment extends BaseListFragment {
                 Comparator<Audio> OrderByInterprete = new Comparator<Audio>() {
                     @Override
                     public int compare(Audio lhs, Audio rhs) {
-                        String another =((Audio)lhs).getArtist() ;
-                        String other = ((Audio)rhs).getArtist();
+                        String another =(lhs).getArtist() ;
+                        String other = (rhs).getArtist();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByInterprete);
+
+                Collections.sort( mAdapter.getDatos(), OrderByInterprete);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
@@ -108,7 +106,6 @@ public class AudioListFragment extends BaseListFragment {
 
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
-
                 mAdapter.notifyDataSetChanged();
 
                 Log.d("espectacle", "Pulsado interprete_button");
@@ -118,20 +115,19 @@ public class AudioListFragment extends BaseListFragment {
                 Comparator<Audio> OrderByAlbum = new Comparator<Audio>() {
                     @Override
                     public int compare(Audio lhs, Audio rhs) {
-                        String another =((Audio)lhs).getAlbum() ;
-                        String other = ((Audio)rhs).getAlbum();
+                        String another =(lhs).getAlbum() ;
+                        String other = (rhs).getAlbum();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByAlbum);
 
+                Collections.sort( mAdapter.getDatos(), OrderByAlbum);
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
                 getActivity().findViewById(R.id.filtro3).setActivated(false);
 
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
-
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -140,20 +136,19 @@ public class AudioListFragment extends BaseListFragment {
                 Comparator<Audio> OrderByTitulo = new Comparator<Audio>() {
                     @Override
                     public int compare(Audio lhs, Audio rhs) {
-                        String another =((Audio)lhs).getTittle() ;
-                        String other = ((Audio)rhs).getTittle();
+                        String another =(lhs).getTittle() ;
+                        String other = (rhs).getTittle();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Audio>) mAdapter.getDatos(), OrderByTitulo);
 
+                Collections.sort( mAdapter.getDatos(), OrderByTitulo);
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
 
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
-
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cancion_button");
                 break;

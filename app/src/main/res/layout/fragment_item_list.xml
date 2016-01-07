@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="es.uva.inf.espectacle.Fragments.BaseListFragment"
+    tools:context="es.uva.inf.espectacle.fragments.BaseListFragment"
     android:id="@+id/mediaList">
 
     <LinearLayout
@@ -13,9 +13,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:background="@color/colorPrimary"
-            android:layout_weight="5"
+            android:layout_height="50dp"
             android:elevation="10dp">
 
             <Button
@@ -52,8 +51,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@android:id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

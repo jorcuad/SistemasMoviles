@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,18 +15,17 @@ import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Objects;
 
-import es.uva.inf.espectacle.Adapters.ImageAdapter;
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Imagen;
+import es.uva.inf.espectacle.adapters.ImageAdapter;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
 /**
  * Clase que modela el fragment de la lista de imagenes
  */
 public class ImageListFragment extends BaseListFragment {
 
-    private RecyclerView mListView;
     private ImageAdapter mAdapter;
     private ComunicationListener mListener;
 
@@ -57,7 +56,7 @@ public class ImageListFragment extends BaseListFragment {
         definicion_button.setText(R.string.definicion);
         definicion_button.setOnClickListener(this);
 
-        mListView = (RecyclerView) view.findViewById(android.R.id.list);
+        RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
         if(mAdapter.getDatos().size() > 0 ) {
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -89,18 +88,19 @@ public class ImageListFragment extends BaseListFragment {
                 Comparator<Imagen> OrderByFecha = new Comparator<Imagen>() {
                     @Override
                     public int compare(Imagen lhs, Imagen rhs) {
-                        Long another = ((Imagen) lhs).getDateLong();
-                        Long other = ((Imagen) rhs).getDateLong();
+                        Long another = (lhs).getDateLong();
+                        Long other = (rhs).getDateLong();
                         if(another>other){
                             return 1;
-                        }if(another==other){
+                        }if(Objects.equals(another, other)){
                             return 0;
                         }else{
                             return -1;
                         }
                     }
                 };
-                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByFecha);
+
+                Collections.sort( mAdapter.getDatos(), OrderByFecha);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
@@ -108,7 +108,6 @@ public class ImageListFragment extends BaseListFragment {
 
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
-
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
@@ -117,18 +116,19 @@ public class ImageListFragment extends BaseListFragment {
                 Comparator<Imagen> OrderByTamano = new Comparator<Imagen>() {
                     @Override
                     public int compare(Imagen lhs, Imagen rhs) {
-                        Long another =((Imagen)lhs).getSize() ;
-                        Long other = ((Imagen)rhs).getSize();
+                        Long another =(lhs).getSize() ;
+                        Long other = (rhs).getSize();
                         if(another>other){
                             return 1;
-                        }if(another==other){
+                        }if(Objects.equals(another, other)){
                             return 0;
                         }else{
                             return -1;
                         }
                     }
                 };
-                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTamano);
+
+                Collections.sort( mAdapter.getDatos(), OrderByTamano);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
@@ -136,7 +136,6 @@ public class ImageListFragment extends BaseListFragment {
 
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
-
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -145,12 +144,13 @@ public class ImageListFragment extends BaseListFragment {
                 Comparator<Imagen> OrderByTitulo = new Comparator<Imagen>() {
                     @Override
                     public int compare(Imagen lhs, Imagen rhs) {
-                        String another =((Imagen)lhs).getTitle() ;
-                        String other = ((Imagen)rhs).getTitle();
+                        String another =(lhs).getTitle() ;
+                        String other = (rhs).getTitle();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Imagen>) mAdapter.getDatos(), OrderByTitulo);
+
+                Collections.sort( mAdapter.getDatos(), OrderByTitulo);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
@@ -158,7 +158,6 @@ public class ImageListFragment extends BaseListFragment {
 
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
-
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;

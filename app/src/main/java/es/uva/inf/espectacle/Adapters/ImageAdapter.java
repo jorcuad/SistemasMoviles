@@ -1,10 +1,9 @@
-package es.uva.inf.espectacle.Adapters;
+package es.uva.inf.espectacle.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,8 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import es.uva.inf.espectacle.Fragments.ImageListFragment;
-import es.uva.inf.espectacle.Modelo.Audio;
-import es.uva.inf.espectacle.Modelo.Imagen;
+import es.uva.inf.espectacle.fragments.ImageListFragment;
+import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
 
 /**
@@ -105,14 +103,6 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
     public void setDatos(ArrayList<Imagen> datos) {
         this.datos = datos;
         this.notifyDataSetChanged();
-    }
-
-    /**
-     * Retorna el contexto de la aplicacion
-     * @return Contexto de la aplicacion
-     */
-    public Context getContext() {
-        return context;
     }
 
     /**

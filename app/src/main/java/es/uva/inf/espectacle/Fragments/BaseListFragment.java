@@ -1,6 +1,5 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +13,6 @@ import es.uva.inf.espectacle.R;
  * Clase que modela el fragment de la lista base, de la que heredan las listas especificas para audio, video e imagen
  */
 public class BaseListFragment extends Fragment implements OnClickListener {
-
-    public BaseListFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,16 +28,7 @@ public class BaseListFragment extends Fragment implements OnClickListener {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
+    public void onClick(View v) {
 
-    @Override
-    public void onClick(View v){
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 }
