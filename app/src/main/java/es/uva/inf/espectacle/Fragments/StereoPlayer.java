@@ -1,6 +1,7 @@
 package es.uva.inf.espectacle.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.vrtoolkit.cardboard.CardboardActivity;
 
@@ -25,6 +26,7 @@ public class StereoPlayer extends CardboardActivity {
         RajawaliCardboardRenderer renderer = new StereoscopicRenderer(this); // your renderer
         view.setRenderer(renderer);        // required for CardboardView
         view.setSurfaceRenderer(renderer); // required for RajawaliSurfaceView
+        Log.d("AAAAAH","AAAAH");
     }
 
 }

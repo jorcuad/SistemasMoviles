@@ -2,6 +2,7 @@ package es.uva.inf.espectacle.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -188,7 +189,10 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     }
 
     private void onVrButton(){
+        System.out.println("sdlakjfalsdkjflñaskdjgñalsdkgjañsldkgjañsdgasdgasdg");
         StereoPlayer vrPlayer = new StereoPlayer();
+        Intent intent = new Intent(this.getContext(), StereoPlayer.class);
+        startActivity(intent);
     }
 
 }
