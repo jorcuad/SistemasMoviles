@@ -43,12 +43,20 @@ public class StereoscopicRenderer extends RajawaliCardboardRenderer{
     @Override
     protected void initScene() {
 
-        /*
+
         mMediaPlayer = MediaPlayer.create(getContext(),
                 R.raw.fredy);
-        //mMediaPlayer.setLooping(true);
+        mMediaPlayer.setLooping(true);
 
         mVideoTexture = new StreamingTexture("video", mMediaPlayer);
+        mMediaPlayer.prepareAsync();    //prepare the player (asynchronous)
+        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.start(); //start the player only when it is prepared
+            }
+        });
+
         Material material = new Material();
         material.setColorInfluence(0);
         try {
@@ -70,8 +78,8 @@ public class StereoscopicRenderer extends RajawaliCardboardRenderer{
         //mMediaPlayer.seekTo(savePos);
 
         mMediaPlayer.start();
-        */
-        PointLight pointLight = new PointLight();
+
+        /*PointLight pointLight = new PointLight();
         pointLight.setPower(1);
         pointLight.setPosition(-1, 1, 4);
 
@@ -137,7 +145,7 @@ public class StereoscopicRenderer extends RajawaliCardboardRenderer{
         getCurrentScene().registerAnimation(camAnim);
         camAnim.play();
 
-        mMediaPlayer.start();
+        mMediaPlayer.start();*/
 
     }
 

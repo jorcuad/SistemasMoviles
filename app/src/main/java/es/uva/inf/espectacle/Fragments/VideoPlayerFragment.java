@@ -190,7 +190,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
 
     private void onVrButton(){
         System.out.println("sdlakjfalsdkjflñaskdjgñalsdkgjañsldkgjañsdgasdgasdg");
-        StereoPlayer vrPlayer = new StereoPlayer();
+        //StereoPlayer vrPlayer = new StereoPlayer();
         Intent intent = new Intent(this.getContext(), StereoPlayer.class);
         startActivity(intent);
     }
