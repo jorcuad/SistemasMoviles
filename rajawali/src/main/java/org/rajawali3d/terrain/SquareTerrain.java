@@ -588,8 +588,10 @@ public class SquareTerrain extends Terrain {
 		if ((c.x - a.x) * as_y - (c.z - a.z) * as_x > 0 == s_ab)
 			return false;
 
-		return (c.x - b.x) * (s.z - b.z) - (c.z - b.z) * (s.x - b.x) > 0 == s_ab;
+		if ((c.x - b.x) * (s.z - b.z) - (c.z - b.z) * (s.x - b.x) > 0 != s_ab)
+			return false;
 
+		return true;
 	}
 
 	/**

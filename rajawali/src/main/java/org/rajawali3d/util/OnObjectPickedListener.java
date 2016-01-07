@@ -14,5 +14,5 @@ package org.rajawali3d.util;
 import org.rajawali3d.Object3D;
 
 public interface OnObjectPickedListener {
-	void onObjectPicked(Object3D object);
+	public void onObjectPicked(Object3D object);
 }

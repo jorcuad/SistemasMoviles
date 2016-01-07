@@ -14,11 +14,11 @@ package org.rajawali3d.animation;
 
 public interface IAnimationListener {
 
-	void onAnimationEnd(Animation animation);
+	public void onAnimationEnd(Animation animation);
 
-	void onAnimationRepeat(Animation animation);
+	public void onAnimationRepeat(Animation animation);
 
-	void onAnimationStart(Animation animation);
+	public void onAnimationStart(Animation animation);
 
-	void onAnimationUpdate(Animation animation, double interpolatedTime);
+	public void onAnimationUpdate(Animation animation, double interpolatedTime);
 }

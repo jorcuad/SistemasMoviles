@@ -25,7 +25,6 @@ public class StereoPlayer extends CardboardActivity {
         RajawaliCardboardRenderer renderer = new StereoscopicRenderer(this); // your renderer
         view.setRenderer(renderer);        // required for CardboardView
         view.setSurfaceRenderer(renderer); // required for RajawaliSurfaceView
-        System.out.println("VRVRVRVRVRVRVRVRVRVRVRaldkfjasdkjfalksdfasdfasdfasdfasdfssssssssssssssss");
     }
 
 }

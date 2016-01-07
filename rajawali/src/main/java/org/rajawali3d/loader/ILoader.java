@@ -14,5 +14,5 @@ package org.rajawali3d.loader;
 
 public interface ILoader {
 
-	ILoader parse() throws ParsingException;
+	public ILoader parse() throws ParsingException;
 }

@@ -38,7 +38,7 @@ public abstract class ATexture {
 		SPHERE_MAP,
 		VIDEO_TEXTURE,
 		COMPRESSED
-	}
+	};
 
 	/**
 	 * You can assign texture coordinates outside the range [0,1] and have them either clamp or repeat in the texture
@@ -48,7 +48,7 @@ public abstract class ATexture {
 	public enum WrapType {
 		CLAMP,
 		REPEAT
-	}
+	};
 
 	/**
 	 * Texture filtering or texture smoothing is the method used to determine the texture color for a texture mapped
@@ -57,7 +57,7 @@ public abstract class ATexture {
 	public enum FilterType {
 		NEAREST,
 		LINEAR
-	}
+	};
 
 	/**
 	 * The texture id that is used by Rajawali

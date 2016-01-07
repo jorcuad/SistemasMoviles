@@ -29,33 +29,33 @@ public interface IGraphNodeMember {
 	 * @param node IGraphNode this member was placed inside.
 	 * @param inside Boolean indicating if this object is inside the graph.
 	 */
-	void setGraphNode(IGraphNode node, boolean inside);
+	public void setGraphNode(IGraphNode node, boolean inside);
 	
 	/**
 	 * Gets the node that this member is contained in.
 	 * 
 	 * @return IGraphNode this member was placed inside.
 	 */
-	IGraphNode getGraphNode();
+	public IGraphNode getGraphNode();
 	
 	/**
 	 * Gets the objects state in the graph.
 	 * 
 	 * @return True if the object is inside the graph.
 	 */
-	boolean isInGraph();
+	public boolean isInGraph();
 	
 	/**
 	 * Retrieve the bounding volume of this member.
 	 * 
 	 * @return IBoundingVolume which encloses this members "geometry."
 	 */
-	IBoundingVolume getTransformedBoundingVolume();
+	public IBoundingVolume getTransformedBoundingVolume();
 	
 	/**
 	 * Retrieve the position in the scene of this member.
 	 * 
 	 * @return Number3D containing the position.
 	 */
-	Vector3 getScenePosition();
+	public Vector3 getScenePosition();
 }

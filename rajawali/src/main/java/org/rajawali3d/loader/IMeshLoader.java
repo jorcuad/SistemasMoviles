@@ -15,5 +15,5 @@ package org.rajawali3d.loader;
 import org.rajawali3d.Object3D;
 
 public interface IMeshLoader extends ILoader {
-	Object3D getParsedObject();
+	public Object3D getParsedObject();
 }

@@ -124,7 +124,7 @@ public class Vector3 {
      * @throws {@link IllegalArgumentException} if there are fewer than 3 values in the array.
      * @throws {@link NumberFormatException} if there is a problem parsing the {@link String} values into doubles.
      */
-    public Vector3(final String[] values) throws IllegalArgumentException {
+    public Vector3(final String[] values) throws IllegalArgumentException, NumberFormatException {
         this(Float.parseFloat(values[0]), Float.parseFloat(values[1]), Float.parseFloat(values[2]));
     }
 

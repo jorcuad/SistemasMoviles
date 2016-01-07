@@ -340,7 +340,7 @@ public class Geometry3D {
 		newNormals = concatAllFloat(mNormalsArray, addNormals);
 		newColors = concatAllFloat(mColorsArray, addColors);
 		newTextureCoords = concatAllFloat(mTextureCoordsArray, addTextureCoords);
-		newIntIndices = concatAllInt(mIndicesArray, addIndices);
+		newIntIndices = concatAllInt(mIndicesArray, (int[]) addIndices);
 		
 		//Set the new data
 		setVertices(newVertices, true);

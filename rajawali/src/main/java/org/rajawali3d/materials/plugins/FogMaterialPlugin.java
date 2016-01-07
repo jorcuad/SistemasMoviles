@@ -8,10 +8,10 @@ import android.opengl.GLES20;
 
 
 public class FogMaterialPlugin implements IMaterialPlugin {
-	public enum FogType {
+	public static enum FogType {
 		LINEAR
-	}
-
+	};
+	
 	public static final class FogParams {
 		private FogType mFogType;
 		private float mNear;

@@ -19,16 +19,16 @@ import org.rajawali3d.math.Matrix4;
 
 public interface IBoundingVolume {
 	
-	int DEFAULT_COLOR = 0xFFFFFF00;
+	public static final int DEFAULT_COLOR = 0xFFFFFF00;
 	
-	void calculateBounds(Geometry3D geometry);
-	void drawBoundingVolume(Camera camera, final Matrix4 vpMatrix, final Matrix4 projMatrix,
-							final Matrix4 vMatrix, final Matrix4 mMatrix);
-	void transform(Matrix4 matrix);
-	boolean intersectsWith(IBoundingVolume boundingVolume);
+	public void calculateBounds(Geometry3D geometry);
+	public void drawBoundingVolume(Camera camera, final Matrix4 vpMatrix, final Matrix4 projMatrix, 
+			final Matrix4 vMatrix, final Matrix4 mMatrix);
+	public void transform(Matrix4 matrix);
+	public boolean intersectsWith(IBoundingVolume boundingVolume);
 	
-	Object3D getVisual();
-	void setBoundingColor(int color);
-	int getBoundingColor();
+	public Object3D getVisual();
+	public void setBoundingColor(int color);
+	public int getBoundingColor();
 }
 

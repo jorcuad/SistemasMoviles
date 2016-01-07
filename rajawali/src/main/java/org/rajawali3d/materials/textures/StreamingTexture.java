@@ -25,7 +25,7 @@ public class StreamingTexture extends ATexture {
 
     public interface ISurfaceListener {
 
-        void setSurface(Surface surface);
+        public void setSurface(Surface surface);
     }
 
     private final int GL_TEXTURE_EXTERNAL_OES = 0x8D65;

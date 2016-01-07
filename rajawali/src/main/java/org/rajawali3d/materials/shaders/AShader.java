@@ -112,11 +112,11 @@ import java.util.Set;
 public abstract class AShader extends AShaderBase {
 	public static String SHADER_ID;
 	
-	public enum ShaderType {
+	public static enum ShaderType {
 		VERTEX, FRAGMENT, VERTEX_SHADER_FRAGMENT, FRAGMENT_SHADER_FRAGMENT
 	}
 	
-	public enum Operator {
+	public static enum Operator {
 		LESS_THAN("<"), LESS_THAN_EQUALS("<="), GREATER_THAN(">"), GREATER_THAN_EQUALS(">="),
 		EQUALS("=="), NOT_EQUALS("!="), AND("&&"), OR("||"), XOR("^^");
 		

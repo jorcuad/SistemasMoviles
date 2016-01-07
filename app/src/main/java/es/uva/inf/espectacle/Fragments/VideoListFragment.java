@@ -88,8 +88,8 @@ public class VideoListFragment extends BaseListFragment {
                 Comparator<Video> OrderByDuracion = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        Long another = lhs.getDuration() ;
-                        Long other = rhs.getDuration();
+                        Long another =((Video)lhs).getDuration() ;
+                        Long other = ((Video)rhs).getDuration();
                         if(another>other){
                             return 1;
                         }if(another==other){
@@ -99,7 +99,7 @@ public class VideoListFragment extends BaseListFragment {
                         }
                     }
                 };
-                Collections.sort(mAdapter.getDatos(), OrderByDuracion);
+                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByDuracion);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
@@ -108,12 +108,12 @@ public class VideoListFragment extends BaseListFragment {
                 Comparator<Video> OrderByCalidad = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        String another = lhs.getResolution() ;
-                        String other = rhs.getResolution();
+                        String another =((Video)lhs).getResolution() ;
+                        String other = ((Video)rhs).getResolution();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort(mAdapter.getDatos(), OrderByCalidad);
+                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByCalidad);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -122,12 +122,12 @@ public class VideoListFragment extends BaseListFragment {
                 Comparator<Video> OrderByTitulo = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        String another = lhs.getTittle() ;
-                        String other = rhs.getTittle();
+                        String another =((Video)lhs).getTittle() ;
+                        String other = ((Video)rhs).getTittle();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort(mAdapter.getDatos(), OrderByTitulo);
+                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByTitulo);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;

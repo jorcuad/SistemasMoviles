@@ -2,5 +2,5 @@ package org.rajawali3d.loader;
 
 public interface IParser {
 
-	IParser parse() throws ParsingException;
+	public IParser parse() throws ParsingException;
 }

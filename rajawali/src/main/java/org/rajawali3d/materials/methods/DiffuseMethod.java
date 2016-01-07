@@ -47,7 +47,7 @@ public abstract class DiffuseMethod {
 	 * @author dennis.ippel
 	 *
 	 */
-	public enum DiffuseShaderVar implements IGlobalShaderVar {
+	public static enum DiffuseShaderVar implements IGlobalShaderVar {
 		/**
 		 * The dot product between the surface normal and the light direction. 
 		 */

@@ -23,45 +23,45 @@ public interface IRajawaliSurfaceRenderer {
      *
      * @return {@code double} The target frame rate.
      */
-    double getFrameRate();
+    public double getFrameRate();
 
     /**
      * Sets the target frame rate in frames per second.
      *
      * @param rate {@code int} The target rate.
      */
-    void setFrameRate(int rate);
+    public void setFrameRate(int rate);
 
     /**
      * Sets the target frame rate in frames per second.
      *
      * @param rate {@code double} The target rate.
      */
-    void setFrameRate(double rate);
+    public void setFrameRate(double rate);
 
     /**
      * Called to inform the renderer of the multisampling configuration on this surface.
      *
      * @param config {@link IRajawaliSurface.ANTI_ALIASING_CONFIG} The desired anti aliasing configuration.
      */
-    void setAntiAliasingMode(IRajawaliSurface.ANTI_ALIASING_CONFIG config);
+    public void setAntiAliasingMode(IRajawaliSurface.ANTI_ALIASING_CONFIG config);
 
     /**
      * Sets the {@link IRajawaliSurface} which this implementation will be rendering on.
      *
      * @param surface {@link IRajawaliSurface} The rendering surface.
      */
-    void setRenderSurface(IRajawaliSurface surface);
+    public void setRenderSurface(IRajawaliSurface surface);
 
     /**
      * Called when the renderer should pause all of its rendering activities, such as frame draw requests.
      */
-    void onPause();
+    public void onPause();
 
     /**
      * Called when the renderer should continue all of its rendering activities, such as frame draw requests.
      */
-    void onResume();
+    public void onResume();
 
     /**
      * This corresponds to {@link TextureView.SurfaceTextureListener#onSurfaceTextureAvailable(SurfaceTexture, int, int)}
@@ -72,14 +72,14 @@ public interface IRajawaliSurfaceRenderer {
      * @param width {@code width} The surface width in pixels.
      * @param height {@code height} The surface height in pixels.
      */
-    void onRenderSurfaceCreated(EGLConfig config, GL10 gl, int width, int height);
+    public void onRenderSurfaceCreated(EGLConfig config, GL10 gl, int width, int height);
 
     /**
      * Called when the rendering surface has been destroyed, such as the view being detached from the window.
      *
      * @param surface {@link SurfaceTexture} The texture which was being rendered to.
      */
-    void onRenderSurfaceDestroyed(SurfaceTexture surface);
+    public void onRenderSurfaceDestroyed(SurfaceTexture surface);
 
     /**
      * This corresponds to {@link TextureView.SurfaceTextureListener#onSurfaceTextureSizeChanged(SurfaceTexture, int, int)}
@@ -89,14 +89,14 @@ public interface IRajawaliSurfaceRenderer {
      * @param width {@code width} The surface width in pixels.
      * @param height {@code height} The surface height in pixels.
      */
-    void onRenderSurfaceSizeChanged(GL10 gl, int width, int height);
+    public void onRenderSurfaceSizeChanged(GL10 gl, int width, int height);
 
     /**
      * Called when the renderer should draw its next frame.
      *
      * @param gl {@link GL10} for rendering.
      */
-    void onRenderFrame(GL10 gl);
+    public void onRenderFrame(GL10 gl);
 
     /**
      * NOTE: Only relevant when rendering a live wallpaper.
@@ -111,8 +111,8 @@ public interface IRajawaliSurfaceRenderer {
      * @param xPixelOffset
      * @param yPixelOffset
      */
-    void onOffsetsChanged(float xOffset, float yOffset, float xOffsetStep,
-                          float yOffsetStep, int xPixelOffset, int yPixelOffset);
+    public void onOffsetsChanged(float xOffset, float yOffset, float xOffsetStep,
+                                          float yOffsetStep, int xPixelOffset, int yPixelOffset);
 
     /**
      * Called as the user performs touch-screen interaction with the window that is currently showing this wallpaper.
@@ -121,5 +121,5 @@ public interface IRajawaliSurfaceRenderer {
      *
      * @param event {@link MotionEvent} The touch event.
      */
-    void onTouchEvent(MotionEvent event);
+    public void onTouchEvent(MotionEvent event);
 }

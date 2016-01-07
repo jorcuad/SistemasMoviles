@@ -26,7 +26,7 @@ public class AtcTexture extends ACompressedTexture {
 		RGB,
 		RGBA_EXPLICIT,
 		RGBA_INTERPOLATED
-	}
+	};
 
 	/**
 	 * ATC Texture Compression format. See {@link AtcFormat}.

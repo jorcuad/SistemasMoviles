@@ -27,7 +27,7 @@ public class Dxt1Texture extends ACompressedTexture {
 	public enum Dxt1Format {
 		RGB,
 		RGBA
-	}
+	};
 
 	/**
 	 * DXT1 Texture Compression format. See {@link Dxt1Format}.
