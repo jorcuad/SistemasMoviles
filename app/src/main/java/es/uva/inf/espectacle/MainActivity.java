@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
             String a = bundle.getString(STARTED_FROM);
-            if(a.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
+
+            if(a!=null && a.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
         }
 
 

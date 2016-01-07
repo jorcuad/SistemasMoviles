@@ -1,5 +1,6 @@
 package es.uva.inf.espectacle.Fragments;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -18,6 +19,8 @@ public class StereoPlayer extends CardboardActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        
 
         RajawaliCardboardView view = new RajawaliCardboardView(this);
         setContentView(view);

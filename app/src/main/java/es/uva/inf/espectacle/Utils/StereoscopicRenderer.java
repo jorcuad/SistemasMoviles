@@ -49,13 +49,13 @@ public class StereoscopicRenderer extends RajawaliCardboardRenderer{
         mMediaPlayer.setLooping(true);
 
         mVideoTexture = new StreamingTexture("video", mMediaPlayer);
-        mMediaPlayer.prepareAsync();    //prepare the player (asynchronous)
-        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        //mMediaPlayer.prepareAsync();    //prepare the player (asynchronous)
+        /*mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 mp.start(); //start the player only when it is prepared
             }
-        });
+        });*/
 
         Material material = new Material();
         material.setColorInfluence(0);
