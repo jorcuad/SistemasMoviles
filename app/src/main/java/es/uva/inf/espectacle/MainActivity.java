@@ -1,11 +1,7 @@
 package es.uva.inf.espectacle;
 
-import android.media.Image;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,23 +13,23 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-import es.uva.inf.espectacle.Fragments.AudioListFragment;
-import es.uva.inf.espectacle.Fragments.AudioPlayerFragment;
-import es.uva.inf.espectacle.Fragments.BaseListFragment;
-import es.uva.inf.espectacle.Fragments.ImageListFragment;
-import es.uva.inf.espectacle.Fragments.ImagePlayerFragment;
-import es.uva.inf.espectacle.Fragments.VideoListFragment;
-import es.uva.inf.espectacle.Fragments.VideoPlayerFragment;
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Audio;
-import es.uva.inf.espectacle.Modelo.Imagen;
+import es.uva.inf.espectacle.fragments.AudioListFragment;
+import es.uva.inf.espectacle.fragments.AudioPlayerFragment;
+import es.uva.inf.espectacle.fragments.BaseListFragment;
+import es.uva.inf.espectacle.fragments.ImageListFragment;
+import es.uva.inf.espectacle.fragments.ImagePlayerFragment;
+import es.uva.inf.espectacle.fragments.VideoListFragment;
+import es.uva.inf.espectacle.fragments.VideoPlayerFragment;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Audio;
+import es.uva.inf.espectacle.modelo.Imagen;
 
 /**
  * Modela la actividad principal de la aplicacion
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
-    ImagePlayerFragment imagen;
-    AudioPlayerFragment audioFragment;
+    private ImagePlayerFragment imagen;
+    private AudioPlayerFragment audioFragment;
     public static final String STARTED_FROM = "started_from";
     public static final String SFROM_MUSIC_NOTIFICATION = "started_from_music";
 
@@ -65,12 +61,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void procesarIntent() {
-        String sFrom = getIntent().getStringExtra(STARTED_FROM);
+        //String sFrom = getIntent().getStringExtra(STARTED_FROM);
         Bundle bundle = getIntent().getExtras();
-        if(bundle!=null){
-            String a = bundle.getString(STARTED_FROM);
-
-            if(a!=null && a.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
+        if(bundle != null){
+            String bund = bundle.getString(STARTED_FROM);
+            if(bund != null && bund.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
         }
 
 
@@ -171,10 +166,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void setAudio(ArrayList<Audio> audio){
         audioFragment.setPlayList(audio);
-    }
-
-    @Override
-    public Object getMedia(int posicion) {
-        return null;
     }
 }

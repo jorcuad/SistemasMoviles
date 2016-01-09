@@ -1,7 +1,5 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,20 +12,17 @@ import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Objects;
 
-import es.uva.inf.espectacle.Adapters.VideoAdapter;
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Video;
+import es.uva.inf.espectacle.adapters.VideoAdapter;
+import es.uva.inf.espectacle.modelo.Video;
 import es.uva.inf.espectacle.R;
 /**
  * Clase que modela el fragment de la lista de video
  */
 public class VideoListFragment extends BaseListFragment {
 
-    private RecyclerView mListView;
     private VideoAdapter mAdapter;
-    private ComunicationListener mListener;
 
     public VideoListFragment() {
     }
@@ -46,17 +41,17 @@ public class VideoListFragment extends BaseListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
-        Button interprete_button = (Button) view.findViewById(R.id.interprete_button);
-        interprete_button.setOnClickListener(this);
-        interprete_button.setText(R.string.duracion);
-        Button album_button = (Button) view.findViewById(R.id.album_button);
-        album_button.setOnClickListener(this);
-        album_button.setText(R.string.calidad);
-        Button cancion_button = (Button) view.findViewById(R.id.cancion_button);
-        cancion_button.setText(R.string.nombre);
-        cancion_button.setOnClickListener(this);
+        Button duracion_button = (Button) view.findViewById(R.id.filtro1);
+        duracion_button.setOnClickListener(this);
+        duracion_button.setText(R.string.duracion);
+        Button calidad_button = (Button) view.findViewById(R.id.filtro2);
+        calidad_button.setOnClickListener(this);
+        calidad_button.setText(R.string.calidad);
+        Button nombre_button = (Button) view.findViewById(R.id.filtro3);
+        nombre_button.setText(R.string.nombre);
+        nombre_button.setOnClickListener(this);
 
-        mListView = (RecyclerView) view.findViewById(android.R.id.list);
+        RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
         if(mAdapter.getDatos().size() > 0 ) {
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -71,73 +66,81 @@ public class VideoListFragment extends BaseListFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof Activity){
-            mListener = (ComunicationListener) context;
-        }
-
-    }
-
-    @Override
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.interprete_button:
+            case R.id.filtro1:
                 //Ordenar por duracion
                 Comparator<Video> OrderByDuracion = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        Long another =((Video)lhs).getDuration() ;
-                        Long other = ((Video)rhs).getDuration();
+                        Long another =(lhs).getDuration() ;
+                        Long other = (rhs).getDuration();
                         if(another>other){
                             return 1;
-                        }if(another==other){
+                        }if(Objects.equals(another, other)){
                             return 0;
                         }else{
                             return -1;
                         }
                     }
                 };
-                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByDuracion);
+
+                Collections.sort( mAdapter.getDatos(), OrderByDuracion);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro2).setActivated(false);
+                getActivity().findViewById(R.id.filtro3).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
-            case R.id.album_button:
+            case R.id.filtro2:
                 //Ordenar por calidad
                 Comparator<Video> OrderByCalidad = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        String another =((Video)lhs).getResolution() ;
-                        String other = ((Video)rhs).getResolution();
+                        String another =(lhs).getResolution() ;
+                        String other = (rhs).getResolution();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByCalidad);
+
+                Collections.sort( mAdapter.getDatos(), OrderByCalidad);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro1).setActivated(false);
+                getActivity().findViewById(R.id.filtro3).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
-            case R.id.cancion_button:
+            case R.id.filtro3:
                 //Ordenar por nombre
                 Comparator<Video> OrderByTitulo = new Comparator<Video>() {
                     @Override
                     public int compare(Video lhs, Video rhs) {
-                        String another =((Video)lhs).getTittle() ;
-                        String other = ((Video)rhs).getTittle();
+                        String another =(lhs).getTittle() ;
+                        String other = (rhs).getTittle();
                         return another.compareTo(other);
                     }
                 };
-                Collections.sort((List<Video>) mAdapter.getDatos(), OrderByTitulo);
+
+                Collections.sort( mAdapter.getDatos(), OrderByTitulo);
+
+                v.setActivated(true);
+                getActivity().findViewById(R.id.filtro1).setActivated(false);
+                getActivity().findViewById(R.id.filtro2).setActivated(false);
+
+                mAdapter.setPos_seleccionado(-1);
+                mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;
             default: Log.d("espectacle", "Yo no he sido");
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 }

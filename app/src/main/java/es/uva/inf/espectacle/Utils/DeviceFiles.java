@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Utils;
+package es.uva.inf.espectacle.utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,11 +6,10 @@ import android.graphics.Bitmap;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import es.uva.inf.espectacle.Modelo.Audio;
-import es.uva.inf.espectacle.Modelo.Imagen;
-import es.uva.inf.espectacle.Modelo.Video;
+import es.uva.inf.espectacle.modelo.Audio;
+import es.uva.inf.espectacle.modelo.Imagen;
+import es.uva.inf.espectacle.modelo.Video;
 
 /**
  * Utils class for retrieve media files from device.
@@ -39,7 +38,7 @@ public class DeviceFiles {
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        ArrayList<Audio> audios = new ArrayList<Audio>();
+        ArrayList<Audio> audios = new ArrayList<>();
 
         if(cursor == null) { return audios; }
 
@@ -76,7 +75,7 @@ public class DeviceFiles {
                 null,
                 MediaStore.Audio.Media.DISPLAY_NAME + " ASC");
 
-        ArrayList<Video> videos = new ArrayList<Video>();
+        ArrayList<Video> videos = new ArrayList<>();
 
         if(cursor == null) { return videos; }
 
@@ -112,12 +111,12 @@ public class DeviceFiles {
                 null,
                 MediaStore.Images.Media.DISPLAY_NAME + " ASC");
 
-        ArrayList<Imagen> imagenes = new ArrayList<Imagen>();
+        ArrayList<Imagen> imagenes = new ArrayList<>();
 
         if(cursor == null) { return imagenes; }
 
         while (cursor.moveToNext()) {
-            imagenes.add(new Imagen(cursor.getString(0),
+            imagenes.add(new Imagen(
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),

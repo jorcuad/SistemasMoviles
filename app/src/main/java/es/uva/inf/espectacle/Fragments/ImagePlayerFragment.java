@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,24 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Imagen;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
+
 /**
  * Clase que modela el fragment del reproductor de imagenes
  */
 public class ImagePlayerFragment extends Fragment {
 
     private ComunicationListener mListener;
-    ImageView image;
-
-    public ImagePlayerFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private ImageView image;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +29,7 @@ public class ImagePlayerFragment extends Fragment {
             Bundle bundle = this.getArguments();
             image.setImageBitmap(Imagen.getBitmap(bundle.getString("path")));
         } else {
-            image.setImageResource(R.drawable.side_nav_bar);
+            //image.setImageResource(R.drawable.side_nav_bar);
         }
         return view;
     }

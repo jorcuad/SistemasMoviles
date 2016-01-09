@@ -1,25 +1,14 @@
-package es.uva.inf.espectacle.Utils;
+package es.uva.inf.espectacle.utils;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
-import android.view.animation.AccelerateDecelerateInterpolator;
 
-import org.rajawali3d.Object3D;
-import org.rajawali3d.animation.Animation;
-import org.rajawali3d.animation.EllipticalOrbitAnimation3D;
-import org.rajawali3d.animation.TranslateAnimation3D;
 import org.rajawali3d.cardboard.RajawaliCardboardRenderer;
-import org.rajawali3d.lights.PointLight;
 import org.rajawali3d.materials.Material;
-import org.rajawali3d.materials.methods.DiffuseMethod;
-import org.rajawali3d.materials.methods.SpecularMethod;
 import org.rajawali3d.materials.textures.ATexture;
 import org.rajawali3d.materials.textures.StreamingTexture;
 import org.rajawali3d.math.vector.Vector3;
-import org.rajawali3d.primitives.Cube;
-import org.rajawali3d.primitives.Plane;
 import org.rajawali3d.primitives.Sphere;
 
 import es.uva.inf.espectacle.R;
@@ -45,7 +34,7 @@ public class StereoscopicRenderer extends RajawaliCardboardRenderer{
 
 
         mMediaPlayer = MediaPlayer.create(getContext(),
-                R.raw.fredy);
+                R.raw.sintel_trailer_480p);
         mMediaPlayer.setLooping(true);
 
         mVideoTexture = new StreamingTexture("video", mMediaPlayer);

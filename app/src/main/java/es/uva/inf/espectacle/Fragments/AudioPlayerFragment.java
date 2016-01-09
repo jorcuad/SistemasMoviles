@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.Fragments;
+package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -18,10 +18,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import es.uva.inf.espectacle.Interfaces.ComunicationListener;
-import es.uva.inf.espectacle.Modelo.Audio;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
+import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
-import es.uva.inf.espectacle.Services.MusicService;
+import es.uva.inf.espectacle.services.MusicService;
 /**
  * Clase que modela el fragment del reproductor de audio
  */
@@ -29,13 +29,10 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
 
     private MusicService musicSrv;
     private ArrayList<Audio> audioList;
-    boolean musicBound = false;
-    private Intent playIntent;
 
     private ComunicationListener mListener;
-    ImageButton buttonPlay, buttonNext, buttonBack, buttonShuffle;
-    TextView titleText;
-    boolean play = true;
+    private TextView titleText;
+    private boolean musicBound;
 
     public AudioPlayerFragment() {
     }
@@ -43,11 +40,9 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }else{
-            audioList = new ArrayList<Audio>(Audio.getAllAudios(getContext()));
-            playIntent = new Intent(getActivity(), MusicService.class);
+        if (getArguments() == null) {
+            audioList = new ArrayList<>(Audio.getAllAudios(getContext()));
+            Intent playIntent = new Intent(getActivity(), MusicService.class);
             getActivity().bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
             getActivity().startService(playIntent);
             Log.d("OnCreateFragment:", "Arguments==null");
@@ -61,14 +56,14 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_audio_player, container, false);
-        buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
+        ImageButton buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(this);
         buttonPlay.setImageResource(R.drawable.play_button_selector);
-        buttonNext = (ImageButton) view.findViewById(R.id.buttonNext);
+        ImageButton buttonNext = (ImageButton) view.findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(this);
-        buttonBack = (ImageButton) view.findViewById(R.id.buttonBack);
+        ImageButton buttonBack = (ImageButton) view.findViewById(R.id.buttonBack);
         buttonBack.setOnClickListener(this);
-        buttonShuffle = (ImageButton) view.findViewById(R.id.buttonShuffle);
+        ImageButton buttonShuffle = (ImageButton) view.findViewById(R.id.buttonShuffle);
         buttonShuffle.setOnClickListener(this);
         titleText = (TextView) view.findViewById(R.id.textTitle);
         /*buttonNext = (Button) view.findViewById(R.id.buttonNext);
