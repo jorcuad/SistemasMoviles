@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".fragments.StereoPlayer"/>
+        <activity android:name=".StereoPlayerActivity"/>
 
         <service
             android:name=".services.MusicService"

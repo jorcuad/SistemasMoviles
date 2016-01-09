@@ -1,4 +1,4 @@
-package es.uva.inf.espectacle.fragments;
+package es.uva.inf.espectacle;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import es.uva.inf.espectacle.utils.StereoscopicRenderer;
 /**
  * Created by Rober on 07/01/2016.
  */
-public class StereoPlayer extends CardboardActivity {
+public class StereoPlayerActivity extends CardboardActivity {
     private boolean paused = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
