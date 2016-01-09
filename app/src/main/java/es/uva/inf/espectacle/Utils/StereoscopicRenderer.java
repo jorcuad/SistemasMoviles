@@ -23,16 +23,13 @@ public class StereoscopicRenderer extends RajawaliCardboardRenderer {
     private MediaPlayer mMediaPlayer;
     private StreamingTexture mVideoTexture;
     private String path;
-    private boolean paused = false;
 
     public StereoscopicRenderer(Context context, String path) {
         super(context);
         mContext = context;
         this.path = path;
     }
-
-
-
+    
     @Override
     protected void initScene() {
 

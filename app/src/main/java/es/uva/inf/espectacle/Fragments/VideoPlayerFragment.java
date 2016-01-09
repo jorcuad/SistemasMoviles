@@ -31,7 +31,6 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     private ComunicationListener mListener;
     private ArrayList<Video> videoList;
     private VideoView video;
-    private Button vrButton;
     private int numVideo = 0;
 
     public VideoPlayerFragment() {
@@ -63,7 +62,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setMediaController(mediaController);
         mediaController.setAnchorView(video);
 
-        vrButton = (Button) view.findViewById(R.id.VRButton);
+        Button vrButton = (Button) view.findViewById(R.id.VRButton);
         vrButton.setOnClickListener(this);
         video.setVideoPath(path);
         return view;

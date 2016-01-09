@@ -37,7 +37,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private MediaPlayer player;
     private ArrayList<Audio> audios;
     private int songPos;
-    private Notification playing;
     private Random r = new Random();
     private boolean foreground = false;
     private final IBinder musicBind = new MusicBinder();
@@ -90,7 +89,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                             .setContentTitle("Espectacle")
                             .setContentText("Playing...")
                             .setContentIntent(contentIntent);
-            playing = mBuilder.build();
+            Notification playing = mBuilder.build();
             startForeground(1, playing);
             foreground = true;
         }
