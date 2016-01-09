@@ -3,10 +3,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
-
-<!-- TODO: Remove or change this placeholder text -->
     <string name="interprete">Intérprete</string>
     <string name="album">Álbum</string>
     <string name="cancion">Canción</string>
@@ -21,6 +18,7 @@
     <string name="calidad">Calidad</string>
     <string name="nombre">Nombre</string>
     <string name="no_hay_elementos">No hay elementos que mostrar</string>
+    <string name="VRButton">VR</string>
     <string name="filtro1">Filtro1</string>
     <string name="filtro2">Filtro2</string>
     <string name="filtro3">Filtro3</string>
