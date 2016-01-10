@@ -20,7 +20,7 @@ import es.uva.inf.espectacle.R;
 public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements Comparator{
     private ArrayList<Imagen> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent
-    private ImageListFragment fragment;
+    private final ImageListFragment fragment;
     private int pos_seleccionado;
     private MediaHolder seleccionado;
 
@@ -52,12 +52,10 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos_anterior = getPos_seleccionado();
                 MediaHolder anterior = getSeleccionado();
 
                 setPos_seleccionado(holder.getAdapterPosition());
                 setSeleccionado(holder);
-                //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
                 v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
                 if(( anterior != null) && (anterior != holder)) {
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
@@ -70,14 +68,13 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
     public void setSeleccionado (MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
-    public MediaHolder getSeleccionado () {
+    private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
     public void setPos_seleccionado (int pos) {
         this.pos_seleccionado = pos;
-        //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
     }
-    public int getPos_seleccionado () {
+    private int getPos_seleccionado() {
         return this.pos_seleccionado;
     }
 

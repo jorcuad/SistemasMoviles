@@ -10,7 +10,7 @@ import android.util.Log;
  */
 public class AudioPlayerBroadcastReceiver extends BroadcastReceiver {
 
-    MusicService musicService;
+    private MusicService musicService;
 
 
     @Override

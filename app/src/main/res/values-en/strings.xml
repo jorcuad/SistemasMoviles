@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Espectacle</string>
-    <string name="album"></string>
-    <string name="VRButton"></string>
+    <string name="album"/>
+    <string name="VRButton"/>
 </resources>

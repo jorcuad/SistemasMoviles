@@ -20,7 +20,7 @@ import es.uva.inf.espectacle.R;
 public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private ArrayList<Audio> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
-    private AudioListFragment fragment;
+    private final AudioListFragment fragment;
     private int pos_seleccionado;
     private MediaHolder seleccionado;
 
@@ -52,7 +52,6 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos_anterior = getPos_seleccionado();
                 MediaHolder anterior = getSeleccionado();
 
                 setPos_seleccionado(holder.getAdapterPosition());
@@ -72,13 +71,13 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     public void setSeleccionado (MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
-    public MediaHolder getSeleccionado () {
+    private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
     public void setPos_seleccionado (int pos) {
         this.pos_seleccionado = pos;
     }
-    public int getPos_seleccionado () {
+    private int getPos_seleccionado() {
         return this.pos_seleccionado;
     }
 
