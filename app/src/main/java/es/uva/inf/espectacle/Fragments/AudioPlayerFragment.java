@@ -33,6 +33,8 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     private ComunicationListener mListener;
     private TextView titleText;
     private boolean musicBound;
+    ImageButton buttonPlay;
+    private AudioPlayerFragment thisFragment = this;
 
     public AudioPlayerFragment() {
     }
@@ -56,7 +58,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_audio_player, container, false);
-        ImageButton buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
+        buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(this);
         buttonPlay.setImageResource(R.drawable.play_button_selector);
         ImageButton buttonNext = (ImageButton) view.findViewById(R.id.buttonNext);
@@ -97,6 +99,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         super.onDetach();
         //getActivity().stopService(playIntent);
         getActivity().unbindService(musicConnection);
+        musicSrv.unbindFragment();
         musicSrv=null;
         mListener = null;
         Log.d("onDetach", "onDetach");
@@ -151,12 +154,11 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      */
     public void updateInfo(){
         titleText.setText(musicSrv.getPlayingAudio().getTittle());
-        /*if(musicSrv.isPlaying()){
+        if(!musicSrv.isPlaying()){
             buttonPlay.setImageResource(R.drawable.play_button_selector);
         }else{
             buttonPlay.setImageResource(R.drawable.pause_button_selector);
-        }*/
-        //musicSrv.getPlayingAudio();
+        }
     }
     /**
      * Handler para el boton de atras de audio
@@ -190,6 +192,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
             MusicService.MusicBinder binder = (MusicService.MusicBinder)service;
             musicSrv = binder.getService();
             musicSrv.setList(audioList);
+            musicSrv.setFragment(thisFragment);
             musicBound = true;
         }
 

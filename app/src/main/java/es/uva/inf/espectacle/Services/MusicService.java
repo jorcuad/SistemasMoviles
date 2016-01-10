@@ -20,6 +20,7 @@ import java.util.Random;
 
 import es.uva.inf.espectacle.MainActivity;
 import es.uva.inf.espectacle.R;
+import es.uva.inf.espectacle.fragments.AudioPlayerFragment;
 import es.uva.inf.espectacle.modelo.Audio;
 
 /**
@@ -42,6 +43,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private Random r = new Random();
     private boolean foreground = false;
     private final IBinder musicBind = new MusicBinder();
+    private AudioPlayerFragment fragment;
+
+
 
     public MusicService() {
     }
@@ -79,7 +83,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             Bundle bundle = new Bundle();
             bundle.putString(MainActivity.STARTED_FROM, MainActivity.SFROM_MUSIC_NOTIFICATION);
             notificationIntent.putExtras(bundle);
-            //notificationIntent.putExtra(MainActivity.STARTED_FROM, MainActivity.SFROM_MUSIC_NOTIFICATION);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent contentIntent = PendingIntent.getActivity(this,
                     0, notificationIntent,
@@ -90,11 +93,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-            // set the custom action
             intentFilter.addAction("es.uva.inf.espectacle.ACTION_PLAY");
             intentFilter.addAction("es.uva.inf.espectacle.ACTION_NEXT");
             intentFilter.addAction("es.uva.inf.espectacle.ACTION_PREV");
-            // register the receiver
             registerReceiver(broadcastReceiver, intentFilter);
 
 
@@ -159,6 +160,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
+        fragment.updateInfo();
     }
 
     @Override
@@ -312,5 +314,13 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      */
     public Audio getPlayingAudio(){
         return audios.get(songPos);
+    }
+
+    public void setFragment(AudioPlayerFragment fragment){
+        this.fragment = fragment;
+    }
+
+    public void unbindFragment(){
+        this.fragment = null;
     }
 }
