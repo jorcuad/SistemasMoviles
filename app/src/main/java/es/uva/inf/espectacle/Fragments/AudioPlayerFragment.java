@@ -33,6 +33,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     private ComunicationListener mListener;
     private TextView titleText;
     private boolean musicBound;
+    private boolean isEmpty;
 
     public AudioPlayerFragment() {
     }
@@ -40,12 +41,19 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() == null) {
-            audioList = new ArrayList<>(Audio.getAllAudios(getContext()));
-            Intent playIntent = new Intent(getActivity(), MusicService.class);
-            getActivity().bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
-            getActivity().startService(playIntent);
-            Log.d("OnCreateFragment:", "Arguments==null");
+        audioList = Audio.getAllAudios(getContext());
+        if (audioList != null) {
+            if(audioList.size() > 0) {
+                Intent playIntent = new Intent(getActivity(), MusicService.class);
+                getActivity().bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+                getActivity().startService(playIntent);
+                Log.d("OnCreateFragment:", "Arguments==null");
+                isEmpty = false;
+            } else {
+                isEmpty = true;
+            }
+        } else {
+            isEmpty = true;
         }
     }
 
@@ -54,24 +62,20 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_audio_player, container, false);
-        ImageButton buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
-        buttonPlay.setOnClickListener(this);
-        buttonPlay.setImageResource(R.drawable.play_button_selector);
-        ImageButton buttonNext = (ImageButton) view.findViewById(R.id.buttonNext);
-        buttonNext.setOnClickListener(this);
-        ImageButton buttonBack = (ImageButton) view.findViewById(R.id.buttonBack);
-        buttonBack.setOnClickListener(this);
-        ImageButton buttonShuffle = (ImageButton) view.findViewById(R.id.buttonShuffle);
-        buttonShuffle.setOnClickListener(this);
-        titleText = (TextView) view.findViewById(R.id.textTitle);
-        /*buttonNext = (Button) view.findViewById(R.id.buttonNext);
-        buttonPause = (Button) view.findViewById(R.id.buttonPause);
-        /*buttonNext.setOnClickListener(this);
-        buttonPause.setOnClickListener(this);*/
 
-        //updateInfo();
+        View view = inflater.inflate(R.layout.fragment_audio_player, container, false);
+        if(!isEmpty) {
+            ImageButton buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
+            buttonPlay.setOnClickListener(this);
+            buttonPlay.setImageResource(R.drawable.play_button_selector);
+            ImageButton buttonNext = (ImageButton) view.findViewById(R.id.buttonNext);
+            buttonNext.setOnClickListener(this);
+            ImageButton buttonBack = (ImageButton) view.findViewById(R.id.buttonBack);
+            buttonBack.setOnClickListener(this);
+            ImageButton buttonShuffle = (ImageButton) view.findViewById(R.id.buttonShuffle);
+            buttonShuffle.setOnClickListener(this);
+            titleText = (TextView) view.findViewById(R.id.textTitle);
+        }
         return view;
     }
 
@@ -96,7 +100,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     public void onDetach() {
         super.onDetach();
         //getActivity().stopService(playIntent);
-        getActivity().unbindService(musicConnection);
+        if(!isEmpty) getActivity().unbindService(musicConnection);
         musicSrv=null;
         mListener = null;
         Log.d("onDetach", "onDetach");

@@ -49,14 +49,13 @@ public class AudioListFragment extends BaseListFragment {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
         Button interprete_button = (Button) view.findViewById(R.id.filtro1);
-
-        interprete_button.setOnClickListener(this);
-        interprete_button.setText(R.string.interprete);
         Button album_button = (Button) view.findViewById(R.id.filtro2);
-        album_button.setOnClickListener(this);
-        album_button.setText(R.string.album);
         Button cancion_button = (Button) view.findViewById(R.id.filtro3);
+        interprete_button.setOnClickListener(this);
+        album_button.setOnClickListener(this);
         cancion_button.setOnClickListener(this);
+        interprete_button.setText(R.string.interprete);
+        album_button.setText(R.string.album);
         cancion_button.setText(R.string.cancion);
 
         RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
@@ -88,7 +87,7 @@ public class AudioListFragment extends BaseListFragment {
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.filtro1:
-                //Ordenar por itnérprete
+                //Ordenar por intérprete
                 Comparator<Audio> OrderByInterprete = new Comparator<Audio>() {
                     @Override
                     public int compare(Audio lhs, Audio rhs) {
