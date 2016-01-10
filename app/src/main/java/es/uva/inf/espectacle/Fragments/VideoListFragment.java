@@ -138,7 +138,7 @@ public class VideoListFragment extends BaseListFragment {
                 mAdapter.setPos_seleccionado(-1);
                 mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
-                Log.d("espectacle", "Pulsado cacnion_button");
+                Log.d("espectacle", "Pulsado cancion_button");
                 break;
             default: Log.d("espectacle", "Yo no he sido");
         }

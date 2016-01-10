@@ -2,7 +2,7 @@ package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -10,14 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
-
 import java.util.ArrayList;
 
+import es.uva.inf.espectacle.R;
+import es.uva.inf.espectacle.StereoPlayerActivity;
 import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Video;
-import es.uva.inf.espectacle.R;
+
 /**
  * Clase que modela el fragment del reproductor de video
  */
@@ -59,7 +61,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setMinimumHeight(height);
         video.setMediaController(mediaController);
         mediaController.setAnchorView(video);
-        //mediaController.show();
+
+        Button vrButton = (Button) view.findViewById(R.id.VRButton);
+        vrButton.setOnClickListener(this);
         video.setVideoPath(path);
         return view;
     }
@@ -69,11 +73,8 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     private void onPlayButton() {
         try {
             if(pause){
-                video.seekTo(savePos);
                 video.pause();
             }else{
-                savePos = video.getCurrentPosition();
-                video.requestFocus();
                 video.start();
             }
         } catch (Exception e) {
@@ -82,15 +83,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         pause = !pause;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    /**
-     * Handler para el click en un boton del reproductor
-     */
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            //mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -130,6 +123,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        if(v.getId()==R.id.VRButton){
+            onVrButton();
+        }
         /*if(v.getId()==R.id.buttonPlay){
             onPlayButton();
         }else if(v.getId()==R.id.buttonNext){
@@ -139,24 +135,11 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         }*/
     }
 
-    /**
-     * Handler para el boton de anterior del reproductor de video
-     */
-    private void onBackButton() {
-        path = videoList.get(numVideo-1).getPath();
-        numVideo--;
-        video.setVideoPath(path);
-        video.start();
-    }
 
-    /**
-     * Handler para el boton de siguiente del reproductor de video
-     */
-    private void onNextButton() {
-        path = videoList.get(numVideo+1).getPath();
-        numVideo++;
-        video.setVideoPath(path);
-        video.start();
+    private void onVrButton(){
+        Intent intent = new Intent(this.getContext(), StereoPlayerActivity.class);
+        intent.putExtra("path",path);
+        startActivity(intent);
     }
 
 }
