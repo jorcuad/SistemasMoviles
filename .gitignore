@@ -1,12 +1,11 @@
 .gradle
 /local.properties
 .idea
-.idea/misc.xml
-.idea/modules.xml
-.idea/gradle.xml
-.idea/vcs.xml
+.idea/
 app/app.iml
 SistemasMoviles.iml
 .DS_Store
 /build
 /captures
+rajawali/
+rajawalicardboard/
