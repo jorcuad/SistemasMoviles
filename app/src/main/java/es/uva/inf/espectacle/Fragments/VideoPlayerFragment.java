@@ -56,6 +56,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
+        Button vrButton = (Button) view.findViewById(R.id.VRButton);
         if(!isEmpty) {
             MediaController mediaController = new MediaController(this.getActivity());
             video = (VideoView) view.findViewById(R.id.surfaceView);
@@ -67,10 +68,10 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
             video.setMinimumHeight(height);
             video.setMediaController(mediaController);
             mediaController.setAnchorView(video);
-
-            Button vrButton = (Button) view.findViewById(R.id.VRButton);
             vrButton.setOnClickListener(this);
             video.setVideoPath(path);
+        } else {
+            vrButton.setVisibility(View.GONE);
         }
         return view;
     }
