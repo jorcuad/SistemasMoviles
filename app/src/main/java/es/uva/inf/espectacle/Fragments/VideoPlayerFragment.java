@@ -2,6 +2,7 @@ package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,14 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
-
 import java.util.ArrayList;
 
+import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Video;
-import es.uva.inf.espectacle.R;
+
 /**
  * Clase que modela el fragment del reproductor de video
  */
@@ -59,7 +61,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setMinimumHeight(height);
         video.setMediaController(mediaController);
         mediaController.setAnchorView(video);
-        //mediaController.show();
+
+        Button vrButton = (Button) view.findViewById(R.id.VRButton);
+        vrButton.setOnClickListener(this);
         video.setVideoPath(path);
         return view;
     }
@@ -130,6 +134,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        if(v.getId()==R.id.VRButton){
+            onVrButton();
+        }
         /*if(v.getId()==R.id.buttonPlay){
             onPlayButton();
         }else if(v.getId()==R.id.buttonNext){
@@ -158,5 +165,12 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video.setVideoPath(path);
         video.start();
     }
+
+    private void onVrButton(){
+        Intent intent = new Intent(this.getContext(), StereoPlayer.class);
+        intent.putExtra("path",path);
+        startActivity(intent);
+    }
+
 
 }
