@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.VideoView;
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     private ArrayList<Video> videoList;
     private VideoView video;
     private int numVideo = 0;
+    private TextView titleText;
 
     public VideoPlayerFragment() {
     }
@@ -142,4 +144,22 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         startActivity(intent);
     }
 
+    public void setPlayList(ArrayList<Video> list){
+        videoList = list;
+    }
+
+    @Override
+    public void onDestroy() {
+        video.stopPlayback();
+        video.suspend();
+    }
+
+    public void setVideoPos(int pos) {
+        if(pos<videoList.size()&&pos>=0){
+            numVideo=pos;
+            path = videoList.get(numVideo).getPath();
+            video.setVideoPath(path);
+        }
+    }
 }
+

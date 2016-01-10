@@ -62,7 +62,6 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
                 if(( anterior != null) && (anterior != holder)) {
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
                 }
-                //TODO Rober ya puedes reproducir el item con la posicion
                 Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getDisplay_name()+ " pos: "+ position);
                 fragment.getmListener().setAudioPos(position);
             }

@@ -1,5 +1,7 @@
 package es.uva.inf.espectacle.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 import es.uva.inf.espectacle.adapters.VideoAdapter;
+import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Video;
 import es.uva.inf.espectacle.R;
 /**
@@ -23,6 +26,7 @@ import es.uva.inf.espectacle.R;
 public class VideoListFragment extends BaseListFragment {
 
     private VideoAdapter mAdapter;
+    private ComunicationListener mListener;
 
     public VideoListFragment() {
     }
@@ -142,5 +146,26 @@ public class VideoListFragment extends BaseListFragment {
                 break;
             default: Log.d("espectacle", "Yo no he sido");
         }
+        getmListener().setVideo(mAdapter.getDatos());
+    }
+
+    public ComunicationListener getmListener(){
+        return mListener;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            mListener = (ComunicationListener) context;
+        }
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 }
