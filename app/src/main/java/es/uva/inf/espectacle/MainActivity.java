@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private VideoPlayerFragment videoFragment;
     public static final String STARTED_FROM = "started_from";
     public static final String SFROM_MUSIC_NOTIFICATION = "started_from_music";
+    private static final String MUSIC_FRAGMENT = "MUSIC_FRAGMENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         audioFragment = new AudioPlayerFragment();
         AudioListFragment fragment = new AudioListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, audioFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, audioFragment,MainActivity.MUSIC_FRAGMENT).commit();
     }
 
     /**
@@ -191,7 +192,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void setAudioPos(int pos) {
         Log.d("SetAudioPos", " " + pos);
-        audioFragment.setAudioPos(pos);
+        if(audioFragment!=null) {
+            audioFragment.setAudioPos(pos);
+        }else{
+            audioFragment = (AudioPlayerFragment) getSupportFragmentManager().findFragmentByTag(MainActivity.MUSIC_FRAGMENT);
+            audioFragment.setAudioPos(pos);
+        }
 
     }
 
@@ -201,8 +207,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * @param audio lista con las pistas de audio del reproductor
      */
     @Override
-    public void setAudio(ArrayList<Audio> audio) {
-        audioFragment.setPlayList(audio);
+    public void setAudio(ArrayList<Audio> audio){
+        if(audioFragment!=null) {
+            audioFragment.setPlayList(audio);
+        }else{
+            audioFragment = (AudioPlayerFragment) getSupportFragmentManager().findFragmentByTag(MainActivity.MUSIC_FRAGMENT);
+            audioFragment.setPlayList(audio);
+        }
     }
 
     /**

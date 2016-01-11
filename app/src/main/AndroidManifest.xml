@@ -12,6 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <receiver android:name=".broadcast.AudioPlayerBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="es.uva.inf.espectacle.ACTION_PLAY" />
+                <action android:name="es.uva.inf.espectacle.ACTION_NEXT" />
+                <action android:name="es.uva.inf.espectacle.ACTION_PREV" />
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name=".MainActivity"

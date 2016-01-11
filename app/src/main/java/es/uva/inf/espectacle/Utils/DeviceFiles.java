@@ -44,22 +44,24 @@ public class DeviceFiles {
 
         ArrayList<Audio> audios = new ArrayList<>();
 
+
         if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
             audios.add(new Audio(cursor.getLong(0),
-                                 cursor.getString(1),
-                                 cursor.getString(2),
-                                 cursor.getString(3),
-                                 cursor.getString(4),
-                                 cursor.getLong(5),
-                                 cursor.getString(6)));
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getLong(5),
+                    cursor.getString(6)));
         }
 
         cursor.close();
 
         return audios;
     }
+
     /**
      * getter para obtener las pistas de video del dispositivo
      * @param context context de la app
@@ -84,6 +86,7 @@ public class DeviceFiles {
 
         ArrayList<Video> videos = new ArrayList<>();
 
+
         if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
@@ -98,6 +101,7 @@ public class DeviceFiles {
 
         return videos;
     }
+
 
     /**
      * getter para obtener las imagenes del dispositivo
@@ -124,6 +128,7 @@ public class DeviceFiles {
 
         ArrayList<Imagen> imagenes = new ArrayList<>();
 
+
         if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
@@ -140,6 +145,7 @@ public class DeviceFiles {
         return imagenes;
     }
 
+
     /**
      * getter para obtener el thumbnail de un video
      * @param context this.context
@@ -148,7 +154,7 @@ public class DeviceFiles {
      */
     public static Bitmap getThumbnail(Context context, Long videoId){
         return MediaStore.Video.Thumbnails.getThumbnail(context.getContentResolver(), videoId,
-                                                        MediaStore.Video.Thumbnails.MICRO_KIND,
-                                                        null );
+                MediaStore.Video.Thumbnails.MICRO_KIND,
+                null);
     }
 }

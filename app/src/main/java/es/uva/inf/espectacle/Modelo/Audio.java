@@ -19,6 +19,16 @@ public class Audio {
     private Long duration;
     private String album;
 
+    public String getAlbumArt() {
+        return albumArt;
+    }
+
+    public void setAlbumArt(String albumArt) {
+        this.albumArt = albumArt;
+    }
+
+    private String albumArt;
+
     /**
      * Constructor del objeto Audio, con varios datos acerca de la pista modelada
      * @param id del audio.
@@ -37,6 +47,18 @@ public class Audio {
         this.setDisplay_name(display_name);
         this.setDuration(duration);
         this.setAlbum(album);
+    }
+
+
+    public Audio(Long id, String artist, String tittle, String path, String display_name, Long duration, String album, String albumArt){
+        this.setId(id);
+        this.setArtist(artist);
+        this.setTittle(tittle);
+        this.setPath(path);
+        this.setDisplay_name(display_name);
+        this.setDuration(duration);
+        this.setAlbum(album);
+        this.setAlbumArt(albumArt);
     }
 
     /**
