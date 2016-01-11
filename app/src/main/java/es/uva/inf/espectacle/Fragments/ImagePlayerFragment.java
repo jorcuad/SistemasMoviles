@@ -11,7 +11,8 @@ import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.modelo.Imagen;
 
 /**
- * Clase que modela el fragment del reproductor de imagenes
+ * Implementacion del visor de imagenes. En el recuperamos el bitmap
+ * de cada archivo para su visualizacion
  */
 public class ImagePlayerFragment extends Fragment {
 
