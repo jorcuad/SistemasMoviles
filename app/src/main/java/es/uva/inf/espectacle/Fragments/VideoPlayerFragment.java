@@ -25,7 +25,7 @@ import es.uva.inf.espectacle.modelo.Video;
  */
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
 
-    private boolean pause = false;
+    //private boolean pause = false;
     private String path;
     private int savePos = 0;
     private ComunicationListener mListener;

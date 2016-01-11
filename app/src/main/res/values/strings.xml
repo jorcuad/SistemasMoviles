@@ -3,7 +3,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configuracion</string>
     <string name="interprete">Intérprete</string>
     <string name="album">Álbum</string>
     <string name="cancion">Canción</string>
@@ -23,9 +23,9 @@
     <string name="filtro3">Filtro3</string>
     <string name="imgDesc">Imagen contenida en el dispositivo</string>
     <string name="play_button">Reproducir</string>
-    <string name="shuffle_button">reproduccion aleatorea</string>
-    <string name="next_button">siguiente</string>
-    <string name="back_button">anterior</string>
-    <string name="item_image">imagen del item de la lista</string>
-    <string name="logo">logo de la aplicacion</string>
+    <string name="shuffle_button">Reproduccion aleatorea</string>
+    <string name="next_button">Siguiente</string>
+    <string name="back_button">Anterior</string>
+    <string name="item_image">Imagen del item de la lista</string>
+    <string name="logo">Logo de la aplicacion</string>
 </resources>
