@@ -15,7 +15,7 @@ import org.rajawali3d.primitives.Sphere;
 import java.io.File;
 
 /**
- * Created by Rober on 01/01/2016.
+ * Created by Rober on 01/01/2016
  */
 public class StereoscopicRenderer extends RajawaliCardboardRenderer {
     // --Commented out by Inspection (11/01/2016 1:18):private final Context mContext;

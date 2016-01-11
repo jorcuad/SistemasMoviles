@@ -39,7 +39,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private MediaPlayer player;
     private ArrayList<Audio> audios;
     private int songPos;
-    private Random r = new Random();
+    private final Random r = new Random();
     private boolean foreground = false;
     private final IBinder musicBind = new MusicBinder();
 
@@ -73,7 +73,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Inicia la ejecucion en segundo plano
      */
-    public void startForefround(){
+    private void startForefround(){
         if(!foreground){
             Intent notificationIntent = new Intent(this, MainActivity.class);
             Bundle bundle = new Bundle();
@@ -127,7 +127,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Detiene la reproduccion en segundo plano
      */
-    public void stopForeground(){
+    private void stopForeground(){
         if(foreground){
             stopForeground(true);
             foreground = false;
@@ -141,7 +141,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
-    public void initMediaPlayer(){
+    private void initMediaPlayer(){
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
         player.setOnPreparedListener(this);
         player.setOnCompletionListener(this);
