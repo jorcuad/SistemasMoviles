@@ -24,12 +24,12 @@
         "source": "C:\\Users\\alvaro\\AndroidStudioProjects\\SistemasMoviles\\rajawalicardboard\\build\\intermediates\\exploded-aar\\SistemasMoviles\\rajawali\\unspecified\\res\\raw\\blend_screen_fragment_shader.glsl"
     },
     {
-        "merged": "C:\\Users\\alvaro\\AndroidStudioProjects\\SistemasMoviles\\rajawalicardboard\\build\\intermediates\\res\\merged\\release\\raw\\color_threshold_shader.glsl",
-        "source": "C:\\Users\\alvaro\\AndroidStudioProjects\\SistemasMoviles\\rajawalicardboard\\build\\intermediates\\exploded-aar\\SistemasMoviles\\rajawali\\unspecified\\res\\raw\\color_threshold_shader.glsl"
-    },
-    {
         "merged": "C:\\Users\\alvaro\\AndroidStudioProjects\\SistemasMoviles\\rajawalicardboard\\build\\intermediates\\res\\merged\\release\\raw\\vignette_fragment_shader.glsl",
         "source": "C:\\Users\\alvaro\\AndroidStudioProjects\\SistemasMoviles\\rajawalicardboard\\build\\intermediates\\exploded-aar\\SistemasMoviles\\rajawali\\unspecified\\res\\raw\\vignette_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\alvaro\\AndroidStudioProjects\\SistemasMoviles\\rajawalicardboard\\build\\intermediates\\res\\merged\\release\\raw\\color_threshold_shader.glsl",
+        "source": "C:\\Users\\alvaro\\AndroidStudioProjects\\SistemasMoviles\\rajawalicardboard\\build\\intermediates\\exploded-aar\\SistemasMoviles\\rajawali\\unspecified\\res\\raw\\color_threshold_shader.glsl"
     },
     {
         "merged": "C:\\Users\\alvaro\\AndroidStudioProjects\\SistemasMoviles\\rajawalicardboard\\build\\intermediates\\res\\merged\\release\\raw\\minimal_vertex_shader.glsl",

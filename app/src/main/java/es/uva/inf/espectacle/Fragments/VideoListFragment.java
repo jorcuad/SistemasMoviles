@@ -137,7 +137,7 @@ public class VideoListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getVideo_seleccionado());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -165,7 +165,7 @@ public class VideoListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getVideo_seleccionado());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -193,7 +193,7 @@ public class VideoListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getVideo_seleccionado());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
                 mAdapter.notifyDataSetChanged();

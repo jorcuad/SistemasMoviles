@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Audio;
@@ -52,6 +54,8 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         audioList = Audio.getAllAudios(getContext());
+
+        ordenInterprete();
         if (audioList != null) {
             if(audioList.size() > 0) {
                 Intent playIntent = new Intent(getActivity(), MusicService.class);
@@ -66,6 +70,21 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
             isEmpty = true;
         }
     }
+
+
+    public void ordenInterprete () {
+        Comparator<Audio> OrderByInterprete = new Comparator<Audio>() {
+            @Override
+            public int compare(Audio lhs, Audio rhs) {
+                String another =(lhs).getArtist() ;
+                String other = (rhs).getArtist();
+                return another.compareTo(other);
+            }
+        };
+
+        Collections.sort(this.audioList, OrderByInterprete);
+    }
+
 
     /**
      * Al crear la vista inflamos el fragment y establecemos los botones del reproductor
@@ -183,7 +202,9 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      * @param v La vista del fragment
      */
     private void onShuffleButton(View v) {
-        musicSrv.shuffle();
+
+        int pos = musicSrv.shuffle();
+        mListener.setAudioSel(pos);
     }
 
     /**
@@ -204,14 +225,16 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      * @param v La vista del fragment
      */
     private void onBackButton(View v) {
-        musicSrv.back();
+        int pos = musicSrv.back();
+        mListener.setAudioSel(pos);
     }
     /**
      * Handler para el boton de adelante de audio
      * @param v La vista del fragment
      */
     private void onNextButton(View v) {
-        musicSrv.next();
+        int pos = musicSrv.next();
+        mListener.setAudioSel(pos);
     }
     /**
      * Establece una lista de reproducción de audio
