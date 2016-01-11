@@ -81,13 +81,13 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
         });
     }
 
-    public void setSeleccionado (MediaHolder seleccionado) {
+    private void setSeleccionado(MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
     private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
-    public void setVideo_seleccionado (Video video) {
+    private void setVideo_seleccionado(Video video) {
         this.video_seleccionado= video;
     }
 

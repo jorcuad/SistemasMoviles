@@ -29,6 +29,7 @@ import es.uva.inf.espectacle.modelo.Video;
  * Activity principal de nuestra app, es una activty con drawer menu para poder seleccionar las opciones de la app
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
+    private static final String VIDEO_FRAGMENT = "video_fragment";
     private ImagePlayerFragment imagen;
     private AudioPlayerFragment audioFragment;
     private VideoPlayerFragment videoFragment;
@@ -57,11 +58,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void procesarIntent() {
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
+        if (bundle != null) {
             String bund = bundle.getString(STARTED_FROM);
-            if(bund != null && bund.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
+            if (bund != null && bund.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
         }
-
 
 
     }
@@ -82,8 +82,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Creamos nuestro menu
+     *
      * @param menu menu de la activity
-     * @return
+     * @return true
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,8 +95,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Tratamos el evento de seleccionar un item del menu
+     *
      * @param item item del menu
-     * @return
+     * @return item seleccionado
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -115,9 +117,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * Creamos el musicFragment con su lista y realizamos la transaccion
      */
-    private void musicFragment(){
-        ActionBar bar= getSupportActionBar();
-        if(bar != null) bar.setTitle("Música");
+    private void musicFragment() {
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) bar.setTitle("Música");
         audioFragment = new AudioPlayerFragment();
         AudioListFragment fragment = new AudioListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
@@ -127,17 +129,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * Creamos el videoFragment con su lista y realizamos la transaccion
      */
-    private void videoFragment(){
-        ActionBar bar= getSupportActionBar();
-        if(bar != null) bar.setTitle("Video");
+    private void videoFragment() {
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) bar.setTitle("Video");
         VideoListFragment fragment = new VideoListFragment();
         videoFragment = new VideoPlayerFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, videoFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, videoFragment, MainActivity.VIDEO_FRAGMENT).commit();
     }
 
     /**
-     * Tratamos el evento dee seleccionar un item del drawer menu
+     * Tratamos el evento de seleccionar un item del drawer menu
+     *
      * @param item item del drawer menu
      * @return true
      */
@@ -149,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_camara) {
             musicFragment();
         } else if (id == R.id.nav_gallery) {
-            ActionBar bar= getSupportActionBar();
-            if(bar != null) bar.setTitle("Imágenes");
+            ActionBar bar = getSupportActionBar();
+            if (bar != null) bar.setTitle("Imágenes");
             ImageListFragment fragment = new ImageListFragment();
             imagen = new ImagePlayerFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
@@ -167,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * setter de una imagen para el reproductor de imagenes
+     *
      * @param media imagen del gallery de la app
      */
     @Override
@@ -181,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * setter para reproducir una pista de audio segun su posicion en la lista
+     *
      * @param pos posicion de la pista de audio en la lista
      */
     @Override
@@ -192,28 +197,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * setter de la lista de audios
+     *
      * @param audio lista con las pistas de audio del reproductor
      */
     @Override
-    public void setAudio(ArrayList<Audio> audio){
+    public void setAudio(ArrayList<Audio> audio) {
         audioFragment.setPlayList(audio);
     }
 
     /**
      * setter para reproducir una pista de video segun su posicion en la lista
+     *
      * @param pos posicion de la pista de video en la lista
      */
     @Override
     public void setVideoPos(int pos) {
-        Log.d("SetVideoPos", " " + pos);
-        videoFragment.setVideoPos(pos);
+        if(videoFragment != null){
+            videoFragment.setVideoPos(pos);
+        }else{
+            videoFragment = (VideoPlayerFragment) getSupportFragmentManager().findFragmentByTag("VIDEO_FRAGMENT");
+            videoFragment.setVideoPos(pos);
+        }
+
     }
+
     /**
      * setter de la lista de videos
+     *
      * @param video lista con las pistas de video del reproductor
      */
     @Override
-    public void setVideo(ArrayList<Video> video){
-        videoFragment.setPlayList(video);
+    public void setVideo(ArrayList<Video> video) {
+        if(videoFragment!=null){
+            videoFragment.setPlayList(video);
+        }else{
+            videoFragment = (VideoPlayerFragment) getSupportFragmentManager().findFragmentByTag("VIDEO_FRAGMENT");
+            videoFragment.setPlayList(video);
+        }
+
     }
 }

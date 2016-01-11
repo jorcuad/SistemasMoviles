@@ -129,6 +129,9 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
 
     @Override
     public int compare(Object lhs, Object rhs) {
+        if(lhs.equals(rhs)){
+            return 1;
+        }
         return 0;
     }
 }
