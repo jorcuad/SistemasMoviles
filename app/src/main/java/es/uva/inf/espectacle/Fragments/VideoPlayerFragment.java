@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Objects;
 
 import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.StereoPlayerActivity;
@@ -45,6 +48,8 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         videoList = Video.getAllVideos(getContext());
+
+        ordenInicial();
         if (videoList != null) {
             if (videoList.size() > 0) {
                 isEmpty = false;
@@ -56,6 +61,27 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
             isEmpty = true;
         }
     }
+
+    public void ordenInicial () {
+        //Ordenar por duracion
+        Comparator<Video> OrderByDuracion = new Comparator<Video>() {
+            @Override
+            public int compare(Video lhs, Video rhs) {
+                Long another =(lhs).getDuration() ;
+                Long other = (rhs).getDuration();
+                if(another>other){
+                    return 1;
+                }if(Objects.equals(another, other)){
+                    return 0;
+                }else{
+                    return -1;
+                }
+            }
+        };
+
+        Collections.sort(this.videoList, OrderByDuracion);
+    }
+
 
     /**
      * Al crear la vista inflamos el fragment, establecemos las dimensiones del reproductor y

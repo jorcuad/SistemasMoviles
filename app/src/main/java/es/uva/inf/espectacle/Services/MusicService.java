@@ -236,7 +236,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
 
-
     private void playerPause() {
         player.pause();
         //stopForeground();
@@ -270,31 +269,39 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Pasa a siguiente pista de audio
      */
-    public void next() {
+
+    public int next() {
+        int pos = setNextSongPos();
         updateNotificationInfor();
         setNextSongPos();
         playSong();
+        return pos;
     }
 
     private void updateNotificationInfor() {
-        if(foreground) startForefround();
+        if (foreground) startForefround();
     }
 
     /**
      * Vuelve a la anterior pista de audio
      */
-    public void back() {
-        updateNotificationInfor();
-        setPrevSongPos();
+
+
+    public int back() {
+        int pos = setPrevSongPos();
         playSong();
-    }
+            updateNotificationInfor();
+            return pos;
+        }
+
 
     /**
      * Reproduce pista aleatoria
      */
-    public void shuffle() {
-        setRandomSongPos();
+    public int shuffle(){
+        int pos = setRandomSongPos();
         playSong();
+        return pos;
     }
 
     public void playSongPos(int pos) {
@@ -304,6 +311,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     /**
      * Establece la posicion en la lista de la pista en reproduccion
+     *
      * @param pos posicionen la lista
      */
     private void setSongPos(int pos) {
@@ -317,9 +325,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      *
      * @return Posicion
      */
-    private void setNextSongPos() {
+    private int setNextSongPos() {
         songPos++;
         if (songPos >= audios.size()) songPos = 0;
+        return songPos;
     }
 
     /**
@@ -327,9 +336,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      *
      * @return Posicion
      */
-    private void setPrevSongPos() {
+    private int setPrevSongPos() {
         songPos--;
         if (songPos < 0) songPos = audios.size() - 1;
+        return songPos;
     }
 
     /**
@@ -337,8 +347,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      *
      * @return Posicion
      */
-    private void setRandomSongPos() {
+    private int setRandomSongPos() {
         songPos = r.nextInt(audios.size());
+        return songPos;
     }
 
 

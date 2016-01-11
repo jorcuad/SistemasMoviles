@@ -90,6 +90,7 @@ public class AudioListFragment extends BaseListFragment {
             };
 
             Collections.sort(mAdapter.getDatos(), OrderByInterprete);
+            getmListener().setAudio(mAdapter.getDatos());
 
             interprete_button.setActivated(true);
 
@@ -151,7 +152,7 @@ public class AudioListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -179,7 +180,7 @@ public class AudioListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -206,7 +207,7 @@ public class AudioListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -224,5 +225,9 @@ public class AudioListFragment extends BaseListFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public AudioAdapter getAdapter() {
+        return this.mAdapter;
     }
 }

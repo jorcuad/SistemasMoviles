@@ -11,6 +11,7 @@ import es.uva.inf.espectacle.modelo.Video;
 public interface ComunicationListener {
     void setMedia(Object media);
     void setAudioPos(int pos);
+    void setAudioSel(int pos);
     void setAudio(ArrayList<Audio> audio);
     void setVideoPos(int position);
     void setVideo(ArrayList<Video> datos);
