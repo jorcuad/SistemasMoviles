@@ -1,7 +1,5 @@
 package es.uva.inf.espectacle.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import es.uva.inf.espectacle.interfaces.ComunicationListener;
-import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
+import es.uva.inf.espectacle.modelo.Imagen;
 
 /**
  * Clase que modela el fragment del reproductor de imagenes
