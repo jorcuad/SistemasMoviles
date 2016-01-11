@@ -59,6 +59,9 @@ public class AudioListFragment extends BaseListFragment {
         cancion_button.setText(R.string.cancion);
 
         RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
+        mListView.setAdapter(mAdapter);
+        mListView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         if(mAdapter.getDatos().size() > 0 ) {
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -97,14 +100,21 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByInterprete);
+                Collections.sort(mAdapter.getDatos(), OrderByInterprete);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
                 getActivity().findViewById(R.id.filtro3).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getAudio_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
+                    Log.d("pos", Integer.toString(pos));
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
 
                 Log.d("espectacle", "Pulsado interprete_button");
@@ -120,13 +130,20 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByAlbum);
+                Collections.sort(mAdapter.getDatos(), OrderByAlbum);
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
                 getActivity().findViewById(R.id.filtro3).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getAudio_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
+                    Log.d("pos", Integer.toString(pos));
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -141,13 +158,20 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByTitulo);
+                Collections.sort(mAdapter.getDatos(), OrderByTitulo);
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getAudio_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
+                    Log.d("pos", Integer.toString(pos));
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cancion_button");
                 break;

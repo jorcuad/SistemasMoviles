@@ -21,12 +21,11 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
     private ArrayList<Imagen> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent
     private final ImageListFragment fragment;
-    private int pos_seleccionado;
     private MediaHolder seleccionado;
+    private Imagen img_seleccionada;
 
     public ImageAdapter(ImageListFragment fragment){
         this.fragment = fragment;
-        this.pos_seleccionado = -1;
     }
 
     @Override
@@ -43,22 +42,28 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
         holder.duration.setText(getDatos().get(position).getSize(context));
         holder.imagen.setImageBitmap(getDatos().get(position).getThumbnail());
 
-        if(getPos_seleccionado() == holder.getAdapterPosition() ) {
+
+        if( holder.getAdapterPosition() == getDatos().indexOf(getImg_seleccionada()) ) {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
+            setSeleccionado(holder);
         } else {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
         }
 
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Imagen img_anterior = getImg_seleccionada();
                 MediaHolder anterior = getSeleccionado();
 
-                setPos_seleccionado(holder.getAdapterPosition());
+                setImg_seleccionada(getDatos().get(holder.getAdapterPosition()));
                 setSeleccionado(holder);
+
                 v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
-                if(( anterior != null) && (anterior != holder)) {
+                if((img_anterior != null) && (!img_anterior.equals(img_seleccionada))) {
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
+
                 }
                 fragment.getmListener().setMedia(getDatos().get(position));
             }
@@ -71,11 +76,14 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
     private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
-    public void setPos_seleccionado (int pos) {
-        this.pos_seleccionado = pos;
+
+
+    public void setImg_seleccionada (Imagen imagen) {
+        this.img_seleccionada = imagen;
     }
-    private int getPos_seleccionado() {
-        return this.pos_seleccionado;
+
+    public Imagen getImg_seleccionada () {
+        return this.img_seleccionada;
     }
 
     @Override
