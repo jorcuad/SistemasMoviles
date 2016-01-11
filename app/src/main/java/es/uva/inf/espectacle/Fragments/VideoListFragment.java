@@ -21,7 +21,8 @@ import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Video;
 import es.uva.inf.espectacle.R;
 /**
- * Clase que modela el fragment de la lista de video
+ * Implementamos el funcionamiento del fragment que contiene la lista de
+ * videos en el dispositivo, para asi poder ordenarlos y seleccionarlos
  */
 public class VideoListFragment extends BaseListFragment {
 
@@ -31,6 +32,11 @@ public class VideoListFragment extends BaseListFragment {
     public VideoListFragment() {
     }
 
+    /**
+     * AL crearse este fragment establecemos su adapter para que pueda obtener los datos
+     * de los videos
+     * @param savedInstanceState datos guardados
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,14 @@ public class VideoListFragment extends BaseListFragment {
         mAdapter.setDatos(Video.getAllVideos(getContext()));
     }
 
+    /**
+     * Creamos los botenes que permitiran ordenar la lista y establecemos la lista inicial de videos,
+     * tambien contemplamos que si no hay archivos muestre el menssaje
+     * @param inflater inflater de nuestro layout
+     * @param container
+     * @param savedInstanceState datos guardados
+     * @return vista del fragment con la lista
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,6 +102,10 @@ public class VideoListFragment extends BaseListFragment {
         return view;
     }
 
+    /**
+     * Capturamos el evento onClick para ordenar la lista o para seleccionar algun elemento de la misma
+     * @param v nuestra vista
+     */
     @Override
     public void onClick(View v){
         switch (v.getId()) {
@@ -186,10 +204,18 @@ public class VideoListFragment extends BaseListFragment {
         getmListener().setVideo(mAdapter.getDatos());
     }
 
+    /**
+     * getter del listener que permite seleccionar los videos de la lista
+     * @return listener de los elementos de la lista
+     */
     public ComunicationListener getmListener() {
         return mListener;
     }
 
+    /**
+     * Establecemos el listener de la lista a partir del context de la activity, cuando se llama a este fragment
+     * @param context context de la app
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -200,6 +226,9 @@ public class VideoListFragment extends BaseListFragment {
 
     }
 
+    /**
+     * Liberamos el listener cuando nuestro foco ya no esta en la lista de video
+     */
     @Override
     public void onDetach() {
         super.onDetach();
