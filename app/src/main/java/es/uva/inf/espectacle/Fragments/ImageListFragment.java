@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.Objects;
 
 import es.uva.inf.espectacle.adapters.ImageAdapter;
-import es.uva.inf.espectacle.adapters.MediaHolder;
 import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
@@ -61,6 +60,27 @@ public class ImageListFragment extends BaseListFragment {
         mListView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if(mAdapter.getDatos().size() > 0 ) {
+
+            //Ordenar por fecha
+            Comparator<Imagen> OrderByFecha = new Comparator<Imagen>() {
+                @Override
+                public int compare(Imagen lhs, Imagen rhs) {
+                    Long another = (lhs).getDateLong();
+                    Long other = (rhs).getDateLong();
+                    if(another>other){
+                        return 1;
+                    }if(Objects.equals(another, other)){
+                        return 0;
+                    }else{
+                        return -1;
+                    }
+                }
+            };
+
+            Collections.sort(mAdapter.getDatos(), OrderByFecha);
+            fecha_button.setActivated(true);
+
+
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             mListView.setLayoutManager(llm);
@@ -70,6 +90,7 @@ public class ImageListFragment extends BaseListFragment {
             view.findViewById(R.id.emptyList).setVisibility(View.VISIBLE);
             ((TextView) view.findViewById(R.id.emptyList)).setText(R.string.no_hay_elementos);
         }
+
         return view;
     }
 
@@ -111,7 +132,6 @@ public class ImageListFragment extends BaseListFragment {
                 if(mAdapter.getImg_seleccionada() != null) {
 
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getImg_seleccionada());
-                    Log.d("pos", Integer.toString(pos));
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
                     lm.scrollToPositionWithOffset(pos, 0);
@@ -145,7 +165,6 @@ public class ImageListFragment extends BaseListFragment {
                 if(mAdapter.getImg_seleccionada() != null) {
 
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getImg_seleccionada());
-                    Log.d("pos", Integer.toString(pos));
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
                     lm.scrollToPositionWithOffset(pos, 0);
@@ -175,7 +194,6 @@ public class ImageListFragment extends BaseListFragment {
                 if(mAdapter.getImg_seleccionada() != null) {
 
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getImg_seleccionada());
-                    Log.d("pos", Integer.toString(pos));
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
                     lm.scrollToPositionWithOffset(pos, 0);

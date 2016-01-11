@@ -1,6 +1,7 @@
 package es.uva.inf.espectacle;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 
 import es.uva.inf.espectacle.fragments.AudioListFragment;
 import es.uva.inf.espectacle.fragments.AudioPlayerFragment;
-import es.uva.inf.espectacle.fragments.BaseListFragment;
 import es.uva.inf.espectacle.fragments.ImageListFragment;
 import es.uva.inf.espectacle.fragments.ImagePlayerFragment;
 import es.uva.inf.espectacle.fragments.VideoListFragment;
@@ -23,6 +23,7 @@ import es.uva.inf.espectacle.fragments.VideoPlayerFragment;
 import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.modelo.Imagen;
+import es.uva.inf.espectacle.modelo.Video;
 
 /**
  * Modela la actividad principal de la aplicacion
@@ -30,6 +31,7 @@ import es.uva.inf.espectacle.modelo.Imagen;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
     private ImagePlayerFragment imagen;
     private AudioPlayerFragment audioFragment;
+    private VideoPlayerFragment videoFragment;
     public static final String STARTED_FROM = "started_from";
     public static final String SFROM_MUSIC_NOTIFICATION = "started_from_music";
 
@@ -106,11 +108,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     private void musicFragment(){
-        getSupportActionBar().setTitle("Música");
+        ActionBar bar= getSupportActionBar();
+        if(bar != null) bar.setTitle("Música");
         audioFragment = new AudioPlayerFragment();
         AudioListFragment fragment = new AudioListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, audioFragment).commit();
+    }
+
+    private void videoFragment(){
+        ActionBar bar= getSupportActionBar();
+        if(bar != null) bar.setTitle("Video");
+        VideoListFragment fragment = new VideoListFragment();
+        videoFragment = new VideoPlayerFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, videoFragment).commit();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -121,24 +133,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_camara) {
             musicFragment();
         } else if (id == R.id.nav_gallery) {
-            getSupportActionBar().setTitle("Imágenes");
+            ActionBar bar= getSupportActionBar();
+            if(bar != null) bar.setTitle("Imágenes");
             ImageListFragment fragment = new ImageListFragment();
             imagen = new ImagePlayerFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
             getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, imagen).commit();
             //setMedia(Imagen.getAllImagenes(getApplicationContext()).get(0));
         } else if (id == R.id.nav_slideshow) {
-            getSupportActionBar().setTitle("Video");
-            VideoListFragment fragment = new VideoListFragment();
-            VideoPlayerFragment video = new VideoPlayerFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, video).commit();
-        } else if (id == R.id.nav_manage) {
-            getSupportActionBar().setTitle("360º");
-            BaseListFragment fragment = new BaseListFragment();
-            VideoPlayerFragment video = new VideoPlayerFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, video).commit();
+            videoFragment();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -166,5 +169,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void setAudio(ArrayList<Audio> audio){
         audioFragment.setPlayList(audio);
+    }
+
+    @Override
+    public void setVideoPos(int pos) {
+        Log.d("SetVideoPos", " " + pos);
+        videoFragment.setVideoPos(pos);
+    }
+
+    @Override
+    public void setVideo(ArrayList<Video> video){
+        videoFragment.setPlayList(video);
     }
 }

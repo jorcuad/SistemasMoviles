@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import es.uva.inf.espectacle.fragments.VideoListFragment;
 import es.uva.inf.espectacle.modelo.Video;
 import es.uva.inf.espectacle.R;
 
@@ -22,10 +23,12 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
     private ArrayList<Video> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
     private int pos_seleccionado;
+    private final VideoListFragment fragment;
     private MediaHolder seleccionado;
+    private Video video_seleccionado;
 
-    public VideoAdapter() {
-        this.pos_seleccionado = -1;
+    public VideoAdapter(VideoListFragment fragment) {
+        this.fragment=fragment;
     }
     @Override
     public MediaHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
@@ -37,12 +40,12 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
     public void onBindViewHolder(final MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getTittle());
         holder.subtitle.setText(getDatos().get(position).getResolution());
-        //holder.subtitle.setVisibility(View.GONE); //Escondemos el subtitulo ya que en el video no nos interesa.
         holder.duration.setText(getDatos().get(position).getStringDuration());
         holder.imagen.setImageBitmap(Video.getThumbnail(getContext(), getDatos().get(position).getId())); //TODO refactor, obtenerlas de carpeta de app.
 
-        if(getPos_seleccionado() == holder.getAdapterPosition() ) {
+        if( holder.getAdapterPosition() == getDatos().indexOf(getVideo_seleccionado()) ) {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
+            setSeleccionado(holder);
         } else {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
         }
@@ -51,17 +54,18 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
             @Override
             public void onClick(View v) {
                 //TODO Rober ya puedes reproducir el item con la posicionint pos_anterior = getPos_seleccionado();
-                int pos_anterior = getPos_seleccionado();
+                Video video_anterior = getVideo_seleccionado();
                 MediaHolder anterior = getSeleccionado();
 
-                setPos_seleccionado(holder.getAdapterPosition());
+                setVideo_seleccionado(getDatos().get(holder.getAdapterPosition()));
                 setSeleccionado(holder);
-                //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
+
                 v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
-                if(( anterior != null) && (anterior != holder)) {
+                if((video_anterior != null) && (!video_anterior.equals(video_seleccionado))) {
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
                 }
                 Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getTittle());
+                fragment.getmListener().setVideoPos(position);
             }
         });
     }
@@ -69,16 +73,17 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
     public void setSeleccionado (MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
-    public MediaHolder getSeleccionado () {
+    private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
-    public void setPos_seleccionado (int pos) {
-        this.pos_seleccionado = pos;
-        //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
+    public void setVideo_seleccionado (Video video) {
+        this.video_seleccionado= video;
     }
-    public int getPos_seleccionado () {
-        return this.pos_seleccionado;
+
+    public Video getVideo_seleccionado() {
+        return this.video_seleccionado;
     }
+
 
     @Override
     public int getItemCount() {
@@ -99,6 +104,7 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
      */
     public void setDatos(ArrayList<Video> datos) {
         this.datos = datos;
+        fragment.getmListener().setVideo(datos);
         this.notifyDataSetChanged();
     }
 
@@ -106,7 +112,7 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
      * Retorna el contexto de la aplicacion
      * @return Contexto de la aplicacion
      */
-    public Context getContext() {
+    private Context getContext() {
         return context;
     }
 

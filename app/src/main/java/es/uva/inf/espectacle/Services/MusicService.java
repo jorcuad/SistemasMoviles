@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import es.uva.inf.espectacle.MainActivity;
+import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.modelo.Audio;
 
 /**
@@ -37,7 +39,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private MediaPlayer player;
     private ArrayList<Audio> audios;
     private int songPos;
-    private Random r = new Random();
+    private final Random r = new Random();
     private boolean foreground = false;
     private final IBinder musicBind = new MusicBinder();
 
@@ -71,7 +73,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Inicia la ejecucion en segundo plano
      */
-    public void startForefround(){
+    private void startForefround(){
         if(!foreground){
             Intent notificationIntent = new Intent(this, MainActivity.class);
             Bundle bundle = new Bundle();
@@ -83,11 +85,37 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     0, notificationIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
+            AudioPlayerBroadcastReceiver broadcastReceiver = new AudioPlayerBroadcastReceiver();
+            broadcastReceiver.setMusicService(this);
+
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+            // set the custom action
+            intentFilter.addAction("es.uva.inf.espectacle.ACTION_PLAY");
+            intentFilter.addAction("es.uva.inf.espectacle.ACTION_NEXT");
+            intentFilter.addAction("es.uva.inf.espectacle.ACTION_PREV");
+            // register the receiver
+            registerReceiver(broadcastReceiver, intentFilter);
+
+
+            Intent playIntent = new Intent("es.uva.inf.espectacle.ACTION_PLAY");
+            PendingIntent pendingPlayIntent = PendingIntent.getBroadcast(this, 100, playIntent, 0);
+            Intent backIntent = new Intent("es.uva.inf.espectacle.ACTION_PREV");
+            PendingIntent pendingBackIntent = PendingIntent.getBroadcast(this, 100, backIntent, 0);
+            Intent nextIntent = new Intent("es.uva.inf.espectacle.ACTION_NEXT");
+            PendingIntent pendingNextIntent = PendingIntent.getBroadcast(this, 100, nextIntent, 0);
+
+
+
+
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
-                            .setSmallIcon(android.support.design.R.drawable.notification_template_icon_bg)
+                            .setSmallIcon(R.drawable.logofinal)
                             .setContentTitle("Espectacle")
                             .setContentText("Playing...")
+                            .addAction(R.drawable.ic_navigate_before, "", pendingBackIntent)
+                            .addAction(R.drawable.ic_play_circle_outline, "", pendingPlayIntent)
+                            .addAction(R.drawable.ic_navigate_next, "", pendingNextIntent)
                             .setContentIntent(contentIntent);
             Notification playing = mBuilder.build();
             startForeground(1, playing);
@@ -99,7 +127,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Detiene la reproduccion en segundo plano
      */
-    public void stopForeground(){
+    private void stopForeground(){
         if(foreground){
             stopForeground(true);
             foreground = false;
@@ -113,7 +141,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
-    public void initMediaPlayer(){
+    private void initMediaPlayer(){
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
         player.setOnPreparedListener(this);
         player.setOnCompletionListener(this);
@@ -137,6 +165,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onCompletion(MediaPlayer mp) {
         next();
     }
+
+
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
@@ -175,6 +205,17 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             player.start();
             if(!player.isPlaying()) playSong();
             startForefround();
+        }
+    }
+
+    public void pauseNoForeground(){
+        if(player.isPlaying()){
+            player.pause();
+            //stopForeground();
+        }else{
+            player.start();
+            if(!player.isPlaying()) playSong();
+            //startForefround();
         }
     }
 

@@ -40,7 +40,7 @@ public class DeviceFiles {
 
         ArrayList<Audio> audios = new ArrayList<>();
 
-        if(cursor == null) { return audios; }
+        if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
             audios.add(new Audio(cursor.getLong(0),
@@ -77,7 +77,7 @@ public class DeviceFiles {
 
         ArrayList<Video> videos = new ArrayList<>();
 
-        if(cursor == null) { return videos; }
+        if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
             videos.add(new Video(cursor.getLong(0),
@@ -113,7 +113,7 @@ public class DeviceFiles {
 
         ArrayList<Imagen> imagenes = new ArrayList<>();
 
-        if(cursor == null) { return imagenes; }
+        if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
             imagenes.add(new Imagen(
