@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.Objects;
 
 import es.uva.inf.espectacle.adapters.ImageAdapter;
-import es.uva.inf.espectacle.adapters.MediaHolder;
 import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;

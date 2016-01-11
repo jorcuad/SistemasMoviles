@@ -70,7 +70,7 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
         });
     }
 
-    public void setSeleccionado (MediaHolder seleccionado) {
+    private void setSeleccionado(MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
     private MediaHolder getSeleccionado() {
@@ -78,7 +78,7 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
     }
 
 
-    public void setImg_seleccionada (Imagen imagen) {
+    private void setImg_seleccionada(Imagen imagen) {
         this.img_seleccionada = imagen;
     }
 

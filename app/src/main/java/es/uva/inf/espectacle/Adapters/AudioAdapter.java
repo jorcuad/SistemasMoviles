@@ -71,13 +71,13 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         });
     }
 
-    public void setSeleccionado (MediaHolder seleccionado) {
+    private void setSeleccionado(MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
     private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
-    public void setAudio_seleccionado (Audio audio) {
+    private void setAudio_seleccionado(Audio audio) {
         this.audio_seleccionado = audio;
         //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
     }

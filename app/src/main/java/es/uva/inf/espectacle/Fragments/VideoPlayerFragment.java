@@ -1,10 +1,8 @@
 package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -23,7 +21,10 @@ import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Video;
 
 /**
- * Clase que modela el fragment del reproductor de video
+ * Fragmento del reproductor de video. Se trata de un fragment que va asignado  a una video view
+ * para poder reproducir video. Ademas le asignamos un objeto mediacontroller para implementar los controles.
+ * La lista(videoList) de videos la obtiene en su creacion y mediante un CommunicationListener le
+ * pasamos el video que selecciona el usuario para su reproduccion.
  */
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
 
@@ -73,6 +74,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
             mediaController.setAnchorView(video);
             vrButton.setOnClickListener(this);
             video.setVideoPath(path);
+            video.seekTo(savePos);
         } else {
             vrButton.setVisibility(View.GONE);
         }
@@ -113,6 +115,10 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         mListener = null;
     }
 
+    /**
+     * Guardamos el estado del fragment para poder recuperarlo en caso de que se vuelva a ejecutar
+     * @param guardarEstado bundle con el estado que queremos almacenar
+     */
     @Override
     public void onSaveInstanceState(Bundle guardarEstado) {
         super.onSaveInstanceState(guardarEstado);
@@ -123,6 +129,10 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Si la parte del video hubiera sido ejecutada anteriormente recuperamos su estado
+     * @param guardarEstado estado guardado, contiene el video y el segundo de reproduccion
+     */
     @Override
     public void onActivityCreated(Bundle guardarEstado) {
         super.onActivityCreated(guardarEstado);
@@ -134,6 +144,10 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * Metodo del evento de pulsar pantalla, con el decidimos que boton se ha pulsado
+     * @param v vista de nuestro fragment
+     */
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.VRButton){
@@ -148,13 +162,19 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         }*/
     }
 
-
+    /**
+     * Mediante este metodo creamos un intent para el reproductor 360,
+     * en el intent añadimos el path al video que se reproduce actualmente
+     */
     private void onVrButton(){
         Intent intent = new Intent(this.getContext(), StereoPlayerActivity.class);
         intent.putExtra("path",path);
         startActivity(intent);
     }
 
+    /**
+     * Liberamos los recursos
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -162,12 +182,20 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         video = null;
     }
 
+    /**
+     * Setter para cambiar el path del video que se debe ejecutar
+     * @param pos posicion del video en la lista
+     */
     public void setVideoPos(int pos){
         path = videoList.get(pos).getPath();
         video.setVideoPath(path);
         //updateInfo();
     }
 
+    /**
+     * Setter de la lista de videos
+     * @param list lista de videos
+     */
     public void setPlayList(ArrayList<Video> list){
         if(video!=null) {
             videoList = list;
