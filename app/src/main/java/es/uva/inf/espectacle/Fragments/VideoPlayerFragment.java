@@ -1,8 +1,10 @@
 package es.uva.inf.espectacle.fragments;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -31,6 +33,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     private ComunicationListener mListener;
     private VideoView video;
     private boolean isEmpty;
+    private ArrayList<Video> videoList;
 
     public VideoPlayerFragment() {
     }
@@ -38,7 +41,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<Video> videoList = Video.getAllVideos(getContext());
+        videoList = Video.getAllVideos(getContext());
         if (videoList != null) {
             if(videoList.size() > 0) {
                 path = videoList.get(0).getPath();
@@ -150,6 +153,24 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         Intent intent = new Intent(this.getContext(), StereoPlayerActivity.class);
         intent.putExtra("path",path);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        video.stopPlayback();
+        video = null;
+    }
+
+    public void setVideoPos(int pos){
+        path = videoList.get(pos).getPath();
+        video.setVideoPath(path);
+        //updateInfo();
+    }
+
+    public void setPlayList(ArrayList<Video> list){
+        if(video!=null) {
+            videoList = list;
+        }
     }
 
 }
