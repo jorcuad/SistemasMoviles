@@ -63,6 +63,21 @@ public class AudioListFragment extends BaseListFragment {
         mListView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if(mAdapter.getDatos().size() > 0 ) {
+
+            //Ordenar por intérprete
+            Comparator<Audio> OrderByInterprete = new Comparator<Audio>() {
+                @Override
+                public int compare(Audio lhs, Audio rhs) {
+                    String another =(lhs).getArtist() ;
+                    String other = (rhs).getArtist();
+                    return another.compareTo(other);
+                }
+            };
+
+            Collections.sort(mAdapter.getDatos(), OrderByInterprete);
+
+            interprete_button.setActivated(true);
+
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             mListView.setLayoutManager(llm);
@@ -109,7 +124,6 @@ public class AudioListFragment extends BaseListFragment {
                 if(mAdapter.getAudio_seleccionado() != null) {
 
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
-                    Log.d("pos", Integer.toString(pos));
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
                     lm.scrollToPositionWithOffset(pos, 0);
@@ -138,7 +152,6 @@ public class AudioListFragment extends BaseListFragment {
                 if(mAdapter.getAudio_seleccionado() != null) {
 
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
-                    Log.d("pos", Integer.toString(pos));
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
                     lm.scrollToPositionWithOffset(pos, 0);
@@ -166,7 +179,6 @@ public class AudioListFragment extends BaseListFragment {
                 if(mAdapter.getAudio_seleccionado() != null) {
 
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
-                    Log.d("pos", Integer.toString(pos));
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
                     lm.scrollToPositionWithOffset(pos, 0);
