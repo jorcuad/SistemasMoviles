@@ -34,6 +34,7 @@ public class VideoListFragment extends BaseListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mAdapter = new VideoAdapter(this);
         mAdapter.setContext(getContext());
         mAdapter.setDatos(Video.getAllVideos(getContext()));
@@ -56,6 +57,25 @@ public class VideoListFragment extends BaseListFragment {
 
         RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
         if(mAdapter.getDatos().size() > 0 ) {
+            //Ordenar por duracion
+            Comparator<Video> OrderByDuracion = new Comparator<Video>() {
+                @Override
+                public int compare(Video lhs, Video rhs) {
+                    Long another =(lhs).getDuration() ;
+                    Long other = (rhs).getDuration();
+                    if(another>other){
+                        return 1;
+                    }if(Objects.equals(another, other)){
+                        return 0;
+                    }else{
+                        return -1;
+                    }
+                }
+            };
+
+            Collections.sort(mAdapter.getDatos(), OrderByDuracion);
+            duracion_button.setActivated(true);
+
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             mListView.setLayoutManager(llm);
@@ -88,14 +108,20 @@ public class VideoListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByDuracion);
+                Collections.sort(mAdapter.getDatos(), OrderByDuracion);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
                 getActivity().findViewById(R.id.filtro3).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getVideo_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getVideo_seleccionado());
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado interprete_button");
                 break;
@@ -110,14 +136,20 @@ public class VideoListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByCalidad);
+                Collections.sort(mAdapter.getDatos(), OrderByCalidad);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
                 getActivity().findViewById(R.id.filtro3).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getVideo_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getVideo_seleccionado());
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -132,14 +164,20 @@ public class VideoListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByTitulo);
+                Collections.sort(mAdapter.getDatos(), OrderByTitulo);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getVideo_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getVideo_seleccionado());
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cancion_button");
                 break;
