@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import es.uva.inf.espectacle.utils.DeviceFiles;
 
 /**
- * Clase de representacion de un archivo de audio
+ * Clase que modela un archivo de audio
  */
 public class Audio {
 

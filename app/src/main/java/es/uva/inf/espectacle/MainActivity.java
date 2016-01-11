@@ -26,7 +26,7 @@ import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.modelo.Video;
 
 /**
- * Modela la actividad principal de la aplicacion
+ * Activity principal de nuestra app, es una activty con drawer menu para poder seleccionar las opciones de la app
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
     private ImagePlayerFragment imagen;
@@ -41,16 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,8 +52,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         procesarIntent();
     }
 
+    /**
+     * Tratamos el intent del servicio de musica
+     */
     private void procesarIntent() {
-        //String sFrom = getIntent().getStringExtra(STARTED_FROM);
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             String bund = bundle.getString(STARTED_FROM);
@@ -74,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /**
+     * Tratamos el evento de pulsar el backButton, para cerrar el drawer menu
+     * en caso de que estuviera abierto o salir de la app
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -84,6 +80,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    /**
+     * Creamos nuestro menu
+     * @param menu menu de la activity
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -91,6 +92,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /**
+     * Tratamos el evento de seleccionar un item del menu
+     * @param item item del menu
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -106,7 +112,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Creamos el musicFragment con su lista y realizamos la transaccion
+     */
     private void musicFragment(){
         ActionBar bar= getSupportActionBar();
         if(bar != null) bar.setTitle("Música");
@@ -116,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, audioFragment).commit();
     }
 
+    /**
+     * Creamos el videoFragment con su lista y realizamos la transaccion
+     */
     private void videoFragment(){
         ActionBar bar= getSupportActionBar();
         if(bar != null) bar.setTitle("Video");
@@ -125,6 +136,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, videoFragment).commit();
     }
 
+    /**
+     * Tratamos el evento dee seleccionar un item del drawer menu
+     * @param item item del drawer menu
+     * @return true
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -149,6 +165,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /**
+     * setter de una imagen para el reproductor de imagenes
+     * @param media imagen del gallery de la app
+     */
     @Override
     public void setMedia(Object media) {
         Imagen objImagen = (Imagen) media;
@@ -159,6 +179,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, imagen).commit();
     }
 
+    /**
+     * setter para reproducir una pista de audio segun su posicion en la lista
+     * @param pos posicion de la pista de audio en la lista
+     */
     @Override
     public void setAudioPos(int pos) {
         Log.d("SetAudioPos", " " + pos);
@@ -166,17 +190,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /**
+     * setter de la lista de audios
+     * @param audio lista con las pistas de audio del reproductor
+     */
     @Override
     public void setAudio(ArrayList<Audio> audio){
         audioFragment.setPlayList(audio);
     }
 
+    /**
+     * setter para reproducir una pista de video segun su posicion en la lista
+     * @param pos posicion de la pista de video en la lista
+     */
     @Override
     public void setVideoPos(int pos) {
         Log.d("SetVideoPos", " " + pos);
         videoFragment.setVideoPos(pos);
     }
-
+    /**
+     * setter de la lista de videos
+     * @param video lista con las pistas de video del reproductor
+     */
     @Override
     public void setVideo(ArrayList<Video> video){
         videoFragment.setPlayList(video);

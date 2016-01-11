@@ -28,7 +28,6 @@ import es.uva.inf.espectacle.modelo.Video;
  */
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
 
-    //private boolean pause = false;
     private String path;
     private int savePos = 0;
     private ComunicationListener mListener;
@@ -39,6 +38,10 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     public VideoPlayerFragment() {
     }
 
+    /**
+     * Al crear el reproductor establecemos su lista de reproduccion
+     * @param savedInstanceState datos guardados previamente
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,14 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Al crear la vista inflamos el fragment, establecemos las dimensiones del reproductor y
+     * establecemos la pista inicial con su posicion
+     * @param inflater inflater del layout
+     * @param container container del fragment
+     * @param savedInstanceState datos guardados
+     * @return vista del fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,25 +91,6 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         }
         return view;
     }
-// --Commented out by Inspection START (11/01/2016 1:18):
-//    /**
-//     * Handler para el boton de reproducir video
-//     */
-//    private void onPlayButton() {
-//        try {
-//            if(pause){
-//                video.pause();
-//            }else{
-//                video.start();
-//            }
-//        } catch (Exception e) {
-//            Log.d("ERROR" , e.getMessage());
-//        }
-//        pause = !pause;
-//    }
-// --Commented out by Inspection STOP (11/01/2016 1:18)
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -153,13 +145,6 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         if(v.getId()==R.id.VRButton){
             onVrButton();
         }
-        /*if(v.getId()==R.id.buttonPlay){
-            onPlayButton();
-        }else if(v.getId()==R.id.buttonNext){
-            onNextButton();
-        }else if(v.getId()==R.id.buttonBack){
-            onBackButton();
-        }*/
     }
 
     /**
@@ -189,7 +174,6 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     public void setVideoPos(int pos){
         path = videoList.get(pos).getPath();
         video.setVideoPath(path);
-        //updateInfo();
     }
 
     /**
