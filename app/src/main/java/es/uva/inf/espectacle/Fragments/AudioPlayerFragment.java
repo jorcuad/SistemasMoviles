@@ -21,8 +21,12 @@ import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.services.MusicService;
+
+
 /**
- * Clase que modela el fragment del reproductor de audio
+ * Fragmento del reproductor de audio. Se trata de un fragment que va asignado  a un music service
+ * para poder reproducir audio. La lista de audios la obtiene en su creacion y mediante un CommunicationListener le
+ * pasamos el audio que selecciona el usuario para su reproduccion.
  */
 public class AudioPlayerFragment extends Fragment implements View.OnClickListener {
 
@@ -37,6 +41,11 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     public AudioPlayerFragment() {
     }
 
+    /**
+     * Al crear el reproductor establecemos su lista de reproduccion y creamos el
+     * servicio de musica que bindeamos con un intent
+     * @param savedInstanceState datos guardados previamente
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +65,13 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         }
     }
 
-
-
+    /**
+     * Al crear la vista inflamos el fragment y establecemos los botones del reproductor
+     * @param inflater inflater del layout
+     * @param container container del fragment
+     * @param savedInstanceState datos guardados
+     * @return vista del fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,6 +92,10 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
+    /**
+     * Establecemos el listener para el evento de seleccionar item de la lista de reproduccion
+     * @param context context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -87,10 +105,12 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Liberamos el listener al perder el foco, ademas desconectamos el servicio
+     */
     @Override
     public void onDetach() {
         super.onDetach();
-        //getActivity().stopService(playIntent);
         if(!isEmpty) getActivity().unbindService(musicConnection);
         musicSrv=null;
         mListener = null;
@@ -109,6 +129,10 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * Setter para cambiar el path del audio que se debe ejecutar
+     * @param pos posicion del audio en la lista
+     */
     public void setAudioPos(int pos){
         musicSrv.playSongPos(pos);
         updateInfo();
@@ -117,8 +141,8 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
 
 
     /**
-     * Handler para el click en el componente
-     * @param v La vista del componente
+     * Handler para el click en el fragment
+     * @param v La vista del fragment
      */
     public void onClick(View v){
         if(v.getId()==R.id.buttonPlay){
@@ -135,7 +159,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
 
     /**
      * Handler para el boton de aleatorio
-     * @param v La vista del componente
+     * @param v La vista del fragment
      */
     private void onShuffleButton(View v) {
         musicSrv.shuffle();
@@ -155,14 +179,14 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     }
     /**
      * Handler para el boton de atras de audio
-     * @param v La vista del componente
+     * @param v La vista del fragment
      */
     private void onBackButton(View v) {
         musicSrv.back();
     }
     /**
      * Handler para el boton de adelante de audio
-     * @param v La vista del componente
+     * @param v La vista del fragment
      */
     private void onNextButton(View v) {
         musicSrv.next();
@@ -176,7 +200,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         if(musicSrv!=null) musicSrv.setList(audioList);
     }
     /**
-     * Conecta con el servicio de reproduccion de audio
+     * Conexion y desconexion con el servicio de reproduccion de audio
      */
     private final ServiceConnection musicConnection = new ServiceConnection(){
 

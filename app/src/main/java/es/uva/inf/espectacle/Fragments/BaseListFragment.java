@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import es.uva.inf.espectacle.R;
 /**
- * Clase que modela el fragment de la lista base, de la que heredan las listas especificas para audio, video e imagen
+ * Implementacion de una lista base de la que heredan las listas de audio, video e imagen
  */
 public class BaseListFragment extends Fragment implements OnClickListener {
 

@@ -23,7 +23,7 @@ import es.uva.inf.espectacle.modelo.Video;
 /**
  * Fragmento del reproductor de video. Se trata de un fragment que va asignado  a una video view
  * para poder reproducir video. Ademas le asignamos un objeto mediacontroller para implementar los controles.
- * La lista(videoList) de videos la obtiene en su creacion y mediante un CommunicationListener le
+ * La lista de videos la obtiene en su creacion y mediante un CommunicationListener le
  * pasamos el video que selecciona el usuario para su reproduccion.
  */
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
@@ -92,6 +92,10 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
+    /**
+     * Establecemos el listener para el evento de seleccionar item de la lista de reproduccion
+     * @param context context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -101,6 +105,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Liberamos el listener al perder el foco
+     */
     @Override
     public void onDetach() {
         super.onDetach();
