@@ -233,6 +233,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      * @param v La vista del fragment
      */
     private void onNextButton(View v) {
+        Log.d("next", "next");
         int pos = musicSrv.next();
         mListener.setAudioSel(pos);
     }

@@ -273,7 +273,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public int next() {
         int pos = setNextSongPos();
         updateNotificationInfor();
-        setNextSongPos();
         playSong();
         return pos;
     }
