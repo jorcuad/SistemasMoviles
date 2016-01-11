@@ -57,7 +57,6 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
 
                 setAudio_seleccionado(getDatos().get(holder.getAdapterPosition()));
                 setSeleccionado(holder);
-                //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
 
                 v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
                 if((audio_anterior != null) && (!audio_anterior.equals(audio_seleccionado))) {
@@ -65,6 +64,9 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
 
                 }
+
+                fragment.getmListener().setAudioPos(position);
+
             }
         });
     }
