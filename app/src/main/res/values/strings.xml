@@ -28,4 +28,5 @@
     <string name="back_button">Anterior</string>
     <string name="item_image">Imagen del item de la lista</string>
     <string name="logo">Logo de la aplicacion</string>
+    <string name="app_start">Empezar</string>
 </resources>

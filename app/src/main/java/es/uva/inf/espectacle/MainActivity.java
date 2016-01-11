@@ -9,8 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -34,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private VideoPlayerFragment videoFragment;
     public static final String STARTED_FROM = "started_from";
     public static final String SFROM_MUSIC_NOTIFICATION = "started_from_music";
+    private RelativeLayout portada;
+    private LinearLayout contenido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -60,6 +58,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         procesarIntent();
+
+        portada = (RelativeLayout) findViewById(R.id.start_app);
+        contenido = (LinearLayout) findViewById(R.id.contenido);
+        ImageView startApp = (ImageView) findViewById(R.id.imagen_start_app);
+        startApp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                drawer.openDrawer(Gravity.LEFT);
+            }
+        });
     }
 
     private void procesarIntent() {
@@ -129,7 +136,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        portada.setVisibility(View.GONE);
+        contenido.setVisibility(View.VISIBLE);
         if (id == R.id.nav_camara) {
             musicFragment();
         } else if (id == R.id.nav_gallery) {
