@@ -157,6 +157,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
         video.stopPlayback();
         video = null;
     }
