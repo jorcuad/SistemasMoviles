@@ -13,7 +13,7 @@ import java.util.Date;
 import es.uva.inf.espectacle.utils.DeviceFiles;
 
 /**
- * Clase de representacion de un archivo de imagen
+ * Clase que modela un archivo de imagen
  */
 public class Imagen implements Comparable {
 

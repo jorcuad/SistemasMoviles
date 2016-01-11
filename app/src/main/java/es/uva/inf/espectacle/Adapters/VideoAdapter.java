@@ -16,13 +16,13 @@ import es.uva.inf.espectacle.modelo.Video;
 import es.uva.inf.espectacle.R;
 
 /**
- * Clase que modela el adaptador para la lista de videos
+ * Adapter de la lista de videos que nos permite obtener la informacion perteneciente
+ * a los videos y pasarsela al fragment para poder mostrarla
  */
 public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
 
     private ArrayList<Video> datos = new ArrayList<>();
-    private Context context; //TODO meterlo con un bundle en el intent;
-    private int pos_seleccionado;
+    private Context context;
     private final VideoListFragment fragment;
     private MediaHolder seleccionado;
     private Video video_seleccionado;
@@ -30,18 +30,30 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
     public VideoAdapter(VideoListFragment fragment) {
         this.fragment=fragment;
     }
+
+    /**
+     * Cuando creamos el holder de la informacion devolvemos el mediaholder que tiene los datos del archivo
+     * @param parent vista de la clase padre
+     * @param viewType tipo de vista
+     * @return mediaHolder del archivo
+     */
     @Override
     public MediaHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         return new MediaHolder(view);
     }
 
+    /**
+     * Hacemos un bind de los datos del mediaHolder
+     * @param holder mediaHolder del archivo
+     * @param position posicion del archivo en la lista
+     */
     @Override
     public void onBindViewHolder(final MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getTittle());
         holder.subtitle.setText(getDatos().get(position).getResolution());
         holder.duration.setText(getDatos().get(position).getStringDuration());
-        holder.imagen.setImageBitmap(Video.getThumbnail(getContext(), getDatos().get(position).getId())); //TODO refactor, obtenerlas de carpeta de app.
+        holder.imagen.setImageBitmap(Video.getThumbnail(getContext(), getDatos().get(position).getId()));
 
         if( holder.getAdapterPosition() == getDatos().indexOf(getVideo_seleccionado()) ) {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
@@ -53,7 +65,6 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
         holder.itemView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Rober ya puedes reproducir el item con la posicionint pos_anterior = getPos_seleccionado();
                 Video video_anterior = getVideo_seleccionado();
                 MediaHolder anterior = getSeleccionado();
 

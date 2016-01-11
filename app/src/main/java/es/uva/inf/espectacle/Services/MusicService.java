@@ -23,7 +23,7 @@ import es.uva.inf.espectacle.R;
 import es.uva.inf.espectacle.modelo.Audio;
 
 /**
- * Clase que modela e implementa el servicio de reproducción de música
+ * Implementacion del servicio de musica que reproduce audio en segundo plano
  */
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener,
         MediaPlayer.OnCompletionListener,
@@ -135,12 +135,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     }
 
+    /**
+     * Bind para el servicio de audio
+     */
     public class MusicBinder extends Binder {
         public MusicService getService() {
             return MusicService.this;
         }
     }
 
+    /**
+     * Iniciamos el reproductor y establecemos los listener de los eventos
+     */
     private void initMediaPlayer(){
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
         player.setOnPreparedListener(this);
@@ -178,7 +184,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      */
     private void playSong(){
 
-        //startForefround();
         player.reset();
 
         Uri trackUri = ContentUris.withAppendedId(
@@ -208,14 +213,17 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
+    /**
+     * Pausamos el servicio
+     */
     public void pauseNoForeground(){
         if(player.isPlaying()){
             player.pause();
-            //stopForeground();
+
         }else{
             player.start();
             if(!player.isPlaying()) playSong();
-            //startForefround();
+
         }
     }
 
@@ -250,12 +258,20 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         playSong();
     }
 
+    /**
+     * Reproduce la pista con posicion pos en la lista
+     * @param pos posicion en la lista de la pista
+     */
     public void playSongPos(int pos){
         setSongPos(pos);
         playSong();
         startForefround();
     }
 
+    /**
+     * Establece la posicion en la lista de la pista en reproduccion
+     * @param pos posicionen la lista
+     */
     private void setSongPos(int pos) {
         if(pos<audios.size()&&pos>=0){
             songPos=pos;
