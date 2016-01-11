@@ -12,7 +12,12 @@ import org.rajawali3d.cardboard.RajawaliCardboardView;
 import es.uva.inf.espectacle.utils.StereoscopicRenderer;
 
 /**
- * Created by Rober on 07/01/2016.
+ * Actividad que se va a ejecutar cuando lanzemos el reproductor 360
+ * la clase requiere ejecutarse en modo landscape. Para obtener la vista stereoscopica
+ * hacemos un extend a cardboard activity. Basicamente tenemos que crear una vista
+ * de tipo cardboard(Rajawalicardboardview) y asignarsela a nuestro renderizador,
+ * para lo cual creamos un objeto StereoscopicRenderer al que pasamos el path del video
+ * que se estaba reproduciendo en ese momento para que lo convierta a modo 360.
  */
 public class StereoPlayerActivity extends CardboardActivity {
     private boolean paused = false;

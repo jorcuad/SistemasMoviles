@@ -101,7 +101,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      * Handler para el botón de reproducción de audio
      * @param view La vista del componente
      */
-    public void onPlayButton(View view) {
+    private void onPlayButton(View view) {
         Log.d("Set song to", "9");
         //musicSrv.setSong(9);
         musicSrv.pause();
@@ -144,7 +144,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     /**
      * Actualiza el titulo del audio
      */
-    public void updateInfo(){
+    private void updateInfo(){
         titleText.setText(musicSrv.getPlayingAudio().getTittle());
         /*if(musicSrv.isPlaying()){
             buttonPlay.setImageResource(R.drawable.play_button_selector);
@@ -178,7 +178,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     /**
      * Conecta con el servicio de reproduccion de audio
      */
-    private ServiceConnection musicConnection = new ServiceConnection(){
+    private final ServiceConnection musicConnection = new ServiceConnection(){
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
