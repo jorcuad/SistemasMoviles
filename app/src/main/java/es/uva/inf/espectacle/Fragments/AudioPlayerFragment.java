@@ -33,8 +33,8 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     private ComunicationListener mListener;
     private TextView titleText;
     private boolean musicBound;
-    ImageButton buttonPlay;
-    private AudioPlayerFragment thisFragment = this;
+    private ImageButton buttonPlay;
+    private final AudioPlayerFragment thisFragment = this;
 
     public AudioPlayerFragment() {
     }
@@ -73,7 +73,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
         /*buttonNext.setOnClickListener(this);
         buttonPause.setOnClickListener(this);*/
 
-        //updateInfo();
+        updateInfo();
         return view;
     }
 
@@ -95,21 +95,32 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        if(musicSrv.isPlaying()) musicSrv.startForefround();
+        //unBindFragmentService();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         //getActivity().stopService(playIntent);
+        unBindFragmentService();
+        Log.d("onDetach", "onDetach");
+    }
+
+    private void unBindFragmentService(){
         getActivity().unbindService(musicConnection);
-        musicSrv.unbindFragment();
+        if(musicSrv!=null) musicSrv.unbindFragment();
         musicSrv=null;
         mListener = null;
-        Log.d("onDetach", "onDetach");
     }
 
     /**
      * Handler para el botón de reproducción de audio
      * @param view La vista del componente
      */
-    public void onPlayButton(View view) {
+    private void onPlayButton(View view) {
         Log.d("Set song to", "9");
         //musicSrv.setSong(9);
         musicSrv.pause();
@@ -118,7 +129,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     }
 
     public void setAudioPos(int pos){
-        musicSrv.playSongPos(pos);
+        if(musicSrv!=null) musicSrv.playSongPos(pos);
         updateInfo();
     }
 
@@ -153,6 +164,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      * Actualiza el titulo del audio
      */
     public void updateInfo(){
+        if(musicSrv==null) return;
         titleText.setText(musicSrv.getPlayingAudio().getTittle());
         if(!musicSrv.isPlaying()){
             buttonPlay.setImageResource(R.drawable.play_button_selector);
@@ -185,7 +197,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     /**
      * Conecta con el servicio de reproduccion de audio
      */
-    private ServiceConnection musicConnection = new ServiceConnection(){
+    private final ServiceConnection musicConnection = new ServiceConnection(){
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -193,6 +205,8 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
             musicSrv = binder.getService();
             musicSrv.setList(audioList);
             musicSrv.setFragment(thisFragment);
+            updateInfo();
+            musicSrv.stopForeground();
             musicBound = true;
         }
 

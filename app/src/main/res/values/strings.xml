@@ -29,4 +29,15 @@
     <string name="back_button">anterior</string>
     <string name="item_image">imagen del item de la lista</string>
     <string name="logo">logo de la aplicacion</string>
+    <string name="albumart">album art</string>
+    <string name="cdStatusBarIcon">status bar icon</string>
+    <string name="cdPrevSongButton">Previus song</string>
+    <string name="cdPlaySongButton">Play or Pause</string>
+    <string name="cdNextSongButton">Next song</string>
+    <string name="cdAlbumArt">Album art</string>
+    <string name="cdPrevSong">Previus song</string>
+    <string name="cdPlaySong">Play</string>
+    <string name="cdNextSong">Next song</string>
+    <string name="cdAlbumArtExpanded">Album art</string>
+    <string name="cdCloseExpanded">Close</string>
 </resources>

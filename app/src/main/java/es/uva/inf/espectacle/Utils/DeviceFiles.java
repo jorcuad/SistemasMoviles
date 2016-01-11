@@ -40,16 +40,18 @@ public class DeviceFiles {
 
         ArrayList<Audio> audios = new ArrayList<>();
 
-        if(cursor == null) { return audios; }
+        if (cursor == null) {
+            return audios;
+        }
 
         while (cursor.moveToNext()) {
             audios.add(new Audio(cursor.getLong(0),
-                                 cursor.getString(1),
-                                 cursor.getString(2),
-                                 cursor.getString(3),
-                                 cursor.getString(4),
-                                 cursor.getLong(5),
-                                 cursor.getString(6)));
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getLong(5),
+                    cursor.getString(6)));
         }
 
         cursor.close();
@@ -57,7 +59,7 @@ public class DeviceFiles {
         return audios;
     }
 
-    public static ArrayList<Video> getAllVideos(Context context){
+    public static ArrayList<Video> getAllVideos(Context context) {
 
         //TODO eliminar videos de whatsapp y otras app
         String[] projection = {
@@ -77,7 +79,9 @@ public class DeviceFiles {
 
         ArrayList<Video> videos = new ArrayList<>();
 
-        if(cursor == null) { return videos; }
+        if (cursor == null) {
+            return videos;
+        }
 
         while (cursor.moveToNext()) {
             videos.add(new Video(cursor.getLong(0),
@@ -92,7 +96,7 @@ public class DeviceFiles {
         return videos;
     }
 
-    public static ArrayList<Imagen> getAllImagenes(Context context){
+    public static ArrayList<Imagen> getAllImagenes(Context context) {
 
         //TODO eliminar imagenes de whatsapp?
         String[] projection = {
@@ -113,7 +117,9 @@ public class DeviceFiles {
 
         ArrayList<Imagen> imagenes = new ArrayList<>();
 
-        if(cursor == null) { return imagenes; }
+        if (cursor == null) {
+            return imagenes;
+        }
 
         while (cursor.moveToNext()) {
             imagenes.add(new Imagen(
@@ -129,9 +135,9 @@ public class DeviceFiles {
         return imagenes;
     }
 
-    public static Bitmap getThumbnail(Context context, Long videoId){
+    public static Bitmap getThumbnail(Context context, Long videoId) {
         return MediaStore.Video.Thumbnails.getThumbnail(context.getContentResolver(), videoId,
-                                                        MediaStore.Video.Thumbnails.MICRO_KIND,
-                                                        null );
+                MediaStore.Video.Thumbnails.MICRO_KIND,
+                null);
     }
 }
