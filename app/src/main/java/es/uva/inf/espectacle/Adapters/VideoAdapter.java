@@ -76,18 +76,18 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
                 }
                 Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getTittle());
-                fragment.getmListener().setMedia(getDatos().get(position));
+                fragment.getmListener().setMediaVideo(getDatos().get(position));
             }
         });
     }
 
-    public void setSeleccionado (MediaHolder seleccionado) {
+    private void setSeleccionado(MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
     private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
-    public void setVideo_seleccionado (Video video) {
+    private void setVideo_seleccionado(Video video) {
         this.video_seleccionado= video;
     }
 

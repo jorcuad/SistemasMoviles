@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Creamos nuestro menu
      *
      * @param menu menu de la activity
-     * @return
+     * @return true
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Tratamos el evento de seleccionar un item del menu
      *
      * @param item item del menu
-     * @return
+     * @return item seleccionado
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

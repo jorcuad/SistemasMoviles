@@ -14,6 +14,5 @@ public interface ComunicationListener {
     void setAudio(ArrayList<Audio> audio);
     void setVideoPos(int position);
     void setVideo(ArrayList<Video> datos);
-
     void setMediaVideo(Object media);
 }
