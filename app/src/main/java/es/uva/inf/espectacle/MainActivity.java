@@ -57,11 +57,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void procesarIntent() {
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
+        if (bundle != null) {
             String bund = bundle.getString(STARTED_FROM);
-            if(bund != null && bund.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
+            if (bund != null && bund.equals(SFROM_MUSIC_NOTIFICATION)) musicFragment();
         }
-
 
 
     }
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Creamos nuestro menu
+     *
      * @param menu menu de la activity
      * @return
      */
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Tratamos el evento de seleccionar un item del menu
+     *
      * @param item item del menu
      * @return
      */
@@ -115,9 +116,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * Creamos el musicFragment con su lista y realizamos la transaccion
      */
-    private void musicFragment(){
-        ActionBar bar= getSupportActionBar();
-        if(bar != null) bar.setTitle("Música");
+    private void musicFragment() {
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) bar.setTitle("Música");
         audioFragment = new AudioPlayerFragment();
         AudioListFragment fragment = new AudioListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
@@ -127,9 +128,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * Creamos el videoFragment con su lista y realizamos la transaccion
      */
-    private void videoFragment(){
-        ActionBar bar= getSupportActionBar();
-        if(bar != null) bar.setTitle("Video");
+    private void videoFragment() {
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) bar.setTitle("Video");
         VideoListFragment fragment = new VideoListFragment();
         videoFragment = new VideoPlayerFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
@@ -138,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Tratamos el evento dee seleccionar un item del drawer menu
+     *
      * @param item item del drawer menu
      * @return true
      */
@@ -149,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_camara) {
             musicFragment();
         } else if (id == R.id.nav_gallery) {
-            ActionBar bar= getSupportActionBar();
-            if(bar != null) bar.setTitle("Imágenes");
+            ActionBar bar = getSupportActionBar();
+            if (bar != null) bar.setTitle("Imágenes");
             ImageListFragment fragment = new ImageListFragment();
             imagen = new ImagePlayerFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
@@ -167,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * setter de una imagen para el reproductor de imagenes
+     *
      * @param media imagen del gallery de la app
      */
     @Override
@@ -181,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * setter para reproducir una pista de audio segun su posicion en la lista
+     *
      * @param pos posicion de la pista de audio en la lista
      */
     @Override
@@ -192,15 +196,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * setter de la lista de audios
+     *
      * @param audio lista con las pistas de audio del reproductor
      */
     @Override
-    public void setAudio(ArrayList<Audio> audio){
+    public void setAudio(ArrayList<Audio> audio) {
         audioFragment.setPlayList(audio);
     }
 
     /**
      * setter para reproducir una pista de video segun su posicion en la lista
+     *
      * @param pos posicion de la pista de video en la lista
      */
     @Override
@@ -208,12 +214,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d("SetVideoPos", " " + pos);
         videoFragment.setVideoPos(pos);
     }
+
     /**
      * setter de la lista de videos
+     *
      * @param video lista con las pistas de video del reproductor
      */
     @Override
-    public void setVideo(ArrayList<Video> video){
+    public void setVideo(ArrayList<Video> video) {
         videoFragment.setPlayList(video);
+    }
+
+
+    /**
+     * setter de una imagen para el reproductor de imagenes
+     *
+     * @param media imagen del gallery de la app
+     */
+    @Override
+    public void setMediaVideo(Object media) {
+        Video objVideo = (Video) media;
+        Bundle bundle = new Bundle();
+        bundle.putString("path", objVideo.getPath());
+        videoFragment = new VideoPlayerFragment();
+        videoFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, videoFragment).commit();
     }
 }

@@ -32,7 +32,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     private int savePos = 0;
     private ComunicationListener mListener;
     private VideoView video;
-    private boolean isEmpty;
+    //private boolean isEmpty;
     private ArrayList<Video> videoList;
 
     public VideoPlayerFragment() {
@@ -47,14 +47,9 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
         videoList = Video.getAllVideos(getContext());
         if (videoList != null) {
-            if(videoList.size() > 0) {
+            if (videoList.size() > 0) {
                 path = videoList.get(0).getPath();
-                isEmpty = false;
-            } else isEmpty = true;
-
-            Log.d("OnCreateFragment:", "Arguments==null");
-        } else {
-            isEmpty = true;
+            }
         }
     }
 
@@ -72,9 +67,13 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
         Button vrButton = (Button) view.findViewById(R.id.VRButton);
-        if(!isEmpty) {
+        if(this.getArguments() != null) {
             MediaController mediaController = new MediaController(this.getActivity());
             video = (VideoView) view.findViewById(R.id.surfaceView);
+
+            Bundle bundle = this.getArguments();
+            video.setVideoPath(bundle.getString("path"));
+
             DisplayMetrics dm = new DisplayMetrics();
             this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             int height = dm.heightPixels;
