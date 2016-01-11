@@ -14,7 +14,7 @@
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:id="@+id/imagen"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="start|center_vertical"
             android:contentDescription="@string/item_image" />
 
         <FrameLayout
@@ -29,8 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/backgroundLight"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp">
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp">
 
                 <TextView
                     android:layout_width="match_parent"

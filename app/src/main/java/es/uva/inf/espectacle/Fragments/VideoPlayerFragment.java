@@ -75,21 +75,23 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         }
         return view;
     }
-    /**
-     * Handler para el boton de reproducir video
-     */
-    private void onPlayButton() {
-        try {
-            if(pause){
-                video.pause();
-            }else{
-                video.start();
-            }
-        } catch (Exception e) {
-            Log.d("ERROR" , e.getMessage());
-        }
-        pause = !pause;
-    }
+// --Commented out by Inspection START (11/01/2016 1:18):
+//    /**
+//     * Handler para el boton de reproducir video
+//     */
+//    private void onPlayButton() {
+//        try {
+//            if(pause){
+//                video.pause();
+//            }else{
+//                video.start();
+//            }
+//        } catch (Exception e) {
+//            Log.d("ERROR" , e.getMessage());
+//        }
+//        pause = !pause;
+//    }
+// --Commented out by Inspection STOP (11/01/2016 1:18)
 
 
 
