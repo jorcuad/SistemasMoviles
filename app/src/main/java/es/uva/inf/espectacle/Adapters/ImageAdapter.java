@@ -15,11 +15,12 @@ import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.R;
 
 /**
- * Clase que modela el adaptador para la lista de imagenes
+ * Adaptador de las imagenes, nos permite obtener los datos pertenecientes a los archivos de tipo
+ * imagen para mostrarlos en la lista.
  */
 public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements Comparator{
     private ArrayList<Imagen> datos = new ArrayList<>();
-    private Context context; //TODO meterlo con un bundle en el intent
+    private Context context;
     private final ImageListFragment fragment;
     private MediaHolder seleccionado;
     private Imagen img_seleccionada;
@@ -28,17 +29,27 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
         this.fragment = fragment;
     }
 
+    /**
+     * Cuando creamos el holder de la informacion devolvemos el mediaholder que tiene los datos del archivo
+     * @param parent vista de la clase padre
+     * @param viewType tipo de vista
+     * @return mediaHolder del archivo
+     */
     @Override
     public MediaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new MediaHolder(view);
     }
 
+    /**
+     * Hacemos un bind de los datos del mediaHolder
+     * @param holder mediaHolder del archivo
+     * @param position posicion del archivo en la lista
+     */
     @Override
     public void onBindViewHolder(final MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getDisplay_name());
         holder.subtitle.setText(getDatos().get(position).getDateAdded());
-        //holder.subtitle.setVisibility(View.GONE); //Escondemos el subtitulo ya que en el video no nos interesa.
         holder.duration.setText(getDatos().get(position).getSize(context));
         holder.imagen.setImageBitmap(getDatos().get(position).getThumbnail());
 
@@ -118,6 +129,9 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
 
     @Override
     public int compare(Object lhs, Object rhs) {
+        if(lhs.equals(rhs)){
+            return 1;
+        }
         return 0;
     }
 }

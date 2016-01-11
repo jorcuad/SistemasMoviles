@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 /**
- * Created by alvaro on 09/01/2016.
+ * Boradcast receiver para el servicio de audio que nos permite controlar el reproductor desde el propio servicio
  */
 public class AudioPlayerBroadcastReceiver extends BroadcastReceiver {
 

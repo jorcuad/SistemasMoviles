@@ -14,7 +14,8 @@ import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
 
 /**
- * Clase que modela el adaptador para la lista de audio
+ * Adaptador de las imagenes, nos permite obtener los datos pertenecientes a los archivos de tipo
+ * audio para mostrarlos en la lista.
  */
 public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private ArrayList<Audio> datos = new ArrayList<>();
@@ -27,12 +28,23 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         this.fragment=fragment;
     }
 
+    /**
+     * Cuando creamos el holder de la informacion devolvemos el mediaholder que tiene los datos del archivo
+     * @param parent vista de la clase padre
+     * @param viewType tipo de vista
+     * @return mediaHolder del archivo
+     */
     @Override
     public MediaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new MediaHolder(view);
     }
 
+    /**
+     * Hacemos un bind de los datos del mediaHolder
+     * @param holder mediaHolder del archivo
+     * @param position posicion del archivo en la lista
+     */
     @Override
     public void onBindViewHolder(final MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getTittle());
@@ -79,7 +91,6 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     }
     private void setAudio_seleccionado(Audio audio) {
         this.audio_seleccionado = audio;
-        //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
     }
 
     public Audio getAudio_seleccionado () {
