@@ -229,17 +229,19 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Pasa a siguiente pista de audio
      */
-    public void next() {
-        setNextSongPos();
+    public int next() {
+        int pos = setNextSongPos();
         playSong();
+        return pos;
     }
 
     /**
      * Vuelve a la anterior pista de audio
      */
-    public  void back(){
-        setPrevSongPos();
+    public int back(){
+        int pos = setPrevSongPos();
         playSong();
+        return pos;
     }
 
     /**

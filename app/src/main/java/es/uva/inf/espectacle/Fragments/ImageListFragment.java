@@ -134,7 +134,7 @@ public class ImageListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getImg_seleccionada());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -167,11 +167,9 @@ public class ImageListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getImg_seleccionada());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
-                //mAdapter.setPos_seleccionado(-1);
-                //mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -196,11 +194,9 @@ public class ImageListFragment extends BaseListFragment {
                     int pos = mAdapter.getDatos().indexOf(mAdapter.getImg_seleccionada());
                     RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
                     LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
-                    lm.scrollToPositionWithOffset(pos, 0);
+                    lm.scrollToPositionWithOffset(pos, 1);
                 }
 
-                //mAdapter.setPos_seleccionado(-1);
-                //mAdapter.setSeleccionado(null);
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cacnion_button");
                 break;

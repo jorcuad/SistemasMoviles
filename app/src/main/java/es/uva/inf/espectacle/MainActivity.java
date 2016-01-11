@@ -1,7 +1,10 @@
 package es.uva.inf.espectacle;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +17,8 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+import es.uva.inf.espectacle.adapters.AudioAdapter;
+import es.uva.inf.espectacle.adapters.MediaHolder;
 import es.uva.inf.espectacle.fragments.AudioListFragment;
 import es.uva.inf.espectacle.fragments.AudioPlayerFragment;
 import es.uva.inf.espectacle.fragments.ImageListFragment;
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImagePlayerFragment imagen;
     private AudioPlayerFragment audioFragment;
     private VideoPlayerFragment videoFragment;
+    private AudioListFragment audioListFragment;
     public static final String STARTED_FROM = "started_from";
     public static final String SFROM_MUSIC_NOTIFICATION = "started_from_music";
 
@@ -111,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBar bar= getSupportActionBar();
         if(bar != null) bar.setTitle("Música");
         audioFragment = new AudioPlayerFragment();
-        AudioListFragment fragment = new AudioListFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
+        audioListFragment = new AudioListFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentList, audioListFragment).commit();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, audioFragment).commit();
     }
 
@@ -164,6 +170,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d("SetAudioPos", " " + pos);
         audioFragment.setAudioPos(pos);
 
+    }
+
+    /**
+     * Establece la cancion seleccionada al utilizar controles de audio
+     * @param pos Cancion a reproducir
+     */
+    public void setAudioSel (int pos) {
+        AudioAdapter audioAdapter = audioListFragment.getAdapter();
+        RecyclerView mListView = (RecyclerView) this.findViewById(android.R.id.list);
+        audioAdapter.setAudioSel(pos, mListView);
     }
 
     @Override

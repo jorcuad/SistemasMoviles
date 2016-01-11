@@ -2,7 +2,9 @@ package es.uva.inf.espectacle.adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +79,7 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
-    private void setAudio_seleccionado(Audio audio) {
+    public void setAudio_seleccionado(Audio audio) {
         this.audio_seleccionado = audio;
         //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
     }
@@ -123,5 +125,25 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
      */
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public void setAudioSel (int pos, RecyclerView mListView) {
+        Audio audio = this.getDatos().get(pos);
+
+        MediaHolder anterior = this.getSeleccionado();
+
+        LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+        MediaHolder nuevo = (MediaHolder) mListView.findViewHolderForAdapterPosition(pos);
+
+        this.setSeleccionado(nuevo);
+        this.setAudio_seleccionado(audio);
+
+        if(anterior != null) {
+            anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.backgroundLight));
+        }
+        if(nuevo != null) {
+            nuevo.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimaryLight));
+        }
+        lm.scrollToPositionWithOffset(pos, 1);
     }
 }
