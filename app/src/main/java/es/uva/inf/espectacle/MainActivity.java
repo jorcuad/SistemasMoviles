@@ -34,7 +34,7 @@ import es.uva.inf.espectacle.modelo.Video;
  * Activity principal de nuestra app, es una activty con drawer menu para poder seleccionar las opciones de la app
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
-    private static final String VIDEO_FRAGMENT = "video_fragment";
+    private static final String VIDEO_FRAGMENT = "VIDEO_FRAGMENT";
     private ImagePlayerFragment imagen;
     private AudioPlayerFragment audioFragment;
     private VideoPlayerFragment videoFragment;

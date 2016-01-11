@@ -31,7 +31,7 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     private int savePos = 0;
     private ComunicationListener mListener;
     private VideoView video;
-    //private boolean isEmpty;
+    private boolean isEmpty;
     private ArrayList<Video> videoList;
 
     public VideoPlayerFragment() {
@@ -47,8 +47,13 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         videoList = Video.getAllVideos(getContext());
         if (videoList != null) {
             if (videoList.size() > 0) {
+                isEmpty = false;
                 path = videoList.get(0).getPath();
+            } else {
+                isEmpty = true;
             }
+        } else {
+            isEmpty = true;
         }
     }
 
@@ -66,27 +71,30 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
         Button vrButton = (Button) view.findViewById(R.id.VRButton);
-        if(this.getArguments() != null) {
-            MediaController mediaController = new MediaController(this.getActivity());
-            video = (VideoView) view.findViewById(R.id.surfaceView);
 
+        MediaController mediaController = new MediaController(this.getActivity());
+        video = (VideoView) view.findViewById(R.id.surfaceView);
+
+        if(this.getArguments() != null) {
             Bundle bundle = this.getArguments();
             video.setVideoPath(bundle.getString("path"));
-
-            DisplayMetrics dm = new DisplayMetrics();
-            this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-            int height = dm.heightPixels;
-            int width = dm.widthPixels;
-            video.setMinimumWidth(width);
-            video.setMinimumHeight(height);
-            video.setMediaController(mediaController);
-            mediaController.setAnchorView(video);
-            vrButton.setOnClickListener(this);
-            video.setVideoPath(path);
-            video.seekTo(savePos);
-        } else {
-            vrButton.setVisibility(View.GONE);
         }
+
+        if(isEmpty) vrButton.setVisibility(View.GONE);
+
+
+        DisplayMetrics dm = new DisplayMetrics();
+        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int height = dm.heightPixels;
+        int width = dm.widthPixels;
+        video.setMinimumWidth(width);
+        video.setMinimumHeight(height);
+        video.setMediaController(mediaController);
+        mediaController.setAnchorView(video);
+        vrButton.setOnClickListener(this);
+        video.setVideoPath(path);
+        video.seekTo(savePos);
+
         return view;
     }
 
