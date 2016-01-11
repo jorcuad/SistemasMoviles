@@ -153,7 +153,9 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      * @param v La vista del componente
      */
     private void onShuffleButton(View v) {
-        musicSrv.shuffle();
+
+        int pos = musicSrv.shuffle();
+        mListener.setAudioSel(pos);
     }
 
     /**

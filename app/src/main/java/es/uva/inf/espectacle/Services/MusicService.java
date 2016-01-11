@@ -247,9 +247,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Reproduce pista aleatoria
      */
-    public void shuffle(){
-        setRandomSongPos();
+    public int shuffle(){
+        int pos = setRandomSongPos();
         playSong();
+        return pos;
     }
 
     public void playSongPos(int pos){
