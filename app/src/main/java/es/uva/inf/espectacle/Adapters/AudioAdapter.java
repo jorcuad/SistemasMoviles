@@ -21,12 +21,11 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private ArrayList<Audio> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent;
     private AudioListFragment fragment;
-    private int pos_seleccionado;
     private MediaHolder seleccionado;
+    private Audio audio_seleccionado;
 
     public AudioAdapter(AudioListFragment fragment){
         this.fragment=fragment;
-        this.pos_seleccionado = -1;
     }
 
     @Override
@@ -43,8 +42,9 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         holder.duration.setText(getDatos().get(position).getStringDuration());
         holder.imagen.setImageResource(R.drawable.side_nav_bar);
 
-        if(getPos_seleccionado() == holder.getAdapterPosition() ) {
+        if( holder.getAdapterPosition() == getDatos().indexOf(getAudio_seleccionado()) ) {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
+            setSeleccionado(holder);
         } else {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
         }
@@ -52,19 +52,19 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos_anterior = getPos_seleccionado();
+                Audio audio_anterior = getAudio_seleccionado();
                 MediaHolder anterior = getSeleccionado();
 
-                setPos_seleccionado(holder.getAdapterPosition());
+                setAudio_seleccionado(getDatos().get(holder.getAdapterPosition()));
                 setSeleccionado(holder);
                 //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
+
                 v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
-                if(( anterior != null) && (anterior != holder)) {
+                if((audio_anterior != null) && (audio_anterior.equals(audio_seleccionado) == false)) {
+
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
+
                 }
-                //TODO Rober ya puedes reproducir el item con la posicion
-                Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getDisplay_name()+ " pos: "+ position);
-                fragment.getmListener().setAudioPos(position);
             }
         });
     }
@@ -75,11 +75,12 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     public MediaHolder getSeleccionado () {
         return this.seleccionado;
     }
-    public void setPos_seleccionado (int pos) {
-        this.pos_seleccionado = pos;
+    public void setAudio_seleccionado (Audio audio) {
+        this.audio_seleccionado = audio;
+        //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
     }
-    public int getPos_seleccionado () {
-        return this.pos_seleccionado;
+    public Audio getAudio_seleccionado () {
+        return this.audio_seleccionado;
     }
 
     @Override
