@@ -29,6 +29,7 @@ import es.uva.inf.espectacle.modelo.Video;
  * Activity principal de nuestra app, es una activty con drawer menu para poder seleccionar las opciones de la app
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ComunicationListener {
+    private static final String VIDEO_FRAGMENT = "video_fragment";
     private ImagePlayerFragment imagen;
     private AudioPlayerFragment audioFragment;
     private VideoPlayerFragment videoFragment;
@@ -134,11 +135,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         VideoListFragment fragment = new VideoListFragment();
         videoFragment = new VideoPlayerFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentList, fragment).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, videoFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, videoFragment, MainActivity.VIDEO_FRAGMENT).commit();
     }
 
     /**
-     * Tratamos el evento dee seleccionar un item del drawer menu
+     * Tratamos el evento de seleccionar un item del drawer menu
      *
      * @param item item del drawer menu
      * @return true
@@ -211,8 +212,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public void setVideoPos(int pos) {
-        Log.d("SetVideoPos", " " + pos);
-        videoFragment.setVideoPos(pos);
+        if(videoFragment != null){
+            videoFragment.setVideoPos(pos);
+        }else{
+            videoFragment = (VideoPlayerFragment) getSupportFragmentManager().findFragmentByTag("VIDEO_FRAGMENT");
+            videoFragment.setVideoPos(pos);
+        }
+
     }
 
     /**
@@ -222,22 +228,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public void setVideo(ArrayList<Video> video) {
-        videoFragment.setPlayList(video);
-    }
+        if(videoFragment!=null){
+            videoFragment.setPlayList(video);
+        }else{
+            videoFragment = (VideoPlayerFragment) getSupportFragmentManager().findFragmentByTag("VIDEO_FRAGMENT");
+            videoFragment.setPlayList(video);
+        }
 
-
-    /**
-     * setter de una imagen para el reproductor de imagenes
-     *
-     * @param media imagen del gallery de la app
-     */
-    @Override
-    public void setMediaVideo(Object media) {
-        Video objVideo = (Video) media;
-        Bundle bundle = new Bundle();
-        bundle.putString("path", objVideo.getPath());
-        videoFragment = new VideoPlayerFragment();
-        videoFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentDisplay, videoFragment).commit();
     }
 }
