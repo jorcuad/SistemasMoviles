@@ -150,10 +150,10 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         this.setAudio_seleccionado(audio);
 
         if(anterior != null) {
-            anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.backgroundLight));
+            anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
         }
         if(nuevo != null) {
-            nuevo.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimaryLight));
+            nuevo.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
         }
         lm.scrollToPositionWithOffset(pos, 1);
     }
