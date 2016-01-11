@@ -3,7 +3,6 @@ package es.uva.inf.espectacle.adapters;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import es.uva.inf.espectacle.R;
 public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements Comparator{
     private ArrayList<Imagen> datos = new ArrayList<>();
     private Context context; //TODO meterlo con un bundle en el intent
-    private ImageListFragment fragment;
+    private final ImageListFragment fragment;
     private MediaHolder seleccionado;
     private Imagen img_seleccionada;
 
@@ -60,10 +59,9 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
 
                 setImg_seleccionada(getDatos().get(holder.getAdapterPosition()));
                 setSeleccionado(holder);
-                //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
 
                 v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
-                if((img_anterior != null) && (img_anterior.equals(img_seleccionada) == false)) {
+                if((img_anterior != null) && (!img_anterior.equals(img_seleccionada))) {
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
 
                 }
@@ -75,14 +73,15 @@ public class ImageAdapter extends RecyclerView.Adapter<MediaHolder> implements C
     public void setSeleccionado (MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
-    public MediaHolder getSeleccionado () {
+    private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
 
+
     public void setImg_seleccionada (Imagen imagen) {
         this.img_seleccionada = imagen;
-        //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
     }
+
     public Imagen getImg_seleccionada () {
         return this.img_seleccionada;
     }

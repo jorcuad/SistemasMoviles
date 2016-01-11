@@ -30,7 +30,6 @@ public class VideoListFragment extends BaseListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mAdapter = new VideoAdapter();
         mAdapter.setContext(getContext());
         mAdapter.setDatos(Video.getAllVideos(getContext()));

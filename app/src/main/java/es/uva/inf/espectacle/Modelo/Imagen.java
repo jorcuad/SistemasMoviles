@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Imagen implements Comparable {
     public static ArrayList<Imagen> getAllImagenes(Context context){
         return DeviceFiles.getAllImagenes(context);
     }
-    public void setTittle(String tittle) {
+    private void setTittle(String tittle) {
         this.tittle = tittle;
     }
     public String getTitle() {
@@ -55,23 +56,23 @@ public class Imagen implements Comparable {
     public String getPath() {
         return path;
     }
-    public void setPath(String path) {
+    private void setPath(String path) {
         this.path = path;
     }
     public String getDisplay_name() {
         return display_name;
     }
-    public void setDisplay_name(String display_name) {
+    private void setDisplay_name(String display_name) {
         this.display_name = display_name;
     }
     public String getDateAdded() {
         return (new Date(dateAdded*1000)).toString();
     }
-    public void setDateAdded(Long dateAdded) { this.dateAdded = dateAdded; }
+    private void setDateAdded(Long dateAdded) { this.dateAdded = dateAdded; }
     public String getSize(Context context) {
         return android.text.format.Formatter.formatShortFileSize(context, size);
     }
-    public void setSize(Long size) {
+    private void setSize(Long size) {
         this.size = size;
     }
 
@@ -85,7 +86,7 @@ public class Imagen implements Comparable {
     }
 
     @Override
-    public int compareTo(Object another) {
+    public int compareTo(@NonNull Object another) {
         if(((Imagen)another).getTitle().compareTo(tittle)==1){
             return 1;
         }if(((Imagen)another).getTitle().equals(tittle)){

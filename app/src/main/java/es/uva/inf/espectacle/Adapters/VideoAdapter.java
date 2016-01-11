@@ -51,7 +51,6 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
             @Override
             public void onClick(View v) {
                 //TODO Rober ya puedes reproducir el item con la posicionint pos_anterior = getPos_seleccionado();
-                int pos_anterior = getPos_seleccionado();
                 MediaHolder anterior = getSeleccionado();
 
                 setPos_seleccionado(holder.getAdapterPosition());
@@ -69,14 +68,14 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
     public void setSeleccionado (MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
-    public MediaHolder getSeleccionado () {
+    private MediaHolder getSeleccionado() {
         return this.seleccionado;
     }
     public void setPos_seleccionado (int pos) {
         this.pos_seleccionado = pos;
         //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
     }
-    public int getPos_seleccionado () {
+    private int getPos_seleccionado() {
         return this.pos_seleccionado;
     }
 
@@ -106,7 +105,7 @@ public class VideoAdapter extends RecyclerView.Adapter<MediaHolder>{
      * Retorna el contexto de la aplicacion
      * @return Contexto de la aplicacion
      */
-    public Context getContext() {
+    private Context getContext() {
         return context;
     }
 

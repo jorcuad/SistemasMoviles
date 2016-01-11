@@ -25,13 +25,12 @@ import es.uva.inf.espectacle.modelo.Video;
  */
 public class VideoPlayerFragment extends Fragment implements View.OnClickListener {
 
-    private boolean pause = false;
+    //private boolean pause = false;
     private String path;
     private int savePos = 0;
     private ComunicationListener mListener;
-    private ArrayList<Video> videoList;
     private VideoView video;
-    private int numVideo = 0;
+    private boolean isEmpty;
 
     public VideoPlayerFragment() {
     }
@@ -39,10 +38,16 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() == null) {
-            videoList = new ArrayList<>(Video.getAllVideos(getContext()));
-            path = videoList.get(0).getPath();
+        ArrayList<Video> videoList = Video.getAllVideos(getContext());
+        if (videoList != null) {
+            if(videoList.size() > 0) {
+                path = videoList.get(0).getPath();
+                isEmpty = false;
+            } else isEmpty = true;
+
             Log.d("OnCreateFragment:", "Arguments==null");
+        } else {
+            isEmpty = true;
         }
     }
 
@@ -51,37 +56,42 @@ public class VideoPlayerFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
-        MediaController mediaController = new MediaController(this.getActivity());
-        video = (VideoView) view.findViewById(R.id.surfaceView);
-        DisplayMetrics dm = new DisplayMetrics();
-        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int height = dm.heightPixels;
-        int width = dm.widthPixels;
-        video.setMinimumWidth(width);
-        video.setMinimumHeight(height);
-        video.setMediaController(mediaController);
-        mediaController.setAnchorView(video);
-
         Button vrButton = (Button) view.findViewById(R.id.VRButton);
-        vrButton.setOnClickListener(this);
-        video.setVideoPath(path);
+        if(!isEmpty) {
+            MediaController mediaController = new MediaController(this.getActivity());
+            video = (VideoView) view.findViewById(R.id.surfaceView);
+            DisplayMetrics dm = new DisplayMetrics();
+            this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int height = dm.heightPixels;
+            int width = dm.widthPixels;
+            video.setMinimumWidth(width);
+            video.setMinimumHeight(height);
+            video.setMediaController(mediaController);
+            mediaController.setAnchorView(video);
+            vrButton.setOnClickListener(this);
+            video.setVideoPath(path);
+        } else {
+            vrButton.setVisibility(View.GONE);
+        }
         return view;
     }
-    /**
-     * Handler para el boton de reproducir video
-     */
-    private void onPlayButton() {
-        try {
-            if(pause){
-                video.pause();
-            }else{
-                video.start();
-            }
-        } catch (Exception e) {
-            Log.d("ERROR" , e.getMessage());
-        }
-        pause = !pause;
-    }
+// --Commented out by Inspection START (11/01/2016 1:18):
+//    /**
+//     * Handler para el boton de reproducir video
+//     */
+//    private void onPlayButton() {
+//        try {
+//            if(pause){
+//                video.pause();
+//            }else{
+//                video.start();
+//            }
+//        } catch (Exception e) {
+//            Log.d("ERROR" , e.getMessage());
+//        }
+//        pause = !pause;
+//    }
+// --Commented out by Inspection STOP (11/01/2016 1:18)
 
 
 

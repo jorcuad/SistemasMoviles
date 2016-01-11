@@ -51,43 +51,43 @@ public class Audio {
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
     public String getArtist() {
         return artist;
     }
-    public void setArtist(String artist) {
+    private void setArtist(String artist) {
         this.artist = artist;
     }
     public String getTittle() {
         return tittle;
     }
-    public void setTittle(String tittle) {
+    private void setTittle(String tittle) {
         this.tittle = tittle;
     }
     public String getPath() {
         return path;
     }
-    public void setPath(String path) {
+    private void setPath(String path) {
         this.path = path;
     }
     public String getDisplay_name() {
         return display_name;
     }
-    public void setDisplay_name(String display_name) {
+    private void setDisplay_name(String display_name) {
         this.display_name = display_name;
     }
-    public Long getDuration() {
+    private Long getDuration() {
         return duration;
     }
-    public void setDuration(Long duration) {
+    private void setDuration(Long duration) {
         this.duration = duration;
     }
     public String getAlbum() {
         return album;
     }
-    public void setAlbum(String album) {
+    private void setAlbum(String album) {
         this.album = album;
     }
 
