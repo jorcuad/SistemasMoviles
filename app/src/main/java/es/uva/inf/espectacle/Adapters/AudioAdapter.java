@@ -97,6 +97,7 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
 
     private int getPos_seleccionado () {
         return this.pos_seleccionado;
+    }
 
 
     public Audio getAudio_seleccionado () {

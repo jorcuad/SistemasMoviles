@@ -82,7 +82,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Inicia la ejecucion en segundo plano
      */
-<<<<<<< HEAD
+
     public void startForefround() {
 
         Notification playing = createNotification();
