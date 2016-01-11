@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * Establece la cancion seleccionada al utilizar controles de audio
+     * Llamada para establecer la cancion seleccionada en la lista al utilizar controles de audio
      * @param pos Cancion a reproducir
      */
     public void setAudioSel (int pos) {

@@ -127,6 +127,11 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         this.context = context;
     }
 
+    /**
+     * Establece la cancion seleccionada en la lista al utilizar controles de audio
+     * @param pos Cancion a reproducir
+     * @param mListView La RecyclerView de la lista
+     */
     public void setAudioSel (int pos, RecyclerView mListView) {
         Audio audio = this.getDatos().get(pos);
 
