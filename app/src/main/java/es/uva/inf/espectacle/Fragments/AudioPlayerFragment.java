@@ -36,6 +36,8 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     private ComunicationListener mListener;
     private TextView titleText;
     private boolean musicBound;
+    private ImageButton buttonPlay;
+    private final AudioPlayerFragment thisFragment = this;
     private boolean isEmpty;
 
     public AudioPlayerFragment() {
@@ -76,9 +78,14 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
+
+
+
         View view = inflater.inflate(R.layout.fragment_audio_player, container, false);
         if(!isEmpty) {
-            ImageButton buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
+            buttonPlay = (ImageButton) view.findViewById(R.id.buttonPlay);
             buttonPlay.setOnClickListener(this);
             buttonPlay.setImageResource(R.drawable.play_button_selector);
             ImageButton buttonNext = (ImageButton) view.findViewById(R.id.buttonNext);
@@ -88,6 +95,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
             ImageButton buttonShuffle = (ImageButton) view.findViewById(R.id.buttonShuffle);
             buttonShuffle.setOnClickListener(this);
             titleText = (TextView) view.findViewById(R.id.textTitle);
+            updateInfo();
         }
         return view;
     }
@@ -109,12 +117,25 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      * Liberamos el listener al perder el foco, ademas desconectamos el servicio
      */
     @Override
+    public void onPause(){
+        super.onPause();
+        if(musicSrv.isPlaying()) musicSrv.startForefround();
+        //unBindFragmentService();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
-        if(!isEmpty) getActivity().unbindService(musicConnection);
+        //getActivity().stopService(playIntent);
+        unBindFragmentService();
+        Log.d("onDetach", "onDetach");
+    }
+
+    private void unBindFragmentService(){
+        getActivity().unbindService(musicConnection);
+        if(musicSrv!=null) musicSrv.unbindFragment();
         musicSrv=null;
         mListener = null;
-        Log.d("onDetach", "onDetach");
     }
 
     /**
@@ -134,7 +155,7 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
      * @param pos posicion del audio en la lista
      */
     public void setAudioPos(int pos){
-        musicSrv.playSongPos(pos);
+        if(musicSrv!=null) musicSrv.playSongPos(pos);
         updateInfo();
     }
 
@@ -168,14 +189,15 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
     /**
      * Actualiza el titulo del audio
      */
-    private void updateInfo(){
+
+    public void updateInfo(){
+        if(musicSrv==null) return;
         titleText.setText(musicSrv.getPlayingAudio().getTittle());
-        /*if(musicSrv.isPlaying()){
+        if(!musicSrv.isPlaying()){
             buttonPlay.setImageResource(R.drawable.play_button_selector);
         }else{
             buttonPlay.setImageResource(R.drawable.pause_button_selector);
-        }*/
-        //musicSrv.getPlayingAudio();
+        }
     }
     /**
      * Handler para el boton de atras de audio
@@ -209,6 +231,9 @@ public class AudioPlayerFragment extends Fragment implements View.OnClickListene
             MusicService.MusicBinder binder = (MusicService.MusicBinder)service;
             musicSrv = binder.getService();
             musicSrv.setList(audioList);
+            musicSrv.setFragment(thisFragment);
+            updateInfo();
+            musicSrv.stopForeground();
             musicBound = true;
         }
 

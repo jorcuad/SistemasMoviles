@@ -19,8 +19,9 @@ import es.uva.inf.espectacle.R;
  */
 public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private ArrayList<Audio> datos = new ArrayList<>();
-    private Context context;
+    private Context context; //TODO meterlo con un bundle en el intent;
     private final AudioListFragment fragment;
+    private int pos_seleccionado;
     private MediaHolder seleccionado;
     private Audio audio_seleccionado;
 
@@ -86,15 +87,22 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private void setSeleccionado(MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
-    private MediaHolder getSeleccionado() {
+
+    private MediaHolder getSeleccionado () {
         return this.seleccionado;
     }
     private void setAudio_seleccionado(Audio audio) {
         this.audio_seleccionado = audio;
     }
 
+    private int getPos_seleccionado () {
+        return this.pos_seleccionado;
+    }
+
+
     public Audio getAudio_seleccionado () {
         return this.audio_seleccionado;
+
     }
 
     @Override
@@ -118,14 +126,6 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         this.datos = datos;
         fragment.getmListener().setAudio(datos);
         this.notifyDataSetChanged();
-    }
-
-    /**
-     * Retorna el contexto de la aplicacion
-     * @return Contexto de la aplicacion
-     */
-    public Context getContext() {
-        return context;
     }
 
     /**
