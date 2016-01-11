@@ -20,7 +20,7 @@ import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
 /**
- * Clase que modela el fragment de la lista de audio
+ * Implementacion del fragment que contiene la lista de las audios del dispositivo
  */
 public class AudioListFragment extends BaseListFragment {
 
@@ -30,10 +30,18 @@ public class AudioListFragment extends BaseListFragment {
     public AudioListFragment() {
     }
 
+    /**
+     * Retorna el listener para comunicación
+     * @return Listener
+     */
     public ComunicationListener getmListener(){
         return mListener;
     }
 
+    /**
+     * Creamos el adapter para asi obtener los datos de los archivos
+     * @param savedInstanceState datos guardados
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +51,13 @@ public class AudioListFragment extends BaseListFragment {
         mAdapter.setDatos(Audio.getAllAudios(getContext()));
     }
 
+    /**
+     * al crear la vista creamos los botones y ordenamos por defecto los archivos
+     * @param inflater layout inflater
+     * @param container container de nuestro fragment
+     * @param savedInstanceState datos guardados
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,6 +107,10 @@ public class AudioListFragment extends BaseListFragment {
         return view;
     }
 
+    /**
+     * obtenemos el listener para el evento de seleccionar un archivo
+     * @param context this.context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -102,6 +121,12 @@ public class AudioListFragment extends BaseListFragment {
 
     }
 
+    /**
+     * Tratamos el evento onClick de los botones de la vista para ordenar los archivos segun los filtros,
+     * ademas en este evento tambien tratamos la seleccion de un elemento de la lista que mandamos a traves
+     * del listener al reproductor
+     * @param v vista del fragment
+     */
     @Override
     public void onClick(View v){
         switch (v.getId()) {
@@ -193,6 +218,9 @@ public class AudioListFragment extends BaseListFragment {
         getmListener().setAudio(mAdapter.getDatos());
     }
 
+    /**
+     * liberamos el listener cuando perdemos el foco
+     */
     @Override
     public void onDetach() {
         super.onDetach();

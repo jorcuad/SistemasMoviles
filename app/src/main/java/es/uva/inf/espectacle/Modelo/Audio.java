@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import es.uva.inf.espectacle.utils.DeviceFiles;
 
 /**
- * Clase de representacion de un archivo de audio
+ * Clase que modela un archivo de audio
  */
 public class Audio {
 
@@ -18,6 +18,16 @@ public class Audio {
     private String display_name;
     private Long duration;
     private String album;
+
+    public String getAlbumArt() {
+        return albumArt;
+    }
+
+    public void setAlbumArt(String albumArt) {
+        this.albumArt = albumArt;
+    }
+
+    private String albumArt;
 
     /**
      * Constructor del objeto Audio, con varios datos acerca de la pista modelada
@@ -37,6 +47,18 @@ public class Audio {
         this.setDisplay_name(display_name);
         this.setDuration(duration);
         this.setAlbum(album);
+    }
+
+
+    public Audio(Long id, String artist, String tittle, String path, String display_name, Long duration, String album, String albumArt){
+        this.setId(id);
+        this.setArtist(artist);
+        this.setTittle(tittle);
+        this.setPath(path);
+        this.setDisplay_name(display_name);
+        this.setDuration(duration);
+        this.setAlbum(album);
+        this.setAlbumArt(albumArt);
     }
 
     /**

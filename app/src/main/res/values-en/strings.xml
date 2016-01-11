@@ -28,4 +28,5 @@
     <string name="tamano">Size</string>
     <string name="video">Video</string>
     <string name="item_image">Image from the list item</string>
+    <string name="app_start">Empezar</string>
 </resources>
