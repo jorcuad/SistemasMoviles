@@ -20,7 +20,7 @@ import es.uva.inf.espectacle.interfaces.ComunicationListener;
 import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
 /**
- * Clase que modela el fragment de la lista de audio
+ * Implementacion del fragment que contiene la lista de las audios del dispositivo
  */
 public class AudioListFragment extends BaseListFragment {
 
@@ -30,10 +30,18 @@ public class AudioListFragment extends BaseListFragment {
     public AudioListFragment() {
     }
 
+    /**
+     * Retorna el listener para comunicación
+     * @return Listener
+     */
     public ComunicationListener getmListener(){
         return mListener;
     }
 
+    /**
+     * Creamos el adapter para asi obtener los datos de los archivos
+     * @param savedInstanceState datos guardados
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,24 +51,48 @@ public class AudioListFragment extends BaseListFragment {
         mAdapter.setDatos(Audio.getAllAudios(getContext()));
     }
 
+    /**
+     * al crear la vista creamos los botones y ordenamos por defecto los archivos
+     * @param inflater layout inflater
+     * @param container container de nuestro fragment
+     * @param savedInstanceState datos guardados
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
         Button interprete_button = (Button) view.findViewById(R.id.filtro1);
-
-        interprete_button.setOnClickListener(this);
-        interprete_button.setText(R.string.interprete);
         Button album_button = (Button) view.findViewById(R.id.filtro2);
-        album_button.setOnClickListener(this);
-        album_button.setText(R.string.album);
         Button cancion_button = (Button) view.findViewById(R.id.filtro3);
+        interprete_button.setOnClickListener(this);
+        album_button.setOnClickListener(this);
         cancion_button.setOnClickListener(this);
+        interprete_button.setText(R.string.interprete);
+        album_button.setText(R.string.album);
         cancion_button.setText(R.string.cancion);
 
         RecyclerView mListView = (RecyclerView) view.findViewById(android.R.id.list);
+        mListView.setAdapter(mAdapter);
+        mListView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         if(mAdapter.getDatos().size() > 0 ) {
+
+            //Ordenar por intérprete
+            Comparator<Audio> OrderByInterprete = new Comparator<Audio>() {
+                @Override
+                public int compare(Audio lhs, Audio rhs) {
+                    String another =(lhs).getArtist() ;
+                    String other = (rhs).getArtist();
+                    return another.compareTo(other);
+                }
+            };
+
+            Collections.sort(mAdapter.getDatos(), OrderByInterprete);
+
+            interprete_button.setActivated(true);
+
             mListView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             mListView.setLayoutManager(llm);
@@ -74,6 +106,10 @@ public class AudioListFragment extends BaseListFragment {
         return view;
     }
 
+    /**
+     * obtenemos el listener para el evento de seleccionar un archivo
+     * @param context this.context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -84,11 +120,17 @@ public class AudioListFragment extends BaseListFragment {
 
     }
 
+    /**
+     * Tratamos el evento onClick de los botones de la vista para ordenar los archivos segun los filtros,
+     * ademas en este evento tambien tratamos la seleccion de un elemento de la lista que mandamos a traves
+     * del listener al reproductor
+     * @param v vista del fragment
+     */
     @Override
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.filtro1:
-                //Ordenar por itnérprete
+                //Ordenar por intérprete
                 Comparator<Audio> OrderByInterprete = new Comparator<Audio>() {
                     @Override
                     public int compare(Audio lhs, Audio rhs) {
@@ -98,14 +140,20 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByInterprete);
+                Collections.sort(mAdapter.getDatos(), OrderByInterprete);
 
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
                 getActivity().findViewById(R.id.filtro3).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getAudio_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
 
                 Log.d("espectacle", "Pulsado interprete_button");
@@ -121,13 +169,19 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByAlbum);
+                Collections.sort(mAdapter.getDatos(), OrderByAlbum);
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
                 getActivity().findViewById(R.id.filtro3).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getAudio_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado album_button");
                 break;
@@ -142,13 +196,19 @@ public class AudioListFragment extends BaseListFragment {
                     }
                 };
 
-                Collections.sort( mAdapter.getDatos(), OrderByTitulo);
+                Collections.sort(mAdapter.getDatos(), OrderByTitulo);
                 v.setActivated(true);
                 getActivity().findViewById(R.id.filtro1).setActivated(false);
                 getActivity().findViewById(R.id.filtro2).setActivated(false);
 
-                mAdapter.setPos_seleccionado(-1);
-                mAdapter.setSeleccionado(null);
+                if(mAdapter.getAudio_seleccionado() != null) {
+
+                    int pos = mAdapter.getDatos().indexOf(mAdapter.getAudio_seleccionado());
+                    RecyclerView mListView = (RecyclerView) getActivity().findViewById(android.R.id.list);
+                    LinearLayoutManager lm = (LinearLayoutManager) mListView.getLayoutManager();
+                    lm.scrollToPositionWithOffset(pos, 0);
+                }
+
                 mAdapter.notifyDataSetChanged();
                 Log.d("espectacle", "Pulsado cancion_button");
                 break;
@@ -157,6 +217,9 @@ public class AudioListFragment extends BaseListFragment {
         getmListener().setAudio(mAdapter.getDatos());
     }
 
+    /**
+     * liberamos el listener cuando perdemos el foco
+     */
     @Override
     public void onDetach() {
         super.onDetach();

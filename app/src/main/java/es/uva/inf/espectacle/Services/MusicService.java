@@ -26,7 +26,7 @@ import es.uva.inf.espectacle.fragments.AudioPlayerFragment;
 import es.uva.inf.espectacle.modelo.Audio;
 
 /**
- * Clase que modela e implementa el servicio de reproducción de música
+ * Implementacion del servicio de musica que reproduce audio en segundo plano
  */
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener,
         MediaPlayer.OnCompletionListener,
@@ -82,6 +82,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     /**
      * Inicia la ejecucion en segundo plano
      */
+<<<<<<< HEAD
     public void startForefround() {
 
         Notification playing = createNotification();
@@ -109,6 +110,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             notificationView.setImageViewResource(R.id.status_bar_play, R.drawable.ic_pause_circle_outline_black);
         } else {
             notificationView.setImageViewResource(R.id.status_bar_play, R.drawable.ic_play_circle_outline_black);
+
         }
         notificationView.setImageViewResource(R.id.status_bar_album_art, R.drawable.noart2);
     }
@@ -160,11 +162,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     }
 
+    /**
+     * Bind para el servicio de audio
+     */
     public class MusicBinder extends Binder {
         public MusicService getService() {
             return MusicService.this;
         }
     }
+
 
     private void initMediaPlayer() {
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -202,7 +208,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      */
     private void playSong() {
 
-        //startForefround();
         player.reset();
 
         Uri trackUri = ContentUris.withAppendedId(
@@ -231,6 +236,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
 
+
     private void playerPause() {
         player.pause();
         //stopForeground();
@@ -250,6 +256,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             player.start();
             if (!player.isPlaying()) playSong();
             //startForefround();
+
         }
         updateNotificationInfor();
     }
@@ -291,11 +298,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void playSongPos(int pos) {
-        setSongPos(pos);
         playSong();
         startForefround();
     }
 
+    /**
+     * Establece la posicion en la lista de la pista en reproduccion
+     * @param pos posicionen la lista
+     */
     private void setSongPos(int pos) {
         if (pos < audios.size() && pos >= 0) {
             songPos = pos;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import es.uva.inf.espectacle.utils.DeviceFiles;
 
 /**
- * Clase de representacion de un archivo de video
+ * Clase que modela un archivo de video
  */
 public class Video {
 
@@ -56,31 +56,31 @@ public class Video {
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
     public String getTittle() {
         return tittle;
     }
-    public void setTittle(String tittle) {
+    private void setTittle(String tittle) {
         this.tittle = tittle;
     }
     public String getPath() {
         return path;
     }
-    public void setPath(String path) {
+    private void setPath(String path) {
         this.path = path;
     }
     public String getResolution() {
         return resolution;
     }
-    public void setResolution(String resolution) {
+    private void setResolution(String resolution) {
         this.resolution = resolution;
     }
     public Long getDuration() {
         return duration;
     }
-    public void setDuration(Long duration) {
+    private void setDuration(Long duration) {
         this.duration = duration;
     }
 

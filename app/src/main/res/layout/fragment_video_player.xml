@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/VRButton"
         android:id="@+id/VRButton"
-        android:layout_gravity="right|top" />
+        android:layout_gravity="end|top" />
 
     <!--<RelativeLayout
         android:layout_width="match_parent"

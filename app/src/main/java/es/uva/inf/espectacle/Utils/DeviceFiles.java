@@ -12,15 +12,19 @@ import es.uva.inf.espectacle.modelo.Imagen;
 import es.uva.inf.espectacle.modelo.Video;
 
 /**
- * Utils class for retrieve media files from device.
+ * Clase de utils para recuperar los archivos multimedia del dispositivo
  */
 public class DeviceFiles {
 
+    /**
+     * getter para obtener las pistas de audio del dispositivo
+     * @param context context de la app
+     * @return lista de todos los audios en la memoria
+     */
     public static ArrayList<Audio> getAllAudios(Context context) {
         //Some audio may be explicitly marked as not being music
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
 
-        //TODO eliminar audios de whatsapp y otras app que no sean musica
         String[] projection = {
                 MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.ARTIST,
@@ -40,9 +44,8 @@ public class DeviceFiles {
 
         ArrayList<Audio> audios = new ArrayList<>();
 
-        if (cursor == null) {
-            return audios;
-        }
+
+        if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
             audios.add(new Audio(cursor.getLong(0),
@@ -59,9 +62,13 @@ public class DeviceFiles {
         return audios;
     }
 
-    public static ArrayList<Video> getAllVideos(Context context) {
+    /**
+     * getter para obtener las pistas de video del dispositivo
+     * @param context context de la app
+     * @return lista de todos los videos en la memoria
+     */
+    public static ArrayList<Video> getAllVideos(Context context){
 
-        //TODO eliminar videos de whatsapp y otras app
         String[] projection = {
                 MediaStore.Video.VideoColumns._ID,
                 MediaStore.Video.Media.TITLE,
@@ -79,9 +86,8 @@ public class DeviceFiles {
 
         ArrayList<Video> videos = new ArrayList<>();
 
-        if (cursor == null) {
-            return videos;
-        }
+
+        if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
             videos.add(new Video(cursor.getLong(0),
@@ -96,9 +102,14 @@ public class DeviceFiles {
         return videos;
     }
 
-    public static ArrayList<Imagen> getAllImagenes(Context context) {
 
-        //TODO eliminar imagenes de whatsapp?
+    /**
+     * getter para obtener las imagenes del dispositivo
+     * @param context context de la app
+     * @return lista de todos los archivos imagen en la memoria
+     */
+    public static ArrayList<Imagen> getAllImagenes(Context context){
+
         String[] projection = {
                 MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.TITLE,
@@ -117,9 +128,8 @@ public class DeviceFiles {
 
         ArrayList<Imagen> imagenes = new ArrayList<>();
 
-        if (cursor == null) {
-            return imagenes;
-        }
+
+        if(cursor == null) { return null; }
 
         while (cursor.moveToNext()) {
             imagenes.add(new Imagen(
@@ -135,7 +145,14 @@ public class DeviceFiles {
         return imagenes;
     }
 
-    public static Bitmap getThumbnail(Context context, Long videoId) {
+
+    /**
+     * getter para obtener el thumbnail de un video
+     * @param context this.context
+     * @param videoId id del video
+     * @return thumbnail perteneciente al video
+     */
+    public static Bitmap getThumbnail(Context context, Long videoId){
         return MediaStore.Video.Thumbnails.getThumbnail(context.getContentResolver(), videoId,
                 MediaStore.Video.Thumbnails.MICRO_KIND,
                 null);

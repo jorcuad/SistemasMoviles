@@ -30,7 +30,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@+id/filtro2"
+                android:text="@string/filtro2"
                 android:textColor="@color/backgroundLight"
                 android:id="@+id/filtro2"
                 android:layout_weight="1"
@@ -40,7 +40,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@+id/filtro3"
+                android:text="@string/filtro3"
                 android:textColor="@color/backgroundLight"
                 android:id="@+id/filtro3"
                 android:layout_weight="1"

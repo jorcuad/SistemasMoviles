@@ -3,7 +3,6 @@ package es.uva.inf.espectacle.adapters;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,8 @@ import es.uva.inf.espectacle.modelo.Audio;
 import es.uva.inf.espectacle.R;
 
 /**
- * Clase que modela el adaptador para la lista de audio
+ * Adaptador de las imagenes, nos permite obtener los datos pertenecientes a los archivos de tipo
+ * audio para mostrarlos en la lista.
  */
 public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private ArrayList<Audio> datos = new ArrayList<>();
@@ -23,18 +23,29 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
     private final AudioListFragment fragment;
     private int pos_seleccionado;
     private MediaHolder seleccionado;
+    private Audio audio_seleccionado;
 
     public AudioAdapter(AudioListFragment fragment){
         this.fragment=fragment;
-        this.pos_seleccionado = -1;
     }
 
+    /**
+     * Cuando creamos el holder de la informacion devolvemos el mediaholder que tiene los datos del archivo
+     * @param parent vista de la clase padre
+     * @param viewType tipo de vista
+     * @return mediaHolder del archivo
+     */
     @Override
     public MediaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new MediaHolder(view);
     }
 
+    /**
+     * Hacemos un bind de los datos del mediaHolder
+     * @param holder mediaHolder del archivo
+     * @param position posicion del archivo en la lista
+     */
     @Override
     public void onBindViewHolder(final MediaHolder holder, final int position) {
         holder.title.setText(getDatos().get(position).getTittle());
@@ -43,8 +54,9 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         holder.duration.setText(getDatos().get(position).getStringDuration());
         holder.imagen.setImageResource(R.drawable.side_nav_bar);
 
-        if(getPos_seleccionado() == holder.getAdapterPosition() ) {
+        if( holder.getAdapterPosition() == getDatos().indexOf(getAudio_seleccionado()) ) {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
+            setSeleccionado(holder);
         } else {
             holder.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
         }
@@ -52,34 +64,44 @@ public class AudioAdapter extends RecyclerView.Adapter<MediaHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos_anterior = getPos_seleccionado();
+
+                Audio audio_anterior = getAudio_seleccionado();
                 MediaHolder anterior = getSeleccionado();
 
-                setPos_seleccionado(holder.getAdapterPosition());
+                setAudio_seleccionado(getDatos().get(holder.getAdapterPosition()));
                 setSeleccionado(holder);
-                //Log.d("espectacle", Integer.toString(getPos_seleccionado()));
+
                 v.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
-                if(( anterior != null) && (anterior != holder)) {
+                if((audio_anterior != null) && (!audio_anterior.equals(audio_seleccionado))) {
+
                     anterior.itemView.findViewById(R.id.item_texts).setBackgroundColor(ContextCompat.getColor(context, R.color.backgroundLight));
+
                 }
-                //TODO Rober ya puedes reproducir el item con la posicion
-                Log.d("espectacle", "Seleccionado elemento de la lista: " + getDatos().get(position).getDisplay_name()+ " pos: "+ position);
+
                 fragment.getmListener().setAudioPos(position);
+
             }
         });
     }
 
-    public void setSeleccionado (MediaHolder seleccionado) {
+    private void setSeleccionado(MediaHolder seleccionado) {
         this.seleccionado = seleccionado;
     }
+
     private MediaHolder getSeleccionado () {
         return this.seleccionado;
     }
-    public void setPos_seleccionado (int pos) {
-        this.pos_seleccionado = pos;
+    private void setAudio_seleccionado(Audio audio) {
+        this.audio_seleccionado = audio;
     }
+
     private int getPos_seleccionado () {
         return this.pos_seleccionado;
+
+
+    public Audio getAudio_seleccionado () {
+        return this.audio_seleccionado;
+
     }
 
     @Override

@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Espectacle</string>
-    <string name="album"></string>
-    <string name="VRButton"></string>
+    <string name="album">Album</string>
+    <string name="VRButton">VR</string>
+    <string name="action_settings">Settings</string>
+    <string name="back_button">Last</string>
+    <string name="calidad">Quality</string>
+    <string name="cancion">Song</string>
+    <string name="definicion">Definition</string>
+    <string name="duracion">Length</string>
+    <string name="fecha">Date</string>
+    <string name="filtro1">Filter1</string>
+    <string name="filtro2">Filter2</string>
+    <string name="filtro3">Filter3</string>
+    <string name="imagenes">Images</string>
+    <string name="imgDesc">Image contained in the device</string>
+    <string name="interprete">Artist</string>
+    <string name="logo">App logo</string>
+    <string name="musica">Music</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="next_button">Next</string>
+    <string name="no_hay_elementos">No elements to show</string>
+    <string name="nombre">Name</string>
+    <string name="play_button">Play</string>
+    <string name="shuffle_button">Random</string>
+    <string name="tamano">Size</string>
+    <string name="video">Video</string>
+    <string name="item_image">Image from the list item</string>
 </resources>
