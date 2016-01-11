@@ -294,13 +294,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             return pos;
         }
 
-        /**
-         * Reproduce pista aleatoria
-         */
 
-    public void shuffle() {
-        setRandomSongPos();
+    /**
+     * Reproduce pista aleatoria
+     */
+    public int shuffle(){
+        int pos = setRandomSongPos();
         playSong();
+        return pos;
     }
 
     public void playSongPos(int pos) {
@@ -346,8 +347,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
      *
      * @return Posicion
      */
-    private void setRandomSongPos() {
+    private int setRandomSongPos() {
         songPos = r.nextInt(audios.size());
+        return songPos;
     }
 
 
